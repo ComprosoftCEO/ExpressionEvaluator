@@ -1,0 +1,25 @@
+project (calculator) {
+  exename = calculator
+  install = .
+ 
+  specific (make, gnuace) {
+    compile_flags += -std=c++11 -Wall
+  }
+
+  Source_Files {
+    driver.cpp
+    test/PassRate.cpp
+    test/test_array.cpp
+    test/test_fixed_array.cpp
+    test/test_stack.cpp
+    test/test_queue.cpp
+  }
+
+  Template_Files {
+    Array_Base.cpp
+    Array.cpp
+    Fixed_Array.cpp
+    Stack.cpp
+    Queue.cpp
+  }
+}
