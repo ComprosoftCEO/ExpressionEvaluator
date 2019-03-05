@@ -1,3 +1,8 @@
+# Files without extensions
+*
+!/**/
+!*.*
+
 # Prerequisites
 *.d
 
@@ -30,3 +35,12 @@
 *.exe
 *.out
 *.app
+
+# Vim Swap files
+*.sw*
+
+# The makefile
+!makefile
+
+# Files directory
+files
