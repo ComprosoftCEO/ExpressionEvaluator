@@ -1,29 +1,37 @@
 project (calculator) {
   exename = calculator
-  includes += Array Stack Queue
+  includes += Array Stack Queue Command
   install = .
  
   specific (make, gnuace) {
-    compile_flags += -std=c++11 -Wall
+	compile_flags += -std=c++11 -Wall
   }
 
   Source_Files {
-    driver.cpp
+	driver.cpp
+	Command/Command.cpp
+	Command/Number_Command.cpp
+	Command/Unary_Command.cpp
+	Command/Binary_Command.cpp
   }
 
   Header_Files {
-    Array/Array_Base.h
-    Array/Array.h
-    Array/Fixed_Array.h
-    Stack/Stack.h
-    Queue/Queue.h
+	Array/Array_Base.h
+	Array/Array.h
+	Array/Fixed_Array.h
+	Stack/Stack.h
+	Queue/Queue.h
+	Command/Command.h
+	Command/Number_Command.h
+	Command/Unary_Command.h
+	Command/Binary_Command.h
   }
 
   Template_Files {
-    Array/Array_Base.cpp
-    Array/Array.cpp
-    Array/Fixed_Array.cpp
-    Stack/Stack.cpp
-    Queue/Queue.cpp
+	Array/Array_Base.cpp
+	Array/Array.cpp
+	Array/Fixed_Array.cpp
+	Stack/Stack.cpp
+	Queue/Queue.cpp
   }
 }
