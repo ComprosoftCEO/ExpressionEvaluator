@@ -1,5 +1,6 @@
 project (calculator) {
   exename = calculator
+  includes += Array Stack Queue
   install = .
  
   specific (make, gnuace) {
@@ -8,18 +9,21 @@ project (calculator) {
 
   Source_Files {
     driver.cpp
-    test/PassRate.cpp
-    test/test_array.cpp
-    test/test_fixed_array.cpp
-    test/test_stack.cpp
-    test/test_queue.cpp
+  }
+
+  Header_Files {
+    Array/Array_Base.h
+    Array/Array.h
+    Array/Fixed_Array.h
+    Stack/Stack.h
+    Queue/Queue.h
   }
 
   Template_Files {
-    Array_Base.cpp
-    Array.cpp
-    Fixed_Array.cpp
-    Stack.cpp
-    Queue.cpp
+    Array/Array_Base.cpp
+    Array/Array.cpp
+    Array/Fixed_Array.cpp
+    Stack/Stack.cpp
+    Queue/Queue.cpp
   }
 }
