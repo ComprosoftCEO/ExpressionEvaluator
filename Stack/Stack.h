@@ -69,8 +69,9 @@ public:
 	 * Remove the top-most element from the stack.
 	 *
 	 * @exception      empty_exception    The stack is empty.
+	 * @return			Object popped off the stack
 	 */
-	void pop(void);
+	T pop(void);
 
 	/**
 	 * Get the top-most element on the stack. If there are no element 

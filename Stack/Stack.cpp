@@ -75,12 +75,13 @@ void Stack<T>::push(T element) {
 // Remove the top value from the stack
 //
 template <typename T>
-void Stack<T>::pop(void) {
+T Stack<T>::pop(void) {
 	if (this->is_empty()) {
 		throw Stack<T>::empty_exception();
 	}
 
 	this->next_index_ -= 1;
+	return this->stack_data_[next_index_];
 }
 
 
