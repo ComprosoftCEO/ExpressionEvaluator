@@ -1,6 +1,6 @@
 project (calculator) {
   exename = calculator
-  includes += Array Stack Queue Command
+  includes += Array Stack Queue Command Unary_Commands Binary_Commands
   install = .
  
   specific (make, gnuace) {
@@ -13,6 +13,11 @@ project (calculator) {
 	Command/Number_Command.cpp
 	Command/Unary_Command.cpp
 	Command/Binary_Command.cpp
+	Command/Unary_Commands/Square_Root_Command.cpp
+	Command/Binary_Commands/Add_Command.cpp
+	Command/Binary_Commands/Subtract_Command.cpp
+	Command/Binary_Commands/Multiply_Command.cpp
+	Command/Binary_Commands/Divide_Command.cpp
   }
 
   Header_Files {
@@ -25,6 +30,11 @@ project (calculator) {
 	Command/Number_Command.h
 	Command/Unary_Command.h
 	Command/Binary_Command.h
+	Command/Unary_Commands/Square_Root_Command.h
+	Command/Binary_Commands/Add_Command.h
+	Command/Binary_Commands/Subtract_Command.h
+	Command/Binary_Commands/Multiply_Command.h
+	Command/Binary_Commands/Divide_Command.h
   }
 
   Template_Files {
