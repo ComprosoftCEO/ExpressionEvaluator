@@ -1,11 +1,10 @@
-// $Id: Array.cpp 827 2011-02-07 14:20:53Z hillj $
-
 // Honor Pledge:
 //
 // I pledge that I have neither given nor receieved any help
 // on this assignment.
 
-#include <stdexcept>         // for std::out_of_bounds exception
+
+#include <stdexcept>	/* For std::out_of_bounds exception */
 
 #define DEFAULT_SIZE 10
 #define SWAP(x,y) {auto temp = (x); (x) = (y); (y) = temp;}
@@ -16,7 +15,7 @@
 // Default constructor
 //
 template <typename T>
-Array <T>::Array (void):
+Array<T>::Array(void):
   Array(DEFAULT_SIZE)
 {
 	this->cur_size_ = 0;
@@ -27,7 +26,7 @@ Array <T>::Array (void):
 // Initializing constructor
 //
 template <typename T>
-Array <T>::Array (size_t length):
+Array<T>::Array(size_t length):
   data_(new T[length]),
   cur_size_(length),
   max_size_(length) {}
@@ -38,7 +37,7 @@ Array <T>::Array (size_t length):
 // Initializing constructor
 //
 template <typename T>
-Array <T>::Array (size_t length, T fill):
+Array<T>::Array(size_t length, T fill):
   Array(length)
 {
 	this->fill(fill);
@@ -50,7 +49,7 @@ Array <T>::Array (size_t length, T fill):
 // Copy Constructor
 //
 template <typename T>
-Array <T>::Array (const Array & other):
+Array<T>::Array(const Array & other):
   data_(new T[other.cur_size_]),
   cur_size_(other.cur_size_),
   max_size_(other.cur_size_)
@@ -64,7 +63,7 @@ Array <T>::Array (const Array & other):
 // Destructor
 //
 template <typename T>
-Array <T>::~Array (void) {
+Array<T>::~Array(void) {
 	delete[] this->data_;
 }
 
@@ -74,7 +73,7 @@ Array <T>::~Array (void) {
 // Copy Assignment Operator
 //
 template <typename T>
-const Array <T> & Array <T>::operator = (const Array & other) {
+const Array<T>& Array<T>::operator=(const Array& other) {
 	//Test for self assignment
 	if (this == &other) {return *this;}
 
@@ -89,7 +88,7 @@ const Array <T> & Array <T>::operator = (const Array & other) {
 // Element Access Operator
 //
 template <typename T>
-T & Array <T>::operator [] (size_t index) {
+T& Array<T>::operator[](size_t index) {
 	if (index >= this->cur_size_) {
 		throw std::out_of_range("index");
 	}
@@ -99,7 +98,7 @@ T & Array <T>::operator [] (size_t index) {
 
 
 template <typename T>
-const T & Array <T>::operator [] (size_t index) const {
+const T& Array<T>::operator[](size_t index) const {
 	if (index >= this->cur_size_) {
 		throw std::out_of_range("index");
 	}
@@ -113,7 +112,7 @@ const T & Array <T>::operator [] (size_t index) const {
 // Resize the array
 //
 template <typename T>
-void Array <T>::resize (size_t new_size) {
+void Array<T>::resize(size_t new_size) {
 	if (new_size > this->max_size_) {
 
 		//Create a new buffer
@@ -134,7 +133,7 @@ void Array <T>::resize (size_t new_size) {
 // Test two arrays for equality
 //
 template <typename T>
-bool Array <T>::operator == (const Array & other) const {
+bool Array<T>::operator==(const Array& other) const {
 
 	//Test for self comparison
 	if (this == &other) {return true;}
@@ -158,7 +157,7 @@ bool Array <T>::operator == (const Array & other) const {
 // Shrink the array to reclaim space
 //
 template <typename T>
-void Array <T>::shrink() {
+void Array<T>::shrink() {
 	if (this->cur_size_ < this->max_size_) {
 		Array temp(this->cur_size_);
 		Array_Base<T>::copy(temp.data_,this->data_,this->cur_size_);
@@ -174,7 +173,7 @@ void Array <T>::shrink() {
 // Slice the array
 //
 template <typename T>
-Array<T> Array <T>::slice (size_t begin, size_t end) const {  
+Array<T> Array<T>::slice(size_t begin, size_t end) const {  
 
 	if (begin >= this->cur_size_) {
 		throw std::out_of_range("begin");

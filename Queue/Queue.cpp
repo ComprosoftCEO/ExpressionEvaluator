@@ -1,5 +1,3 @@
-// $Id: Queue.cpp 827 2011-02-07 14:20:53Z hillj $
-
 // Honor Pledge:
 //
 // I pledge that I have neither given nor received any help
@@ -14,7 +12,7 @@
 // Default Constructor
 //
 template <typename T>
-Queue <T>::Queue(void):
+Queue<T>::Queue(void):
   queue_data_(DEFAULT_SIZE),
   insert_index_(0),
   remove_index_(0),
@@ -27,7 +25,7 @@ Queue <T>::Queue(void):
 // Copy Constructor
 //
 template <typename T>
-Queue <T>::Queue(const Queue<T>& other):
+Queue<T>::Queue(const Queue<T>& other):
   queue_data_(other.queue_data_),
   insert_index_(other.insert_index_),
   remove_index_(other.remove_index_),
@@ -40,7 +38,7 @@ Queue <T>::Queue(const Queue<T>& other):
 // Destructor
 //
 template <typename T>
-Queue <T>::~Queue() {}
+Queue<T>::~Queue() {}
 
 
 
@@ -48,7 +46,7 @@ Queue <T>::~Queue() {}
 // Assignment Operator
 //
 template <typename T>
-const Queue<T> & Queue<T>::operator = (const Queue & other) {
+const Queue<T>& Queue<T>::operator=(const Queue & other) {
 	
 	//Test for self assignment
 	if (this == &other) {return *this;}
@@ -68,7 +66,7 @@ const Queue<T> & Queue<T>::operator = (const Queue & other) {
 // Add an element into the queue
 //
 template <typename T>
-void Queue <T>::enqueue(T element) {
+void Queue<T>::enqueue(T element) {
 
 	//Test for a full circular queue
 	if (this->is_full_) {
@@ -93,7 +91,7 @@ void Queue <T>::enqueue(T element) {
 // Remove the front element from the queue
 //
 template <typename T>
-T Queue <T>::dequeue(void) {
+T Queue<T>::dequeue(void) {
 
 	if (this->is_empty()) {
 		throw Queue<T>::empty_exception();
@@ -113,7 +111,7 @@ T Queue <T>::dequeue(void) {
 // Number of elements in the queue
 //
 template <typename T>
-size_t Queue <T>::size (void) const {
+size_t Queue <T>::size(void) const {
 	if (this->is_full_) {
 		return this->queue_data_.size();
 	}
@@ -137,7 +135,7 @@ size_t Queue <T>::size (void) const {
 // Clear any elements from the queue
 //
 template <typename T>
-void Queue <T>::clear(void) {
+void Queue<T>::clear(void) {
 	insert_index_ = 0;
 	remove_index_ = 0;
 	is_full_ = false;
@@ -150,7 +148,7 @@ void Queue <T>::clear(void) {
 // Circular Increment Method
 //
 template <typename T>
-void Queue <T>::circular_increment_index(size_t& index) {
+void Queue<T>::circular_increment_index(size_t& index) {
 	index = (index + 1) % this->queue_data_.size();
 }
 
@@ -162,7 +160,7 @@ void Queue <T>::circular_increment_index(size_t& index) {
 // Add more space to a full queue
 //
 template <typename T>
-void Queue <T>::increase_queue_size (void) {
+void Queue<T>::increase_queue_size (void) {
 
 	this->split_and_mend();
 
@@ -182,11 +180,8 @@ void Queue <T>::increase_queue_size (void) {
 // Split and mend the circular queue
 //
 template <typename T>
-void Queue <T>::split_and_mend (void) {
-	// NONE GREADED COMMENT: This is a good use of the slice method to
-	// help with unwinding the queue when resizing the underlying array.
-	//
-	// RESPONSE: Thank you for the compliment :)
+void Queue<T>::split_and_mend (void) {
+
 	Array<T> front(this->queue_data_);
 	Array<T> back; 
 

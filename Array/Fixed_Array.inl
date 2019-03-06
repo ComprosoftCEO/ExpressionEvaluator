@@ -1,6 +1,3 @@
-// -*- C++ -*-
-// $Id: Fixed_Array.inl 828 2011-02-07 14:21:52Z hillj $
-
 // Honor Pledge:
 //
 // I pledge that I have neither given nor received any help
@@ -11,7 +8,7 @@
 // Current Array Size
 //
 template <typename T, size_t N>
-inline size_t Fixed_Array <T, N>::size (void) const {
+inline size_t Fixed_Array<T,N>::size(void) const {
 	return N;
 }
 
@@ -20,7 +17,7 @@ inline size_t Fixed_Array <T, N>::size (void) const {
 // Copy Assignment Operator
 //
 template <typename T, size_t N>
-inline const Fixed_Array <T, N> & Fixed_Array <T, N>::operator = (const Fixed_Array <T, N> & other) {
+inline const Fixed_Array<T,N>& Fixed_Array<T,N>::operator=(const Fixed_Array<T,N>& other) {
 	return Fixed_Array<T,N>::operator=<N>(other);
 }
 
@@ -30,7 +27,7 @@ inline const Fixed_Array <T, N> & Fixed_Array <T, N>::operator = (const Fixed_Ar
 // Test the two arrays for equality
 //
 template <typename T, size_t N>
-inline bool Fixed_Array <T, N>::operator == (const Fixed_Array <T, N> & other) const {
+inline bool Fixed_Array<T,N>::operator==(const Fixed_Array<T,N>& other) const {
 	return this->operator==<N>(other);
 }
 
@@ -39,13 +36,13 @@ inline bool Fixed_Array <T, N>::operator == (const Fixed_Array <T, N> & other) c
 // Test two arrays for inequality
 //
 template <typename T, size_t N>
-inline bool Fixed_Array <T, N>::operator != (const Fixed_Array <T, N> & other) const {
+inline bool Fixed_Array<T,N>::operator!=(const Fixed_Array<T,N>& other) const {
 	return this->operator!=<N>(other);
 }
 
 
 template <typename T, size_t N>
 template <size_t M>
-inline bool Fixed_Array <T, N>::operator != (const Fixed_Array <T, M> & other) const {
+inline bool Fixed_Array<T,N>::operator!=(const Fixed_Array<T,M>& other) const {
 	return !(*this == other);
 }
