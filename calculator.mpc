@@ -18,6 +18,7 @@ project (calculator) {
 	Command/Binary_Commands/Subtract_Command.cpp
 	Command/Binary_Commands/Multiply_Command.cpp
 	Command/Binary_Commands/Divide_Command.cpp
+	Command/Binary_Commands/Modulus_Command.cpp
   }
 
   Header_Files {
@@ -35,6 +36,7 @@ project (calculator) {
 	Command/Binary_Commands/Subtract_Command.h
 	Command/Binary_Commands/Multiply_Command.h
 	Command/Binary_Commands/Divide_Command.h
+	Command/Binary_Commands/Modulus_Command.h
   }
 
   Template_Files {
