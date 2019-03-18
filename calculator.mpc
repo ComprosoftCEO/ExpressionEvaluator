@@ -1,6 +1,6 @@
 project (calculator) {
   exename = calculator
-  includes += Array Stack Queue Command Unary_Commands Binary_Commands
+  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Factory
   install = .
  
   specific (make, gnuace) {
@@ -20,6 +20,8 @@ project (calculator) {
 	Command/Binary_Commands/Multiply_Command.cpp
 	Command/Binary_Commands/Divide_Command.cpp
 	Command/Binary_Commands/Modulus_Command.cpp
+	Factory/Abstract_Expr_Factory.cpp
+	Factory/Postfix_Expr_Factory.cpp
   }
 
   Header_Files {
@@ -39,6 +41,8 @@ project (calculator) {
 	Command/Binary_Commands/Multiply_Command.h
 	Command/Binary_Commands/Divide_Command.h
 	Command/Binary_Commands/Modulus_Command.h
+	Factory/Abstract_Expr_Factory.h
+	Factory/Postfix_Expr_Factory.h
   }
 
   Template_Files {
