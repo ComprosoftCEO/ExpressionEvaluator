@@ -29,7 +29,9 @@ Postfix_Converter::~Postfix_Converter() {
 //
 Queue<Command*> Postfix_Converter::convert_to_postfix(Queue<std::string> infix_expr) {
 
+	//Reset the parser state
 	this->free_allocated_commands();
+	this->last_token_number = false;
 
 	try {	
 	
@@ -66,48 +68,18 @@ void Postfix_Converter::process_single_token(const std::string& token) {
 
 	//Left parenthesis
 	if (is_left_parenthesis(token)) {
-		this->stack.push(token);
+		this->add_left_parenthesis(token);
 		return;
 	}
 
 	//Right parenthesis
 	if (is_right_parenthesis(token)) {
-		this->pop_until_matching_parenthesis(token);
+		this->add_right_parenthesis(token);
 		return;
 	}
 
-
-	//Compute operator precedence
-	int current_prec = get_operator_precedence(token);
-
-
-retest:
-
-	//Always push if empty stack or last operator is left parenthesis
-	if (this->stack.is_empty() || is_left_parenthesis(this->stack.top())) {
-		this->stack.push(token);
-		return;
-	}
-
-	//Compare to top operator precedence
-	int top_prec = get_operator_precedence(this->stack.top());
-
-	//Pop the elements if top precedence >= current precedence, then retest the new top
-	if (current_prec < top_prec) {
-		this->add_operator_to_expression(this->stack.pop());
-		goto retest;
-	}
-
-	if (current_prec > top_prec) {
-		//Push greater precedence
-		this->stack.push(token);
-		return;
-	} else if (current_prec == top_prec) {
-		//Since we have left to right association, pop immediately
-		this->add_operator_to_expression(this->stack.pop());
-		this->stack.push(token);
-		return;
-	}
+	//Okay, treat it as a normal binary operator
+	this->process_operator(token);
 }
 
 
@@ -118,6 +90,13 @@ retest:
 // Add a number to the current expression
 //
 void Postfix_Converter::add_number_to_expression(const std::string& token) {
+
+	//Two numbers in a row is not allowed
+	if (this->last_token_number) {
+		throw Postfix_Converter::invalid_infix_exception();
+	}
+	this->last_token_number = true;
+
 	int number = std::stoi(token);
 	Number_Command* num_command = factory.construct_number_command(number);
 	this->expression.enqueue(num_command);
@@ -152,6 +131,81 @@ Binary_Command* Postfix_Converter::get_binary_command(const std::string& token) 
 
 	throw Postfix_Converter::invalid_operator_exception(token);
 }
+
+
+//
+// Add a left parenthesis to the expression
+//
+void Postfix_Converter::add_left_parenthesis(const std::string& token) {
+	//Parenthesis can only come after an operator
+	if (this->last_token_number) {
+		throw Postfix_Converter::invalid_infix_exception();
+	}
+	this->stack.push(token);
+}
+
+
+//
+// Add a right parenthesis to the expression
+//
+void Postfix_Converter::add_right_parenthesis(const std::string& token) {
+	// Right parenthesis can only come after a number
+	if (!this->last_token_number) {
+		throw Postfix_Converter::invalid_infix_exception();
+	}
+	this->pop_until_matching_parenthesis(token);
+}
+
+
+
+//
+// Logic for processing an operator (with precedence)
+//
+void Postfix_Converter::process_operator(const std::string& token) {
+
+
+	//Compute operator precedence
+	//  Might throw an invalid operator exception
+	int current_prec = get_operator_precedence(token);
+	int top_prec;
+
+	//Operators can only come after a number
+	if (!this->last_token_number) {
+		throw Postfix_Converter::invalid_infix_exception();
+	}
+	this->last_token_number = false;
+
+
+	do {
+
+		//Always push if empty stack or last operator is left parenthesis
+		if (this->stack.is_empty() || is_left_parenthesis(this->stack.top())) {
+			this->stack.push(token);
+			return;
+		}
+
+		top_prec = get_operator_precedence(this->stack.top());
+
+		//Push immediately if the current operators has a greater precedence
+		if (current_prec > top_prec) {
+			this->stack.push(token);
+			return;
+		}
+
+		//For equal precedence, since we have left to right association, pop immediately
+		if (current_prec == top_prec) {
+			this->add_operator_to_expression(this->stack.pop());
+			this->stack.push(token);
+			return;
+		}
+
+
+		//Pop the element if top precedence >= current precedence, then retest the new top
+		this->add_operator_to_expression(this->stack.pop());
+
+	} while (current_prec < top_prec);
+}
+
 
 
 //

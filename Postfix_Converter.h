@@ -55,6 +55,16 @@ public:
 		}
 	};
 
+	/**
+	 * @class invalid_infix_exception
+	 *
+	 * Thrown whenever the order of numbers and operators is invalid
+	 */
+	class invalid_infix_exception: public std::exception {
+		const char* what() const noexcept {
+			return "Invalid infix expression!";
+		}
+	};
 
 public:
 
@@ -106,6 +116,31 @@ private:
 	 * @throws		invalid_operator_exception		Unknown operator
 	 */
 	Binary_Command* get_binary_command(const std::string& input);
+
+
+	/**
+	 * Add a left parenthesis to the current expression
+	 *
+	 * @param[in]	token		The string parenthesis token
+	 * @throws 		invalid_infix_exception		Invalid expression
+	 */
+	void add_left_parenthesis(const std::string& token);
+
+	/**
+	 * Add a right parenthesis to the current expression
+	 *
+	 * @param[in]	token		The string parenthesis token
+	 * @throws 		invalid_infix_exception		Invalid expression
+	 */
+	void add_right_parenthesis(const std::string& token);
+
+	/**
+	 * Compute logic associated with adding an operator to the expression
+	 *
+	 * @param[in]	token		Token operator to process
+	 * @throws		invalid_infix_exception		Invalid expression
+	 */
+	void process_operator(const std::string& token);
 
 	/**
 	 * Pop operators from the stack until the matching left parenthesis is found
@@ -188,6 +223,9 @@ private:
 
 	/// Final expression
 	Queue<Command*> expression;
+
+	/// True if previous statement was number, false otherwise
+	bool last_token_number;
 };
 
 
