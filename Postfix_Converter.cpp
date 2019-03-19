@@ -150,7 +150,7 @@ Binary_Command* Postfix_Converter::get_binary_command(const std::string& token) 
 		return this->factory.construct_modulus_command();
 	}	
 
-	throw Postfix_Converter::invalid_operator_exception();
+	throw Postfix_Converter::invalid_operator_exception(token);
 }
 
 
@@ -273,5 +273,5 @@ int Postfix_Converter::get_operator_precedence(const std::string& token) {
 		return 2;
 	}
 
-	throw Postfix_Converter::invalid_operator_exception();
+	throw Postfix_Converter::invalid_operator_exception(token);
 }

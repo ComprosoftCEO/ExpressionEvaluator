@@ -30,14 +30,30 @@ public:
 	 *
 	 * Thrown whenever parenthesis are mismatched in the expression
 	 */
-	class mismatched_parenthesis_exception: public std::exception {};
+	class mismatched_parenthesis_exception: public std::exception {
+		const char* what() const noexcept {
+			return "Mismatched parenthesis!";
+		}
+	};
 
 	/**
 	 * @class invalid_operator_exception
 	 *
 	 * Thrown whenever an unknown operator is given in an expression
 	 */
-	class invalid_operator_exception: public std::exception {};
+	class invalid_operator_exception: public std::exception {
+
+	private:
+		std::string oper;
+
+	public:
+		invalid_operator_exception(const std::string& oper):
+			oper("Invalid Operator '"+oper+"'!") {}
+
+		const char* what() const noexcept {
+			return oper.c_str();
+		}
+	};
 
 
 public:
