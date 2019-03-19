@@ -22,12 +22,12 @@ public:
 
 	/**
 	 * Constructor
-	 * @param		stack		Stack to store the evaluated expression
+	 * @param[in]	stack		Stack to store the evaluated expression
 	 */
 	Postfix_Expr_Factory(Stack<int>& stack);
 
 	/** Create a new number command
-	 * @param		number		The number for this point
+	 * @param[in]	number		The number for this point
 	 */
 	Number_Command* construct_number_command(int number);
 

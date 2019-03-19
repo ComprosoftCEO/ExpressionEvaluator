@@ -31,6 +31,9 @@ public:
 	 */
 	Command(Stack<int>& stack);
 
+	/// Destructor
+	virtual ~Command();
+
 	/// Run the command for this object
 	virtual void execute(void) = 0;
 

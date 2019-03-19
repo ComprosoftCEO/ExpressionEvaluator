@@ -35,7 +35,7 @@ public:
 	virtual ~Abstract_Expr_Factory();
 
 	/** Create a new number command
-	 * @param		number		The number for this point
+	 * @param[in]	number		The number value for this command
 	 */
 	virtual Number_Command* construct_number_command(int number) = 0;
 
@@ -60,7 +60,7 @@ protected:
 
 	/**
 	 * Abstract expression factory constructor
-	 * @param		stack		Stack to store the evaluated expression
+	 * @param[in]	stack		Stack to store the evaluated expression
 	 */
 	Abstract_Expr_Factory(Stack<int>& stack);
 };
