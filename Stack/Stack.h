@@ -32,12 +32,12 @@ public:
 	 *
 	 * Exception thrown to indicate the stack is empty.
 	 */
-	class empty_exception : public std::exception
-	{
+	class empty_exception : public std::exception {
+
 	public:
-	  /// Default constructor.
-	  empty_exception (void)
-	    : std::exception () { }
+		const char* what() const noexcept {
+			return "Stack underflow!";
+		}
 	};
 
 	/// Default constructor.
