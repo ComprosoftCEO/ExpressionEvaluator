@@ -13,7 +13,7 @@
 #define DIVIDE_COMMAND_HEADER
 
 #include "../Binary_Command.h"
-
+#include <exception>
 
 
 class Divide_Command: public Binary_Command {
@@ -29,6 +29,16 @@ public:
 
 	/// Divide the left and right operators
 	int do_operation(int left, int right);
+
+	/**
+	 * @class divide_by_zero_exception
+	 * Thrown when trying to do a number divided by 0
+	 */
+	class divide_by_zero_exception: public std::exception {
+		const char* what() const noexcept {
+			return "Floating point exception: divide by 0!";
+		}
+	};
 };
 
 

@@ -16,5 +16,8 @@ Modulus_Command::Modulus_Command(Stack<int>& stack):
 // Left modulus right
 //
 int Modulus_Command::do_operation(int left, int right) {
+	if (right == 0) {
+		throw Modulus_Command::modulus_zero_exception();
+	}
 	return left % right;
 }
