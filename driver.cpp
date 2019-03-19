@@ -32,7 +32,7 @@ int main(void) {
 
 
 	} catch (std::exception& e) {
-		std::cout << e.what() << std::endl;
+		std::cout << "Error: " << e.what() << std::endl;
 	} catch (...) {
 		std::cout << "Unknown Exception!" << std::endl;
 	}
@@ -51,10 +51,9 @@ static Queue<std::string> read_input_expression() {
 	Queue<std::string> expression;
 	std::string input;
 
-	std::cin >> input;
-	while (input != "QUIT") {
+	//Read until QUIT or end of input stream
+	while ((std::cin >> input) && (input != "QUIT")) {
 		expression.enqueue(input);
-		std::cin >> input;
 	}
 
 	return expression;
