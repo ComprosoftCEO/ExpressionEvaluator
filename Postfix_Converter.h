@@ -84,7 +84,7 @@ public:
 	 *
 	 * @param[in]	input		List of tokens
 	 */
-	Queue<Command*> convert_to_postfix(Queue<std::string> input);
+	Queue<Command*> convert_to_postfix(const std::string& input);
 
 
 private:

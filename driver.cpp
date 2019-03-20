@@ -8,7 +8,7 @@
 
 
 //Internal methods
-static Queue<std::string> read_input_expression(void);
+static void parse_and_run_expression(const std::string& infix_expr);
 static void run_postfix_expression(Queue<Command*> expression);
 
 
@@ -16,13 +16,37 @@ int main(void) {
 
 	try {
 
+		std::cout << "Enter Expression: ";
+
+		//Loop until the word QUIT or the end of the stream
+		std::string expr;
+		while (std::getline(std::cin, expr) && (expr != "QUIT")) {
+			parse_and_run_expression(expr);
+			std::cout << "Enter Expression: ";
+		}
+
+	} catch (...) {
+		std::cout << "Unknown Exception!" << std::endl;
+	}
+
+
+
+	return 0;
+}
+
+
+
+
+//
+// Parse and run a single expression
+//
+static void parse_and_run_expression(const std::string& infix_expr) {
+	try {
+
 		Stack<int> result;
 		Postfix_Expr_Factory factory(result);
 		Postfix_Converter converter(factory);
 
-		//Read the infix expression from user input
-		Queue<std::string> infix_expr = read_input_expression();
-	
 		//Convert the expression to postfix
 		Queue<Command*> postfix_expr = converter.convert_to_postfix(infix_expr);
 
@@ -36,27 +60,6 @@ int main(void) {
 	} catch (...) {
 		std::cout << "Unknown Exception!" << std::endl;
 	}
-
-	return 0;
-}
-
-
-
-
-//
-// Read an expression from std::cin and tokenize it
-//
-static Queue<std::string> read_input_expression() {
-
-	Queue<std::string> expression;
-	std::string input;
-
-	//Read until QUIT or end of input stream
-	while ((std::cin >> input) && (input != "QUIT")) {
-		expression.enqueue(input);
-	}
-
-	return expression;
 }
 
 

@@ -3,6 +3,7 @@
 // I pledge that I have neither given nor received any help
 // on this assignment
 #include "Postfix_Converter.h"
+#include <sstream>
 
 
 
@@ -27,16 +28,17 @@ Postfix_Converter::~Postfix_Converter() {
 //
 // Convert an expression to postfix
 //
-Queue<Command*> Postfix_Converter::convert_to_postfix(Queue<std::string> infix_expr) {
+Queue<Command*> Postfix_Converter::convert_to_postfix(const std::string& infix_expr) {
 
 	//Reset the parser state
 	this->free_allocated_commands();
 	this->last_token_number = false;
 
-	try {	
-	
-		while (!infix_expr.is_empty()) {
-			std::string token = infix_expr.dequeue();
+	try {
+
+		std::stringstream ss(infix_expr);
+		std::string token;
+		while (ss >> token) {
 			this->process_single_token(token);
 		}
 
@@ -46,7 +48,7 @@ Queue<Command*> Postfix_Converter::convert_to_postfix(Queue<std::string> infix_e
 		return this->expression;
 
 	} catch (...) {
-		// Try to catch any potential memory leaks
+		// Try to catch any potential memory leaks before rethrowing the exception
 		this->free_allocated_commands();
 		throw;
 	}
