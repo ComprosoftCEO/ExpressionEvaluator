@@ -9,6 +9,7 @@ project (calculator) {
 
   Source_Files {
 	driver.cpp
+	User_Interface.cpp
 	Postfix_Converter.cpp
 	Command/Command.cpp
 	Command/Number_Command.cpp
@@ -26,6 +27,7 @@ project (calculator) {
   }
 
   Header_Files {
+	User_Interface.h
 	Postfix_Converter.h
 	Array/Array_Base.h
 	Array/Array.h
