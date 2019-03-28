@@ -210,7 +210,7 @@ private:
 	 * @return		Precedence
 	 * @throws		invalid_operator_exception		Unknown operator
 	 */
-	static int get_operator_precedence(const std::string& token);
+	int get_operator_precedence(const std::string& token);
 
 
 private:
