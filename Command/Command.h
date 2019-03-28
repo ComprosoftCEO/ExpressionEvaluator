@@ -29,7 +29,13 @@ public:
 	 *
 	 * @param[in]		stack		Reference to the stack of integers
 	 */
-	Command(Stack<int>& stack);
+	Command(Stack<int>& stack, int precedence = 0);
+
+	/**
+	 * Get the numeric precedence for this command
+	 * @return			precedence
+	 */
+	int get_precedence() const;
 
 	/// Destructor
 	virtual ~Command();
@@ -40,6 +46,9 @@ public:
 protected:
 	/// Stack of integers used to evaluate a whole expression
 	Stack<int>& stack;
+
+	/// Precedence for this command
+	int precedence;
 };
 
 

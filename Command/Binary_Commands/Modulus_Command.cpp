@@ -9,7 +9,7 @@
 // Constructor
 //
 Modulus_Command::Modulus_Command(Stack<int>& stack):
-  Binary_Command(stack) {}
+  Binary_Command(stack,2) {}
 
 
 //
