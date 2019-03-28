@@ -36,10 +36,16 @@ Queue<Command*> Postfix_Converter::convert_to_postfix(const std::string& infix_e
 
 	try {
 
+		// Read and process all tokens
 		std::stringstream ss(infix_expr);
 		std::string token;
 		while (ss >> token) {
 			this->process_single_token(token);
+		}
+
+		// Last token needs to be a number for the expression to be valid
+		if (!this->last_token_number) {
+			throw Postfix_Converter::invalid_infix_exception();
 		}
 
 		// Add any other elements from the stack
