@@ -3,7 +3,42 @@
 // I pledge that I have neither given nor received any help
 // on this assignment
 #include "Postfix_Converter.h"
+#include <functional>
+#include <map>
 #include <sstream>
+
+//
+// Lookup map for all command objects
+//
+struct LookupEntry {
+  int precedence;
+  std::function<Command *(Abstract_Expr_Factory &)> construct_object;
+};
+
+static const std::map<std::string, LookupEntry> ALL_OPERATIONS = {
+    {"+",
+     {1,
+      [](Abstract_Expr_Factory &factory) -> Command * {
+        return factory.construct_add_command();
+      }}},
+    {"-",
+     {1,
+      [](Abstract_Expr_Factory &factory) -> Command * {
+        return factory.construct_subtract_command();
+      }}},
+    {"*",
+     {2,
+      [](Abstract_Expr_Factory &factory) -> Command * {
+        return factory.construct_multiply_command();
+      }}},
+    {"/",
+     {2,
+      [](Abstract_Expr_Factory &factory) -> Command * {
+        return factory.construct_divide_command();
+      }}},
+    {"%", {2, [](Abstract_Expr_Factory &factory) -> Command * {
+             return factory.construct_modulus_command();
+           }}}};
 
 //
 // Constructor
@@ -99,28 +134,19 @@ void Postfix_Converter::add_number_to_expression(const std::string &token) {
 // Add an operator to the current expression
 //
 void Postfix_Converter::add_operator_to_expression(const std::string &token) {
-  Binary_Command *binary_command = get_binary_command(token);
-  this->expression.enqueue(binary_command);
+  Command *command = get_operator_command(token);
+  this->expression.enqueue(command);
 }
 
 //
-// Use the factory method pattern to return a binary command
+// Use the factory method pattern to return a command
 //
-Binary_Command *
-Postfix_Converter::get_binary_command(const std::string &token) {
+Command *Postfix_Converter::get_operator_command(const std::string &token) {
 
-  // I hate these if statements. Is there a better way?
-  // I would *REALLY* like to use maps for this lookup.
-  if (token == "+") {
-    return this->factory.construct_add_command();
-  } else if (token == "-") {
-    return this->factory.construct_subtract_command();
-  } else if (token == "*") {
-    return this->factory.construct_multiply_command();
-  } else if (token == "/") {
-    return this->factory.construct_divide_command();
-  } else if (token == "%") {
-    return this->factory.construct_modulus_command();
+  // Lookup the entry in the map
+  auto lookup = ALL_OPERATIONS.find(token);
+  if (lookup != ALL_OPERATIONS.end()) {
+    return lookup->second.construct_object(this->factory);
   }
 
   throw Postfix_Converter::invalid_operator_exception(token);
@@ -292,10 +318,11 @@ bool Postfix_Converter::is_matching_parenthesis(const std::string &left,
 //
 int Postfix_Converter::get_operator_precedence(const std::string &token) {
 
-  Command *command = get_binary_command(token);
-  int precedence = command->get_precedence();
+  // Lookup the entry in the map
+  auto lookup = ALL_OPERATIONS.find(token);
+  if (lookup != ALL_OPERATIONS.end()) {
+    return lookup->second.precedence;
+  }
 
-  delete (command);
-
-  return precedence;
+  throw Postfix_Converter::invalid_operator_exception(token);
 }

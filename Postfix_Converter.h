@@ -109,13 +109,13 @@ private:
 	void add_operator_to_expression(const std::string& token);
 
 	/**
-	 * Use the factory method pattern to return a binary operator command
+	 * Use the factory method pattern to return an operator command
 	 *
-	 * @param[in]	input		The string to convert to a binary operator
-	 * @return		The associated binary operator
+	 * @param[in]	input		The string to convert to an operator
+	 * @return		The associated operator
 	 * @throws		invalid_operator_exception		Unknown operator
 	 */
-	Binary_Command* get_binary_command(const std::string& input);
+	Command* get_operator_command(const std::string& input);
 
 
 	/**
@@ -210,7 +210,7 @@ private:
 	 * @return		Precedence
 	 * @throws		invalid_operator_exception		Unknown operator
 	 */
-	int get_operator_precedence(const std::string& token);
+	static int get_operator_precedence(const std::string& token);
 
 
 private:
@@ -218,7 +218,7 @@ private:
 	/// The factory to use when converting to postfix
 	Abstract_Expr_Factory& factory;
 
-	/// Temporary stack of operators used while converting
+	/// Temporary stack of string operators used while converting.
 	Stack<std::string> stack;
 
 	/// Final expression
