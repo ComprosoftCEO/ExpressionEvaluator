@@ -8,37 +8,50 @@
 #include <sstream>
 
 //
-// Lookup map for all command objects
+// Lookup array for all command objects (without using std::map)
 //
 struct LookupEntry {
+  const char *symbol;
   int precedence;
   std::function<Command *(Abstract_Expr_Factory &)> construct_object;
 };
+static const LookupEntry ALL_OPERATIONS[] = {
+    {"+", 1,
+     [](Abstract_Expr_Factory &factory) -> Command * {
+       return factory.construct_add_command();
+     }},
+    {"-", 1,
+     [](Abstract_Expr_Factory &factory) -> Command * {
+       return factory.construct_subtract_command();
+     }},
+    {"*", 2,
+     [](Abstract_Expr_Factory &factory) -> Command * {
+       return factory.construct_multiply_command();
+     }},
+    {"/", 2,
+     [](Abstract_Expr_Factory &factory) -> Command * {
+       return factory.construct_divide_command();
+     }},
+    {"%", 2, [](Abstract_Expr_Factory &factory) -> Command * {
+       return factory.construct_modulus_command();
+     }}};
 
-static const std::map<std::string, LookupEntry> ALL_OPERATIONS = {
-    {"+",
-     {1,
-      [](Abstract_Expr_Factory &factory) -> Command * {
-        return factory.construct_add_command();
-      }}},
-    {"-",
-     {1,
-      [](Abstract_Expr_Factory &factory) -> Command * {
-        return factory.construct_subtract_command();
-      }}},
-    {"*",
-     {2,
-      [](Abstract_Expr_Factory &factory) -> Command * {
-        return factory.construct_multiply_command();
-      }}},
-    {"/",
-     {2,
-      [](Abstract_Expr_Factory &factory) -> Command * {
-        return factory.construct_divide_command();
-      }}},
-    {"%", {2, [](Abstract_Expr_Factory &factory) -> Command * {
-             return factory.construct_modulus_command();
-           }}}};
+/**
+ * Search for the entry associated with a given operation symbol
+ *
+ * @param[in]		token		The operator to look for
+ * @return			The associated entry
+ * @retval			nullptr		The entry is not found
+ */
+static const LookupEntry *find_operation(const std::string &token) {
+  for (size_t i = 0; i < (sizeof(ALL_OPERATIONS) / sizeof(ALL_OPERATIONS[0]));
+       ++i) {
+    if (token == ALL_OPERATIONS[i].symbol) {
+      return ALL_OPERATIONS + i;
+    }
+  }
+  return nullptr;
+}
 
 //
 // Constructor
@@ -159,9 +172,9 @@ void Postfix_Converter::add_operator_to_expression(const std::string &token) {
 Command *Postfix_Converter::get_operator_command(const std::string &token) {
 
   // Lookup the entry in the map
-  auto lookup = ALL_OPERATIONS.find(token);
-  if (lookup != ALL_OPERATIONS.end()) {
-    return lookup->second.construct_object(this->factory);
+  const LookupEntry *lookup = find_operation(token);
+  if (lookup != nullptr) {
+    return lookup->construct_object(this->factory);
   }
 
   throw Postfix_Converter::invalid_operator_exception(token);
@@ -193,81 +206,6 @@ void Postfix_Converter::add_right_parenthesis(const std::string &token) {
 // Logic for processing an operator (with precedence)
 //
 void Postfix_Converter::process_operator(const std::string &token) {
-
-  // Operators can only come after a number
-  if (!this->last_token_number) {
-    throw Postfix_Converter::invalid_infix_exception();
-  }
-  this->last_token_number = false;
-
-  do {
-
-    // Compute operator precedence
-    int current_prec = get_operator_precedence(token);
-    int top_prec;
-
-    do {
-
-      top_prec = get_operator_precedence(this->stack.top());
-
-      // Push immediately if the current operators has a greater precedence
-      if (current_prec > top_prec) {
-        this->stack.push(token);
-        return;
-      }
-
-      // For equal precedence, since we have left to right association, pop
-      // immediately
-      if (current_prec == top_prec) {
-        this->add_operator_to_expression(this->stack.pop());
-        this->stack.push(token);
-        return;
-      }
-
-      // Pop the element if top precedence >= current precedence, then retest
-      // the new top
-      this->add_operator_to_expression(this->stack.pop());
-
-    } while (current_prec < top_prec);
-  }
-
-  //
-  // Keep popping until the corresponding parenthesis is found
-  //
-  void Postfix_Converter::pop_until_matching_parenthesis(
-      const std::string &right_paren) {
-
-    bool paren_found = false;
-
-    do {
-
-      // Empty Stack = no more possible parenthesis
-      if (this->stack.is_empty()) {
-        throw Postfix_Converter::mismatched_parenthesis_exception();
-      }
-
-      // Get the top operator from the stack
-      std::string stack_top = stack.pop();
-
-      // Find first left parenthesis character on the stack
-      if (is_left_parenthesis(stack_top)) {
-        if (is_matching_parenthesis(stack_top, right_paren)) {
-          paren_found = true;
-
-        } else {
-          // Different types of parenthesis in wrong order
-          //   for example: ([   )]
-          throw Postfix_Converter::mismatched_parenthesis_exception();
-        }
-      }
-
-      // We are not at the parenthesis yet, so add operator to the expression
-      if (!paren_found) {
-        this->add_operator_to_expression(stack_top);
-      }
-
-    } while (!paren_found);
-  }
 
   //
   // Pop any remaining operators from the stack
@@ -318,7 +256,7 @@ void Postfix_Converter::process_operator(const std::string &token) {
   // Test if the token is an operator
   //
   bool Postfix_Converter::is_operator(const std::string &token) {
-    return (ALL_OPERATIONS.find(token) != ALL_OPERATIONS.end());
+    return (find_operation(token) != nullptr);
   }
 
   //
@@ -327,9 +265,9 @@ void Postfix_Converter::process_operator(const std::string &token) {
   int Postfix_Converter::get_operator_precedence(const std::string &token) {
 
     // Lookup the entry in the map
-    auto lookup = ALL_OPERATIONS.find(token);
-    if (lookup != ALL_OPERATIONS.end()) {
-      return lookup->second.precedence;
+    const LookupEntry *lookup = find_operation(token);
+    if (lookup != nullptr) {
+      return lookup->precedence;
     }
 
     throw Postfix_Converter::invalid_operator_exception(token);
