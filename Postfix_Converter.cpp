@@ -98,7 +98,35 @@ void Postfix_Converter::process_single_token(const std::string &token) {
   }
 
   // Okay, treat it as a normal binary operator
-  this->process_operator(token);
+  if (is_operator(token)) {
+    this->process_operator(token);
+    return;
+  }
+
+  // Unknown symbol! Problem!
+  throw Postfix_Converter::invalid_operator_exception(token);
+}
+
+// Operands go right onto the stack
+if (is_number(token)) {
+  this->add_number_to_expression(token);
+  return;
+}
+
+// Left parenthesis
+if (is_left_parenthesis(token)) {
+  this->add_left_parenthesis(token);
+  return;
+}
+
+// Right parenthesis
+if (is_right_parenthesis(token)) {
+  this->add_right_parenthesis(token);
+  return;
+}
+
+// Okay, treat it as a normal binary operator
+this->process_operator(token);
 }
 
 //
@@ -166,11 +194,6 @@ void Postfix_Converter::add_right_parenthesis(const std::string &token) {
 //
 void Postfix_Converter::process_operator(const std::string &token) {
 
-  // Compute operator precedence
-  //  Might throw an invalid operator exception
-  int current_prec = get_operator_precedence(token);
-  int top_prec;
-
   // Operators can only come after a number
   if (!this->last_token_number) {
     throw Postfix_Converter::invalid_infix_exception();
@@ -179,128 +202,135 @@ void Postfix_Converter::process_operator(const std::string &token) {
 
   do {
 
-    // Always push if empty stack or last operator is left parenthesis
-    if (this->stack.is_empty() || is_left_parenthesis(this->stack.top())) {
-      this->stack.push(token);
-      return;
-    }
+    // Compute operator precedence
+    int current_prec = get_operator_precedence(token);
+    int top_prec;
 
-    top_prec = get_operator_precedence(this->stack.top());
+    do {
 
-    // Push immediately if the current operators has a greater precedence
-    if (current_prec > top_prec) {
-      this->stack.push(token);
-      return;
-    }
+      top_prec = get_operator_precedence(this->stack.top());
 
-    // For equal precedence, since we have left to right association, pop
-    // immediately
-    if (current_prec == top_prec) {
+      // Push immediately if the current operators has a greater precedence
+      if (current_prec > top_prec) {
+        this->stack.push(token);
+        return;
+      }
+
+      // For equal precedence, since we have left to right association, pop
+      // immediately
+      if (current_prec == top_prec) {
+        this->add_operator_to_expression(this->stack.pop());
+        this->stack.push(token);
+        return;
+      }
+
+      // Pop the element if top precedence >= current precedence, then retest
+      // the new top
       this->add_operator_to_expression(this->stack.pop());
-      this->stack.push(token);
-      return;
-    }
 
-    // Pop the element if top precedence >= current precedence, then retest the
-    // new top
-    this->add_operator_to_expression(this->stack.pop());
+    } while (current_prec < top_prec);
+  }
 
-  } while (current_prec < top_prec);
-}
+  //
+  // Keep popping until the corresponding parenthesis is found
+  //
+  void Postfix_Converter::pop_until_matching_parenthesis(
+      const std::string &right_paren) {
 
-//
-// Keep popping until the corresponding parenthesis is found
-//
-void Postfix_Converter::pop_until_matching_parenthesis(
-    const std::string &right_paren) {
+    bool paren_found = false;
 
-  bool paren_found = false;
+    do {
 
-  do {
-
-    // Empty Stack = no more possible parenthesis
-    if (this->stack.is_empty()) {
-      throw Postfix_Converter::mismatched_parenthesis_exception();
-    }
-
-    // Get the top operator from the stack
-    std::string stack_top = stack.pop();
-
-    // Find first left parenthesis character on the stack
-    if (is_left_parenthesis(stack_top)) {
-      if (is_matching_parenthesis(stack_top, right_paren)) {
-        paren_found = true;
-
-      } else {
-        // Different types of parenthesis in wrong order
-        //   for example: ([   )]
+      // Empty Stack = no more possible parenthesis
+      if (this->stack.is_empty()) {
         throw Postfix_Converter::mismatched_parenthesis_exception();
       }
-    }
 
-    // We are not at the parenthesis yet, so add operator to the expression
-    if (!paren_found) {
+      // Get the top operator from the stack
+      std::string stack_top = stack.pop();
+
+      // Find first left parenthesis character on the stack
+      if (is_left_parenthesis(stack_top)) {
+        if (is_matching_parenthesis(stack_top, right_paren)) {
+          paren_found = true;
+
+        } else {
+          // Different types of parenthesis in wrong order
+          //   for example: ([   )]
+          throw Postfix_Converter::mismatched_parenthesis_exception();
+        }
+      }
+
+      // We are not at the parenthesis yet, so add operator to the expression
+      if (!paren_found) {
+        this->add_operator_to_expression(stack_top);
+      }
+
+    } while (!paren_found);
+  }
+
+  //
+  // Pop any remaining operators from the stack
+  //
+  void Postfix_Converter::pop_remaining_operators() {
+
+    while (!this->stack.is_empty()) {
+
+      std::string stack_top = stack.pop();
+
+      // Test for any residue parenthesis
+      if (is_left_parenthesis(stack_top)) {
+        throw Postfix_Converter::mismatched_parenthesis_exception();
+      }
+
       this->add_operator_to_expression(stack_top);
     }
+  }
 
-  } while (!paren_found);
-}
+  //
+  // Test if the string is a number
+  //
+  bool Postfix_Converter::is_number(const std::string &token) {
+    // We can use the default C++ number conversion to test if it
+    //  is a valid number or not
+    char *p;
+    strtol(token.c_str(), &p, 10);
+    return *p == 0;
+  }
 
-//
-// Pop any remaining operators from the stack
-//
-void Postfix_Converter::pop_remaining_operators() {
+  //
+  // Test if the input is a left parenthesis or right parenthesis
+  //
+  bool Postfix_Converter::is_left_parenthesis(const std::string &token) {
+    return (token == "(") || (token == "[");
+  }
 
-  while (!this->stack.is_empty()) {
+  bool Postfix_Converter::is_right_parenthesis(const std::string &token) {
+    return (token == ")") || (token == "]");
+  }
 
-    std::string stack_top = stack.pop();
+  bool Postfix_Converter::is_matching_parenthesis(const std::string &left,
+                                                  const std::string &right) {
+    return ((left == "(" && right == ")") || (left == "[" && right == "]"));
+  }
 
-    // Test for any residue parenthesis
-    if (is_left_parenthesis(stack_top)) {
-      throw Postfix_Converter::mismatched_parenthesis_exception();
+  //
+  // Test if the token is an operator
+  //
+  bool Postfix_Converter::is_operator(const std::string &token) {
+    return (ALL_OPERATIONS.find(token) != ALL_OPERATIONS.end());
+  }
+
+  //
+  // Get the operator precedence
+  //
+  int Postfix_Converter::get_operator_precedence(const std::string &token) {
+
+    // Lookup the entry in the map
+    auto lookup = ALL_OPERATIONS.find(token);
+    if (lookup != ALL_OPERATIONS.end()) {
+      return lookup->second.precedence;
     }
 
-    this->add_operator_to_expression(stack_top);
+    throw Postfix_Converter::invalid_operator_exception(token);
   }
-}
-
-//
-// Test if the string is a number
-//
-bool Postfix_Converter::is_number(const std::string &token) {
-  // We can use the default C++ number conversion to test if it
-  //  is a valid number or not
-  char *p;
-  strtol(token.c_str(), &p, 10);
-  return *p == 0;
-}
-
-//
-// Test if the input is a left parenthesis or right parenthesis
-//
-bool Postfix_Converter::is_left_parenthesis(const std::string &token) {
-  return (token == "(") || (token == "[");
-}
-
-bool Postfix_Converter::is_right_parenthesis(const std::string &token) {
-  return (token == ")") || (token == "]");
-}
-
-bool Postfix_Converter::is_matching_parenthesis(const std::string &left,
-                                                const std::string &right) {
-  return ((left == "(" && right == ")") || (left == "[" && right == "]"));
-}
-
-//
-// Get the operator precedence
-//
-int Postfix_Converter::get_operator_precedence(const std::string &token) {
-
-  // Lookup the entry in the map
-  auto lookup = ALL_OPERATIONS.find(token);
-  if (lookup != ALL_OPERATIONS.end()) {
-    return lookup->second.precedence;
-  }
-
-  throw Postfix_Converter::invalid_operator_exception(token);
-}

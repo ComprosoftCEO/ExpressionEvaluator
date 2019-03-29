@@ -195,6 +195,15 @@ private:
 	static bool is_matching_parenthesis(const std::string& left, const std::string& right);
 
 	/**
+	 * Test if the given string is a valid operator
+	 *
+	 * @param[in]	input		The string to test
+	 * @retval		true		Yes, it is a valid operator
+	 * @retval		false		No, it isn't a valid operator token
+	 */
+	static bool is_operator(const std::string& token);
+
+	/**
 	 * Get a numeric operator precedence for the token, following PEMDAS rules.
 	 * A higher number means that an operator has a higher precedence.
 	 *
