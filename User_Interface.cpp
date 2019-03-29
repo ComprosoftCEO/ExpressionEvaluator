@@ -6,7 +6,7 @@
 // on this assignment.
 #include "User_Interface.h"
 #include "Postfix_Converter.h"
-#include <Postfix_Expr_Factory.h>
+#include <Flyweight_Expr_Factory.h>
 #include <iostream>
 #include <exception>
 
@@ -42,7 +42,7 @@ void User_Interface::parse_and_run_expression(const std::string& infix_expr) noe
 	try {
 
 		Stack<int> result;
-		Postfix_Expr_Factory factory(result);
+		Flyweight_Expr_Factory factory(result);
 		Postfix_Converter converter(factory);
 
 		//Convert the expression to postfix

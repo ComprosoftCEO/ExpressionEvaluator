@@ -24,6 +24,7 @@ project (calculator) {
 	Command/Binary_Commands/Modulus_Command.cpp
 	Factory/Abstract_Expr_Factory.cpp
 	Factory/Postfix_Expr_Factory.cpp
+	Factory/Flyweight_Expr_Factory.cpp
   }
 
   Header_Files {
@@ -47,6 +48,7 @@ project (calculator) {
 	Command/Binary_Commands/Modulus_Command.h
 	Factory/Abstract_Expr_Factory.h
 	Factory/Postfix_Expr_Factory.h
+	Factory/Flyweight_Expr_Factory.h
   }
 
   Template_Files {
