@@ -33,10 +33,8 @@ Flyweight_Expr_Factory::~Flyweight_Expr_Factory() {
 // Release any dynamically allocated products
 //
 void Flyweight_Expr_Factory::release_products() {
-
-	//Iterate over std::map using the iterator
-	for (auto it = this->number_commands.begin(); it != this->number_commands.end(); ++it) {
-		delete(it->second);
+	while(!this->to_free.is_empty()) {
+		delete(this->to_free.dequeue());
 	}
 }
 
@@ -46,18 +44,9 @@ void Flyweight_Expr_Factory::release_products() {
 // Get the number command
 //
 Number_Command* Flyweight_Expr_Factory::construct_number_command(int number) {
-
-	//See if the command already exists in the map
-	auto found_number = this->number_commands.find(number);
-	if (found_number != this->number_commands.end()) {
-		return found_number->second;
-	}
-
-
-	//Construct the new command and add it to the map
-	Number_Command* new_number = new Number_Command(this->stack, number);
-	this->number_commands[number] = new_number;
-	return new_number;
+	Number_Command* command = new Number_Command(this->stack, number);
+	this->to_free.enqueue(command);
+	return command;
 }
 
 
