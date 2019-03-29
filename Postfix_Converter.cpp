@@ -47,44 +47,31 @@ Postfix_Converter::Postfix_Converter(Abstract_Expr_Factory &factory)
     : factory(factory) {}
 
 //
-// Destructor
-//
-Postfix_Converter::~Postfix_Converter() { this->free_allocated_commands(); }
-
-//
 // Convert an expression to postfix
 //
 Queue<Command *>
 Postfix_Converter::convert_to_postfix(const std::string &infix_expr) {
 
   // Reset the parser state
-  this->free_allocated_commands();
+  this->expression.clear();
   this->last_token_number = false;
 
-  try {
-
-    // Read and process all tokens
-    std::stringstream ss(infix_expr);
-    std::string token;
-    while (ss >> token) {
-      this->process_single_token(token);
-    }
-
-    // Last token needs to be a number for the expression to be valid
-    if (!this->last_token_number) {
-      throw Postfix_Converter::invalid_infix_exception();
-    }
-
-    // Add any other elements from the stack
-    this->pop_remaining_operators();
-
-    return this->expression;
-
-  } catch (...) {
-    // Try to catch any potential memory leaks before rethrowing the exception
-    this->free_allocated_commands();
-    throw;
+  // Read and process all tokens
+  std::stringstream ss(infix_expr);
+  std::string token;
+  while (ss >> token) {
+    this->process_single_token(token);
   }
+
+  // Last token needs to be a number for the expression to be valid
+  if (!this->last_token_number) {
+    throw Postfix_Converter::invalid_infix_exception();
+  }
+
+  // Add any other elements from the stack
+  this->pop_remaining_operators();
+
+  return this->expression;
 }
 
 //
@@ -274,15 +261,6 @@ void Postfix_Converter::pop_remaining_operators() {
     }
 
     this->add_operator_to_expression(stack_top);
-  }
-}
-
-//
-// Free any allocated commands
-//
-void Postfix_Converter::free_allocated_commands() {
-  while (!this->expression.is_empty()) {
-    delete (this->expression.dequeue());
   }
 }
 

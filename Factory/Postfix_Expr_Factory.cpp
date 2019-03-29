@@ -12,12 +12,33 @@ Postfix_Expr_Factory::Postfix_Expr_Factory(Stack<int>& stack):
   Abstract_Expr_Factory(stack) {}
 
 
+//
+// Destructor
+//
+Postfix_Expr_Factory::~Postfix_Expr_Factory() {
+	this->release_products();
+}
+
+
+
+//
+// Release dynamically allocated objects from memory
+//
+void Postfix_Expr_Factory::release_products() {
+	while(!this->to_free.is_empty()) {
+		delete(this->to_free.dequeue());
+	}
+}
+
+
 
 //
 // Construct a new number
 //
 Number_Command* Postfix_Expr_Factory::construct_number_command(int number) {
-	return new Number_Command(this->stack, number);
+	Number_Command* command = new Number_Command(this->stack, number);
+	this->to_free.enqueue(command);
+	return command;
 }
 
 
@@ -25,7 +46,9 @@ Number_Command* Postfix_Expr_Factory::construct_number_command(int number) {
 // Create a new addition command
 //
 Add_Command* Postfix_Expr_Factory::construct_add_command() {
-	return new Add_Command(this->stack);
+	Add_Command* command = new Add_Command(this->stack);
+	this->to_free.enqueue(command);
+	return command;
 }
 
 
@@ -33,7 +56,9 @@ Add_Command* Postfix_Expr_Factory::construct_add_command() {
 // Create a new subtraction command
 //
 Subtract_Command* Postfix_Expr_Factory::construct_subtract_command() {
-	return new Subtract_Command(this->stack);
+	Subtract_Command* command = new Subtract_Command(this->stack);
+	this->to_free.enqueue(command);
+	return command;
 }
 
 
@@ -41,7 +66,9 @@ Subtract_Command* Postfix_Expr_Factory::construct_subtract_command() {
 // Create a new multiplication command
 //
 Multiply_Command* Postfix_Expr_Factory::construct_multiply_command() {
-	return new Multiply_Command(this->stack);
+	Multiply_Command* command = new Multiply_Command(this->stack);
+	this->to_free.enqueue(command);
+	return command;
 }
 
 
@@ -49,7 +76,9 @@ Multiply_Command* Postfix_Expr_Factory::construct_multiply_command() {
 // Create a new divide command
 //
 Divide_Command* Postfix_Expr_Factory::construct_divide_command() {
-	return new Divide_Command(this->stack);
+	Divide_Command* command = new Divide_Command(this->stack);
+	this->to_free.enqueue(command);
+	return command;
 }
 
 
@@ -58,5 +87,7 @@ Divide_Command* Postfix_Expr_Factory::construct_divide_command() {
 // Create a new modulus command
 //
 Modulus_Command* Postfix_Expr_Factory::construct_modulus_command() {
-	return new Modulus_Command(this->stack);
+	Modulus_Command* command = new Modulus_Command(this->stack);
+	this->to_free.enqueue(command);
+	return command;
 }

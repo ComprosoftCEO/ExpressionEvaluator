@@ -13,7 +13,7 @@
 #define POSTFIX_EXPR_FACTORY
 
 #include "Abstract_Expr_Factory.h"
-
+#include <Queue.h>
 
 
 class Postfix_Expr_Factory: public Abstract_Expr_Factory {
@@ -25,6 +25,12 @@ public:
 	 * @param[in]	stack		Stack to store the evaluated expression
 	 */
 	Postfix_Expr_Factory(Stack<int>& stack);
+
+	/// Destructor
+	~Postfix_Expr_Factory();
+
+	/// Release any dynamically constructed objects from memory
+	void release_products() ;
 
 	/** Create a new number command
 	 * @param[in]	number		The number for this point
@@ -45,6 +51,11 @@ public:
 
 	/// Create a new modulus command
 	Modulus_Command* construct_modulus_command();
+
+
+private:
+	/// List of dynamically-allocated commands to free
+	Queue<Command*> to_free;
 };
 
 

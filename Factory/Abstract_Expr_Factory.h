@@ -25,7 +25,11 @@
 /**
  * @class Abstract_Expr_Factory
  *
- * Abstract factory for creating command expressions
+ * Abstract factory for creating command expressions.
+ *
+ * All heap-allocated objects are freed either by calling release_products()
+ * or automatically when the factory is destructed. Using pointers after this
+ * time results in undefined behavior.
  */
 class Abstract_Expr_Factory {
 
@@ -33,6 +37,10 @@ public:
 
 	/// Destructor
 	virtual ~Abstract_Expr_Factory();
+
+	/// Release any dynamically constructed objects from memory.
+	/// It is up to the factory implementation to define how this works.
+	virtual void release_products() = 0;
 
 	/** Create a new number command
 	 * @param[in]	number		The number value for this command

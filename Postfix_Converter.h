@@ -74,13 +74,10 @@ public:
 	 */
 	Postfix_Converter(Abstract_Expr_Factory& factory);
 
-	/// Destructor
-	~Postfix_Converter();
-
 	/**
-	 * Convert a tokenized infix expression to postfix. The pointers in the 
-	 * returned queue are automatically freed when the postfix converter goes
-	 * out of scope or a new expression is converted using the same object.
+	 * Convert a tokenized infix expression to postfix. The pointers
+	 * returned will be automatically freed by the factory whenever
+	 * the factory is destructed.
 	 *
 	 * @param[in]	input		List of tokens
 	 */
@@ -158,11 +155,6 @@ private:
 	 * @throws		invalid_operator_exception		Unknown operator
 	 */
 	void pop_remaining_operators();
-
-	/// Free any existing commands allocated in memory
-	void free_allocated_commands();
-
-
 
 
 	/**
