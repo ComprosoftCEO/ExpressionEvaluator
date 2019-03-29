@@ -27,7 +27,7 @@ public:
 	 *
 	 * @param[in]		stack		Reference to the stack of integers
 	 */
-	Unary_Command(Stack<int>& stack, int precedence = 0);
+	Unary_Command(Stack<int>& stack);
 
 	/// Run a unary function on the stack
 	void execute(void);

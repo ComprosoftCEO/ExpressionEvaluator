@@ -9,7 +9,7 @@
 // Constructor
 //
 Subtract_Command::Subtract_Command(Stack<int>& stack):
-  Binary_Command(stack,1) {}
+  Binary_Command(stack) {}
 
 
 

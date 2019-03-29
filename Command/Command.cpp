@@ -9,20 +9,10 @@
 // Initializing Constructor
 //
 Command::Command(Stack<int>& stack, int precedence):
-  stack(stack),
-  precedence(precedence) {}
+  stack(stack) {}
 
 
 //
 // Destructor
 //
 Command::~Command() = default;
-
-
-
-//
-// Get the precedence
-//
-int Command::get_precedence() const {
-	return this->precedence;
-}

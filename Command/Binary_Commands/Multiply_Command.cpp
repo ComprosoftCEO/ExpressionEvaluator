@@ -9,7 +9,7 @@
 // Constructor
 //
 Multiply_Command::Multiply_Command(Stack<int>& stack):
-  Binary_Command(stack,2) {}
+  Binary_Command(stack) {}
 
 
 

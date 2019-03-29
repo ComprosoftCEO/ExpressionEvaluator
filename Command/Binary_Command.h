@@ -27,7 +27,7 @@ public:
 	 *
 	 * @param[in]		stack		Reference to the stack of integers
 	 */
-	Binary_Command(Stack<int>& stack, int precedence = 0);
+	Binary_Command(Stack<int>& stack);
 
 	/// Run a binary function on the stack
 	void execute(void);

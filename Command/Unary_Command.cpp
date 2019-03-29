@@ -8,8 +8,8 @@
 //
 // Constructor
 //
-Unary_Command::Unary_Command(Stack<int>& stack, int precedence):
-  Command(stack, precedence) {}
+Unary_Command::Unary_Command(Stack<int>& stack):
+  Command(stack) {}
 
 
 //
