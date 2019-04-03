@@ -27,10 +27,9 @@ public:
 	/**
 	 * Initializing Constructor
 	 *
-	 * @param[in]		stack			Reference to the stack of integers
 	 * @param[in]		precedence		Precedence for this operator
 	 */
-	Operator_Command(Stack<int>& stack, int precedence);
+	Operator_Command(int precedence);
 
 	/**
 	 * Get the precedence for this operator

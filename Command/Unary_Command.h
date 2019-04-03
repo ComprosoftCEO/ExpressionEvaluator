@@ -28,10 +28,10 @@ public:
 	 * @param[in]		stack			Reference to the stack of integers
 	 * @param[in]		precedence		Precedence for this operator
 	 */
-	Unary_Command(Stack<int>& stack, int precedence);
+	Unary_Command(int precedence);
 
 	/// Run a unary function on the stack
-	void execute(void);
+	void execute(Stack<int>& stack);
 
 	/**
 	 * Execute the unary operation on the given input

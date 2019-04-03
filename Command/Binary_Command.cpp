@@ -8,24 +8,24 @@
 //
 // Constructor
 //
-Binary_Command::Binary_Command(Stack<int>& stack, int precedence):
-  Operator_Command(stack, precedence) {}
+Binary_Command::Binary_Command(int precedence):
+  Operator_Command(precedence) {}
 
 
 
 //
 // Run the stored binary function
 //
-void Binary_Command::execute(void) {
+void Binary_Command::execute(Stack<int>& stack) {
 
 	//Pop 2 numbers off the stack
 	int first, second;
-	second = this->stack.pop();
-	first = this->stack.pop();
+	second = stack.pop();
+	first = stack.pop();
 
 	//Run the stored binary method
 	int result = this->do_operation(first, second);
 
 	//Push the result back onto the stack
-	this->stack.push(result);
+	stack.push(result);
 }

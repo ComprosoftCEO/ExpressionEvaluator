@@ -20,12 +20,8 @@ class Multiply_Command: public Binary_Command {
 
 public:
 
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		stack		Reference to the stack of integers
-	 */
-	Multiply_Command(Stack<int>& stack);
+	/// Default constructor
+	Multiply_Command();
 
 	/// Multiply the left and right operators
 	int do_operation(int left, int right);

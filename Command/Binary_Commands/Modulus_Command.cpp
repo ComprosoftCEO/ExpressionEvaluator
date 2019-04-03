@@ -8,8 +8,8 @@
 //
 // Constructor
 //
-Modulus_Command::Modulus_Command(Stack<int>& stack):
-  Binary_Command(stack,2) {}
+Modulus_Command::Modulus_Command():
+  Binary_Command(2) {}
 
 
 //

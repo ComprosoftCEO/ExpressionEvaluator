@@ -5,21 +5,6 @@
 #include "Flyweight_Expr_Factory.h"
 
 
-
-//
-// Constructor
-//
-Flyweight_Expr_Factory::Flyweight_Expr_Factory(Stack<int>& stack):
-  Abstract_Expr_Factory(stack),
-  add_command(stack),
-  subtract_command(stack),
-  multiply_command(stack),
-  divide_command(stack),
-  modulus_command(stack)
-{}
-
-
-
 //
 // Destructor
 //
@@ -44,7 +29,7 @@ void Flyweight_Expr_Factory::release_products() {
 // Get the number command
 //
 Number_Command* Flyweight_Expr_Factory::construct_number_command(int number) {
-	Number_Command* command = new Number_Command(this->stack, number);
+	Number_Command* command = new Number_Command(number);
 	this->to_free.enqueue(command);
 	return command;
 }

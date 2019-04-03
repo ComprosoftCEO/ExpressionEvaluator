@@ -19,12 +19,8 @@ class Square_Root_Command: public Unary_Command {
 
 public:
 
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		stack		Reference to the stack of integers
-	 */
-	Square_Root_Command(Stack<int>& stack);
+	/// Default constructor
+	Square_Root_Command();
 
 	/// Call the square root method on the input
 	int do_operation(int input);

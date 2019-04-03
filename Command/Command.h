@@ -24,22 +24,15 @@
 class Command {
 
 public:
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		stack		Reference to the stack of integers
-	 */
-	Command(Stack<int>& stack, int precedence = 0);
-
 	/// Destructor
 	virtual ~Command() = default;
 
-	/// Run the command for this object
-	virtual void execute(void) = 0;
-
-protected:
-	/// Stack of integers used to evaluate a whole expression
-	Stack<int>& stack;
+	/**
+	 * Run the command for this object
+	 *
+	 * @param[in,out]		stack			Reference to the stack of integers
+	 */
+	virtual void execute(Stack<int>& stack) = 0;
 };
 
 

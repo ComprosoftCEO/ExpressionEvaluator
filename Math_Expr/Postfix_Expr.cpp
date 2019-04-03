@@ -15,7 +15,7 @@ int Postfix_Expr::evaluate() {
 
 	//Iterate over the array of commands
 	for (size_t i = 0; i < this->to_run_.size(); ++i) {
-		this->to_run_[i]->execute();
+		this->to_run_[i]->execute(this->stack_);
 	}
 
 	return this->stack_.top();

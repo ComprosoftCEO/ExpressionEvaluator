@@ -20,12 +20,6 @@ class Postfix_Expr_Factory: public Abstract_Expr_Factory {
 
 public:
 
-	/**
-	 * Constructor
-	 * @param[in]	stack		Stack to store the evaluated expression
-	 */
-	Postfix_Expr_Factory(Stack<int>& stack);
-
 	/// Destructor
 	~Postfix_Expr_Factory();
 

@@ -25,13 +25,12 @@ public:
 	/**
 	 * Initializing Constructor
 	 *
-	 * @param[in]		stack			Reference to the stack of integers
 	 * @param[in]		precedence		Precedence for this operator
 	 */
-	Binary_Command(Stack<int>& stack, int precedence);
+	Binary_Command(int precedence);
 
-	/// Run a binary function on the stack
-	void execute(void);
+	/// Run a binary command on the stack
+	void execute(Stack<int>& stack);
 
 	/**
 	 * Execute the binary operation on the given input

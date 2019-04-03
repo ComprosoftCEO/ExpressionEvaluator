@@ -8,8 +8,8 @@
 //
 // Constructor
 //
-Negate_Command::Negate_Command(Stack<int>& stack):
-  Unary_Command(stack,0) {}
+Negate_Command::Negate_Command():
+  Unary_Command(0) {}
 
 
 

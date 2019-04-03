@@ -20,12 +20,6 @@ class Flyweight_Expr_Factory: public Abstract_Expr_Factory {
 
 public:
 
-	/**
-	 * Constructor
-	 * @param[in]	stack		Stack to store the evaluated expression
-	 */
-	Flyweight_Expr_Factory(Stack<int>& stack);
-
 	/// Destructor
 	~Flyweight_Expr_Factory();
 
@@ -64,7 +58,6 @@ private:
 
 	/// List of dynamically-allocated commands to free
 	Queue<Command*> to_free;
-
 };
 
 

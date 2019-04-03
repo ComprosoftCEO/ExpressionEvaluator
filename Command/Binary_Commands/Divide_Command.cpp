@@ -8,8 +8,8 @@
 //
 // Constructor
 //
-Divide_Command::Divide_Command(Stack<int>& stack):
-  Binary_Command(stack,2) {}
+Divide_Command::Divide_Command():
+  Binary_Command(2) {}
 
 
 

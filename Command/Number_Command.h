@@ -25,13 +25,12 @@ public:
 	/**
 	 * Initializing Constructor
 	 *
-	 * @param[in]		stack		Reference to the stack of integers
 	 * @param[in]		number		The number to store
 	 */
-	Number_Command(Stack<int>& stack, int number);
+	Number_Command(int number);
 
 	/// Push a number onto the stack
-	void execute(void);
+	void execute(Stack<int>& stack);
 
 private:
 	/// Number stored to push onto the stack

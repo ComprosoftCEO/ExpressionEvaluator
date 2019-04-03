@@ -10,6 +10,5 @@
 //
 // Constructor
 //
-Operator_Command::Operator_Command(Stack<int>& stack, int precedence):
-  Command(stack),
+Operator_Command::Operator_Command(int precedence):
   precedence_(precedence) {}

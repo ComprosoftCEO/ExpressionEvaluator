@@ -43,7 +43,7 @@ private:
 	 *
 	 * @param[in,out]	expression		The queue of expressions to run
 	 */
-	void run_postfix_expression(Queue<Command*>& expression);
+	int run_postfix_expression(Queue<Command*>& expression);
 };
 
 #endif	/* User Interface Header Included */

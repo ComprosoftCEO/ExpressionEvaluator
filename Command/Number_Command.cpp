@@ -8,8 +8,7 @@
 //
 // Constructor
 //
-Number_Command::Number_Command(Stack<int>& stack, int number):
-  Command(stack),
+Number_Command::Number_Command(int number):
   number_(number) {}
 
 
@@ -17,6 +16,6 @@ Number_Command::Number_Command(Stack<int>& stack, int number):
 //
 // Push a number onto the stack
 //
-void Number_Command::execute(void) {
-	this->stack.push(this->number_);
+void Number_Command::execute(Stack<int>& stack) {
+	stack.push(this->number_);
 }

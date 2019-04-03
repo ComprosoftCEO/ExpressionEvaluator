@@ -36,7 +36,7 @@ class Abstract_Expr_Factory {
 public:
 
 	/// Destructor
-	virtual ~Abstract_Expr_Factory();
+	virtual ~Abstract_Expr_Factory() = default;
 
 	/// Release any dynamically constructed objects from memory.
 	/// It is up to the factory implementation to define how this works.
@@ -61,16 +61,6 @@ public:
 
 	/// Create a new modulus command
 	virtual Modulus_Command* construct_modulus_command() = 0;
-
-protected:
-	/// Stack used to compute the evaluated expression
-	Stack<int>& stack;
-
-	/**
-	 * Abstract expression factory constructor
-	 * @param[in]	stack		Stack to store the evaluated expression
-	 */
-	Abstract_Expr_Factory(Stack<int>& stack);
 };
 
 #endif	/* Abstract Expression Factory Header Included */

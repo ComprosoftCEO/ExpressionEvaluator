@@ -21,12 +21,8 @@ class Modulus_Command: public Binary_Command {
 
 public:
 
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		stack		Reference to the stack of integers
-	 */
-	Modulus_Command(Stack<int>& stack);
+	/// Default constructor
+	Modulus_Command();
 
 	/// Do left mod right
 	int do_operation(int left, int right);

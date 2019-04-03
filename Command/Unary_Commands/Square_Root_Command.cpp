@@ -9,8 +9,8 @@
 //
 // Constructor
 //
-Square_Root_Command::Square_Root_Command(Stack<int>& stack):
-  Unary_Command(stack,0) {}
+Square_Root_Command::Square_Root_Command():
+  Unary_Command(0) {}
 
 
 

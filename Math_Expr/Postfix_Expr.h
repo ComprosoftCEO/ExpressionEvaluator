@@ -39,12 +39,6 @@ public:
 	 */
 	void add_command(Command* command);
 
-	/**
-	 * Get the stack of integers used to evaluate the expression
-	 * @return			Stack used for expression evaluation
-	 */
-	Stack<int>& get_stack();
-
 private:
 	/// Array of commands to run
 	Array<Command*> to_run_;
@@ -52,10 +46,6 @@ private:
 	/// Stack of integers used during evaluation
 	Stack<int> stack_;
 };
-
-
-// Include the inline functions
-#include "Postfix_Expr.inl"
 
 
 #endif	/* Postfix Expression Header Included */

@@ -20,12 +20,8 @@ class Divide_Command: public Binary_Command {
 
 public:
 
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		stack		Reference to the stack of integers
-	 */
-	Divide_Command(Stack<int>& stack);
+	/// Default constructor
+	Divide_Command();
 
 	/// Divide the left and right operators
 	int do_operation(int left, int right);

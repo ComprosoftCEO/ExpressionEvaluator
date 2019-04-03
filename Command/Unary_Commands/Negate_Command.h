@@ -19,12 +19,8 @@ class Negate_Command: public Unary_Command {
 
 public:
 
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		stack		Reference to the stack of integers
-	 */
-	Negate_Command(Stack<int>& stack);
+	/// Default constructor
+	Negate_Command();
 
 	/// Multiply input by -1
 	int do_operation(int input);

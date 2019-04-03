@@ -8,8 +8,8 @@
 //
 // Constructor
 //
-Subtract_Command::Subtract_Command(Stack<int>& stack):
-  Binary_Command(stack,1) {}
+Subtract_Command::Subtract_Command():
+  Binary_Command(1) {}
 
 
 

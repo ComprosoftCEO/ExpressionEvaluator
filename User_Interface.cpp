@@ -41,16 +41,14 @@ void User_Interface::run(void) noexcept {
 void User_Interface::parse_and_run_expression(const std::string& infix_expr) noexcept {
 	try {
 
-		Stack<int> result;
-		Flyweight_Expr_Factory factory(result);
+		Flyweight_Expr_Factory factory;
 		Postfix_Converter converter(factory);
 
 		//Convert the expression to postfix
 		Queue<Command*> postfix_expr = converter.convert_to_postfix(infix_expr);
 
 		//Run the expression and print to cout
-		this->run_postfix_expression(postfix_expr);
-		std::cout << result.top() << std::endl;
+		std::cout << this->run_postfix_expression(postfix_expr) << std::endl;
 
 
 	} catch (std::exception& e) {
@@ -66,10 +64,13 @@ void User_Interface::parse_and_run_expression(const std::string& infix_expr) noe
 //
 // Compute the result of the expression
 //
-void User_Interface::run_postfix_expression(Queue<Command*>& expression) {
+int User_Interface::run_postfix_expression(Queue<Command*>& expression) {
+	Stack<int> result;
 	while (!expression.is_empty()) {
 		Command* command = expression.dequeue();
-		command->execute();
+		command->execute(result);
 	}
+
+	return result.top();
 }
 

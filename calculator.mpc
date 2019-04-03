@@ -15,7 +15,6 @@ project (calculator) {
 	Math_Expr/Postfix_Expr.cpp
 	Math_Expr/Tree_Expr.cpp
 
-	Command/Command.cpp
 	Command/Number_Command.cpp
 	Command/Operator_Command.cpp
 	Command/Unary_Command.cpp
@@ -40,7 +39,6 @@ project (calculator) {
 	Composite/Binary_Nodes/Divide_Node.cpp
 	Composite/Binary_Nodes/Modulus_Node.cpp
 
-	Factory/Abstract_Expr_Factory.cpp
 	Factory/Postfix_Expr_Factory.cpp
 	Factory/Flyweight_Expr_Factory.cpp
   }
