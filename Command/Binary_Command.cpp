@@ -8,8 +8,8 @@
 //
 // Constructor
 //
-Binary_Command::Binary_Command(Stack<int>& stack):
-  Command(stack) {}
+Binary_Command::Binary_Command(Stack<int>& stack, int precedence):
+  Operator_Command(stack, precedence) {}
 
 
 

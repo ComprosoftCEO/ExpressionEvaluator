@@ -12,22 +12,23 @@
 #ifndef UNARY_COMMAND_HEADER
 #define UNARY_COMMAND_HEADER
 
-#include "Command.h"
+#include "Operator_Command.h"
 
 /**
  * @class Unary_Command
  *
  * Abstract template method class for executing a unary operation on an integer
  */
-class Unary_Command: public Command {
+class Unary_Command: public Operator_Command {
 
 public:
 	/**
 	 * Initializing Constructor
 	 *
-	 * @param[in]		stack		Reference to the stack of integers
+	 * @param[in]		stack			Reference to the stack of integers
+	 * @param[in]		precedence		Precedence for this operator
 	 */
-	Unary_Command(Stack<int>& stack);
+	Unary_Command(Stack<int>& stack, int precedence);
 
 	/// Run a unary function on the stack
 	void execute(void);

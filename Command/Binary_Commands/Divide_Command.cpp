@@ -9,7 +9,7 @@
 // Constructor
 //
 Divide_Command::Divide_Command(Stack<int>& stack):
-  Binary_Command(stack) {}
+  Binary_Command(stack,2) {}
 
 
 

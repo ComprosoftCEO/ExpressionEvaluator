@@ -12,22 +12,23 @@
 #ifndef BINARY_COMMAND_HEADER
 #define BINARY_COMMAND_HEADER
 
-#include "Command.h"
+#include "Operator_Command.h"
 
 /**
  * @class Binary_Command
  *
  * Abstract template method class for executing a binary operation on an integer
  */
-class Binary_Command: public Command {
+class Binary_Command: public Operator_Command {
 
 public:
 	/**
 	 * Initializing Constructor
 	 *
-	 * @param[in]		stack		Reference to the stack of integers
+	 * @param[in]		stack			Reference to the stack of integers
+	 * @param[in]		precedence		Precedence for this operator
 	 */
-	Binary_Command(Stack<int>& stack);
+	Binary_Command(Stack<int>& stack, int precedence);
 
 	/// Run a binary function on the stack
 	void execute(void);

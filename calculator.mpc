@@ -13,6 +13,7 @@ project (calculator) {
 	Postfix_Converter.cpp
 	Command/Command.cpp
 	Command/Number_Command.cpp
+	Command/Operator_Command.cpp
 	Command/Unary_Command.cpp
 	Command/Binary_Command.cpp
 	Command/Unary_Commands/Square_Root_Command.cpp
@@ -37,6 +38,7 @@ project (calculator) {
 	Queue/Queue.h
 	Command/Command.h
 	Command/Number_Command.h
+	Command/Operator_Command.h
 	Command/Unary_Command.h
 	Command/Binary_Command.h
 	Command/Unary_Commands/Square_Root_Command.h
