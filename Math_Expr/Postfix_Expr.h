@@ -39,6 +39,12 @@ public:
 	 */
 	void add_command(Command* command);
 
+	/**
+	 * Add all of the commands from the sub expression onto the current expression.
+	 * @param[in]		expr			Expression object to copy the commands from
+	 */
+	void append_sub_expression(const Postfix_Expr& expr);
+
 private:
 	/// Array of commands to run
 	Array<Command*> to_run_;

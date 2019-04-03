@@ -34,3 +34,15 @@ void Postfix_Expr::add_command(Command* command) {
 	this->to_run_.resize(new_size);
 	this->to_run_[cur_size] = command;
 }
+
+
+
+//
+// Add a sub expression onto my expression
+//
+void Postfix_Expr::append_sub_expression(const Postfix_Expr& expr) {
+	for (size_t i = 0; i < expr.to_run_.size(); ++i) {
+		this->add_command(expr.to_run_[i]);
+	}
+}
+
