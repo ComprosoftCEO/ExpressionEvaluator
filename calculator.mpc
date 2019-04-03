@@ -1,6 +1,6 @@
 project (calculator) {
   exename = calculator
-  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Factory
+  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Composite Composite/Unary_Nodes Composite/Binary_Nodes Factory
   install = .
  
   specific (make, gnuace) {
@@ -11,6 +11,9 @@ project (calculator) {
 	driver.cpp
 	User_Interface.cpp
 	Postfix_Converter.cpp
+
+	Math_Expr/Postfix_Expr.cpp
+	Math_Expr/Tree_Expr.cpp
 
 	Command/Command.cpp
 	Command/Number_Command.cpp
@@ -50,6 +53,9 @@ project (calculator) {
 	Array/Fixed_Array.h
 	Stack/Stack.h
 	Queue/Queue.h
+
+	Math_Expr/Math_Expr.h
+	Math_Expr/Postfix_Expr.h
 
 	Command/Command.h
 	Command/Number_Command.h
