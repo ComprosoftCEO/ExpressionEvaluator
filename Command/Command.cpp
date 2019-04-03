@@ -10,9 +10,3 @@
 //
 Command::Command(Stack<int>& stack, int precedence):
   stack(stack) {}
-
-
-//
-// Destructor
-//
-Command::~Command() = default;

@@ -11,6 +11,7 @@ project (calculator) {
 	driver.cpp
 	User_Interface.cpp
 	Postfix_Converter.cpp
+
 	Command/Command.cpp
 	Command/Number_Command.cpp
 	Command/Operator_Command.cpp
@@ -23,6 +24,19 @@ project (calculator) {
 	Command/Binary_Commands/Multiply_Command.cpp
 	Command/Binary_Commands/Divide_Command.cpp
 	Command/Binary_Commands/Modulus_Command.cpp
+
+	Composite/Number_Node.cpp
+	Composite/Operator_Node.cpp
+	Composite/Unary_Node.cpp
+	Composite/Binary_Node.cpp
+	Composite/Unary_Nodes/Square_Root_Node.cpp
+	Composite/Unary_Nodes/Negate_Node.cpp
+	Composite/Binary_Nodes/Add_Node.cpp
+	Composite/Binary_Nodes/Subtract_Node.cpp
+	Composite/Binary_Nodes/Multiply_Node.cpp
+	Composite/Binary_Nodes/Divide_Node.cpp
+	Composite/Binary_Nodes/Modulus_Node.cpp
+
 	Factory/Abstract_Expr_Factory.cpp
 	Factory/Postfix_Expr_Factory.cpp
 	Factory/Flyweight_Expr_Factory.cpp
@@ -36,6 +50,7 @@ project (calculator) {
 	Array/Fixed_Array.h
 	Stack/Stack.h
 	Queue/Queue.h
+
 	Command/Command.h
 	Command/Number_Command.h
 	Command/Operator_Command.h
@@ -48,6 +63,20 @@ project (calculator) {
 	Command/Binary_Commands/Multiply_Command.h
 	Command/Binary_Commands/Divide_Command.h
 	Command/Binary_Commands/Modulus_Command.h
+
+	Composite/Expr_Node.h
+	Composite/Number_Node.h
+	Composite/Operator_Node.h
+	Composite/Unary_Node.h
+	Composite/Binary_Node.h
+	Composite/Unary_Nodes/Square_Root_Node.h
+	Composite/Unary_Nodes/Negate_Node.h
+	Composite/Binary_Nodes/Add_Node.h
+	Composite/Binary_Nodes/Subtract_Node.h
+	Composite/Binary_Nodes/Multiply_Node.h
+	Composite/Binary_Nodes/Divide_Node.h
+	Composite/Binary_Nodes/Modulus_Node.h
+
 	Factory/Abstract_Expr_Factory.h
 	Factory/Postfix_Expr_Factory.h
 	Factory/Flyweight_Expr_Factory.h

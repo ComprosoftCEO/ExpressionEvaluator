@@ -32,7 +32,7 @@ public:
 	Command(Stack<int>& stack, int precedence = 0);
 
 	/// Destructor
-	virtual ~Command();
+	virtual ~Command() = default;
 
 	/// Run the command for this object
 	virtual void execute(void) = 0;
