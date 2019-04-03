@@ -1,6 +1,6 @@
 project (calculator) {
   exename = calculator
-  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Composite Composite/Unary_Nodes Composite/Binary_Nodes Factory
+  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Composite Composite/Unary_Nodes Composite/Binary_Nodes Factory Math_Expr
   install = .
  
   specific (make, gnuace) {
@@ -41,6 +41,8 @@ project (calculator) {
 
 	Factory/Postfix_Expr_Factory.cpp
 	Factory/Flyweight_Expr_Factory.cpp
+
+	Builder/Postfix_Builder.cpp
   }
 
   Header_Files {
@@ -84,6 +86,9 @@ project (calculator) {
 	Factory/Abstract_Expr_Factory.h
 	Factory/Postfix_Expr_Factory.h
 	Factory/Flyweight_Expr_Factory.h
+
+	Builder/Expr_Builder.h
+	Builder/Postfix_Builder.h
   }
 
   Template_Files {

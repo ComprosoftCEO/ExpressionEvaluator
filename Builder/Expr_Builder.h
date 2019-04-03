@@ -72,7 +72,7 @@ public:
 	 * @retval			true			The builder is in an expression
 	 * @retval			false			The builder is not in an expression
 	 */
-	virtual bool in_expression() = 0;
+	virtual bool in_expression() const = 0;
 
 	/**
 	 * Add a integer literal to the expression
@@ -100,6 +100,12 @@ public:
 
 	/// Add a % operator to the expression
 	virtual void build_modulus_operator() = 0;
+
+	/// Add a ( to the expression
+	virtual void build_left_parenthesis() = 0;
+
+	/// Add a ) to the expression
+	virtual void build_right_parenthesis() = 0;
 };
 
 #endif	/* Expression Builder Header Included */
