@@ -28,7 +28,7 @@ Unary_Node::~Unary_Node() {
 //
 // Evaluate the unary expression
 //
-int Unary_Node::eval() {
-	int value = this->child_expr_->eval();
+int Unary_Node::evaluate() {
+	int value = this->child_expr_->evaluate();
 	return this->do_operation(value);
 }

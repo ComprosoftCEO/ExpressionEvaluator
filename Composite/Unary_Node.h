@@ -37,7 +37,7 @@ public:
 	virtual ~Unary_Node();
 
 	/// Return the result of this unary command
-	int eval();
+	int evaluate();
 
 	/**
 	 * Execute the unary operation on the given input

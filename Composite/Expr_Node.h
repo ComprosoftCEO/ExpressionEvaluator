@@ -29,7 +29,7 @@ public:
 	 * Evaluate this expression tree
 	 * @return		Result of the evaluation	
 	 */
-	virtual int eval() = 0;
+	virtual int evaluate() = 0;
 
 };
 

@@ -18,6 +18,6 @@ Number_Node::Number_Node(int value):
 //
 // Evaluate
 //
-int Number_Node::eval() {
+int Number_Node::evaluate() {
 	return this->value_;
 }

@@ -29,10 +29,10 @@ Binary_Node::~Binary_Node() {
 //
 // Evaluate the binary expression
 //
-int Binary_Node::eval() {
+int Binary_Node::evaluate() {
 
-	int left = this->left_expr_->eval();
-	int right = this->right_expr_->eval();
+	int left = this->left_expr_->evaluate();
+	int right = this->right_expr_->evaluate();
 
 	return this->do_operation(left, right);
 }

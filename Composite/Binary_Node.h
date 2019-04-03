@@ -38,7 +38,7 @@ public:
 	virtual ~Binary_Node();
 
 	/// Return the result of this binary command
-	int eval();
+	int evaluate();
 
 	/**
 	 * Execute the binary operation on the given input

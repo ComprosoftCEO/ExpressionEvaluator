@@ -30,7 +30,7 @@ public:
 	Number_Node(int value);
 
 	/// Return the stored value from this number
-	int eval();
+	int evaluate();
 
 
 private:
