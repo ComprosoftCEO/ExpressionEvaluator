@@ -17,5 +17,8 @@ Divide_Node::Divide_Node(Expr_Node* left_expr, Expr_Node* right_expr):
 // Divide the two numbers
 //
 int Divide_Node::do_operation(int left, int right) {
+	if (right == 0) {
+		throw Divide_Node::divide_by_zero_exception();
+	}
 	return left / right;
 }

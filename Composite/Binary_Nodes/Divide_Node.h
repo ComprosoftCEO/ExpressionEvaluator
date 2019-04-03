@@ -13,6 +13,8 @@
 #define DIVIDE_NODE_HEADER
 
 #include "../Binary_Node.h"
+#include <exception>
+
 
 class Divide_Node: public Binary_Node {
 
@@ -27,6 +29,16 @@ public:
 
 	/// Divide the left and right operators
 	int do_operation(int left, int right);
+
+	/**
+	 * @class divide_by_zero_exception
+	 * Thrown when trying to do a number divided by 0
+	 */
+	class divide_by_zero_exception: public std::exception {
+		const char* what() const noexcept {
+			return "Floating point exception: divide by 0!";
+		}
+	};
 };
 
 
