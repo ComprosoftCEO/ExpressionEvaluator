@@ -29,6 +29,16 @@ public:
 	/// Call the square root method on the input
 	int do_operation(int input);
 
+
+	/**
+	 * @class negative_square_root_exception
+	 * Thrown when trying to do the square root of a negative number
+	 */
+	class negative_square_root_exception: public std::exception {
+		const char* what() const noexcept {
+			return "Trying to square root a negative number!";
+		}
+	};
 };
 
 

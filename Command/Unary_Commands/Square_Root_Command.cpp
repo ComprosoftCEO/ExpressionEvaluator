@@ -18,5 +18,8 @@ Square_Root_Command::Square_Root_Command(Stack<int>& stack):
 // Square Root operation
 //
 int Square_Root_Command::do_operation(int input) {
+	if (input < 0) {
+		throw Square_Root_Command::negative_square_root_exception();
+	}
 	return sqrt(input);
 }
