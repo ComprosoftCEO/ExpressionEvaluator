@@ -23,7 +23,7 @@
 
 /**
  * @class Postfix_Builder_State
- * Struct to wrap the intermediate state of the postfix to infix converter
+ * Struct to wrap the intermediate state of the postfix expression builder
  */
 struct Postfix_Builder_State {
 
@@ -63,6 +63,9 @@ public:
 
 	/// Free any previously constructed expressions from memory.
 	void release_all_expressions();
+
+	/// Stop and release the current expression prematurely
+	void release_expression_state();
 
 	/// Signal to the builder to start creating a new expression
 	void start_new_expression();
@@ -116,9 +119,6 @@ public:
 
 
 private:
-
-	/// Free any objects allocated in the object's internal state
-	void release_internal_state();
 
 	/**
 	 * Pop any additional operators from the stack and add them to the expression

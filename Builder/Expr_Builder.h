@@ -39,6 +39,10 @@
  * previously constructed expressions. The method release_all_expressions() can be used to
  * manually free any previosly allocated expressions, at which case using these expressions
  * will become invalid.
+ *
+ * A expression being built can be terminated early by calling release_expression_state().
+ * If this method is called, then any temporary data is deleted and in_expression() is
+ * reset to false. If the program is not in an expression, then an exception should be thrown.
  */
 class Expr_Builder {
 
@@ -57,6 +61,9 @@ public:
 
 	/// Free any previously constructed expressions from memory.
 	virtual void release_all_expressions() = 0;
+
+	/// Stop and release the current expression prematurely
+	virtual void release_expression_state() = 0;
 
 	/// Signal to the builder to start creating a new expression
 	virtual void start_new_expression() = 0;

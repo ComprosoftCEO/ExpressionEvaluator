@@ -25,7 +25,9 @@ Postfix_Builder::~Postfix_Builder() {
 	this->release_all_expressions();
 
 	//Also release any temporary expressions
-	this->release_internal_state();
+	if (this->in_expression()) {
+		this->release_expression_state();
+	}
 }
 
 
@@ -48,7 +50,7 @@ Math_Expr* Postfix_Builder::get_expression() {
 
 
 //
-// Release any stored products
+// Release any stored expressions
 //
 void Postfix_Builder::release_all_expressions() {
 	while(!this->to_free.is_empty()) {
@@ -60,10 +62,16 @@ void Postfix_Builder::release_all_expressions() {
 //
 // Free any internal state objects
 //
-void Postfix_Builder::release_internal_state() {
+void Postfix_Builder::release_expression_state() {
+
+	if (!this->in_expression()) {
+		//TODO: Throw an exception
+	}
 
 	// Delete the current temporary state
 	delete(this->current_state.expr);
+	this->current_state.expr = nullptr;
+	this->current_state.stack.clear();
 
 	// Delete any stored parenthesis states
 	while (!this->state_stack.is_empty()) {
@@ -89,7 +97,11 @@ void Postfix_Builder::start_new_expression() {
 
 	// Create the new expression to work with
 	this->current_state.expr = new Postfix_Expr();
+
+	// Reset any other state variables (should NOT be necessary)
 	this->current_state.stack.clear();
+	this->state_stack.clear();
+	this->last_token_operand = false;
 }
 
 
@@ -109,12 +121,17 @@ void Postfix_Builder::end_expression() {
 		//TODO: Throw an exception
 	}
 
+	//Expression must end on a valid token
+	if (!this->last_token_operand) {
+		//TODO: throw an exception
+	}
+
 	//Remove the remaining operators from the current state
 	this->pop_remaining_operators();
 
-	//Clear the current state
+	//Move the expression to the top of the stack
+	this->to_free.push(this->current_state.expr);
 	this->current_state.expr = nullptr;
-	this->current_state.stack.clear();
 }
 
 
@@ -146,6 +163,15 @@ bool Postfix_Builder::in_expression() const {
 // Add a number to the expression
 //
 void Postfix_Builder::build_number(int number) {
+
+	//Number must come after an operator
+	if (this->last_token_operand) {
+		//TODO: Throw an exception
+	}
+	this->last_token_operand = true;
+
+
+	//Create the actual number command
 	Command* number_command = this->factory.construct_number_command(number);
 	this->current_state.expr->add_command(number_command);
 }
@@ -156,6 +182,14 @@ void Postfix_Builder::build_number(int number) {
 // Add a variable to the expression
 //
 void Postfix_Builder::build_variable(const std::string& name) {
+
+	//Variable must come after an operator
+	if (this->last_token_operand) {
+		//TODO: Throw an exception
+	}
+	this->last_token_operand = true;
+
+
 	//TODO: Get this method working
 }
 
