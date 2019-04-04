@@ -14,6 +14,7 @@
 
 
 #include "Expr_Node.h"
+#include <Stack.h>
 
 /**
  * @class Operator_Node
@@ -35,6 +36,16 @@ public:
 	 * @return			Precedence of this operator
 	 */
 	int get_precedence() const;
+
+	/**
+	 * Sets the children (if any) of this operator object, popping off
+	 * from the stack in reverse order of the children. Existing children
+	 * are automatically deleted.
+	 *
+	 * @param[in]		stack				Stack to pop for children
+	 * @exception		empty_exception		The stack is empty.
+	 */
+	virtual void load_children_from_stack(Stack<Expr_Node*>& stack) = 0;
 
 private:
 	int precedence_;

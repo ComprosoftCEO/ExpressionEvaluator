@@ -32,3 +32,17 @@ int Unary_Node::evaluate() {
 	int value = this->child_expr_->evaluate();
 	return this->do_operation(value);
 }
+
+
+
+//
+// Load children from the stack
+//
+void Unary_Node::load_children_from_stack(Stack<Expr_Node*>& stack) {
+
+	Expr_Node* node = stack.pop();		// Might throw an exception
+
+	//Delete the child and replace
+	delete(this->child_expr_);
+	this->child_expr_ = node;
+}

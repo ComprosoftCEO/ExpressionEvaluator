@@ -36,3 +36,23 @@ int Binary_Node::evaluate() {
 
 	return this->do_operation(left, right);
 }
+
+
+
+//
+// Load children from the stack
+//
+void Binary_Node::load_children_from_stack(Stack<Expr_Node*>& stack) {
+
+	if (stack.size() < 2) {
+		throw Stack<Expr_Node*>::empty_exception();
+	}
+
+	//Delete my existing children (does nothing if NULL)
+	delete(this->left_expr_);
+	delete(this->right_expr_);
+
+	//Pop in reverse order
+	this->right_expr_ = stack.pop();
+	this->left_expr_ = stack.pop();
+}

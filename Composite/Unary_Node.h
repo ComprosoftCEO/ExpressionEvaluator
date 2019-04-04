@@ -47,6 +47,16 @@ public:
 	 */
 	virtual int do_operation(int input) = 0;
 
+	/**
+	 * Sets the children (if any) of this operator object, popping off
+	 * from the stack in reverse order of the children. Existing children
+	 * are automatically deleted.
+	 *
+	 * @param[in]		stack				Stack to pop for children
+	 * @exception		empty_exception		The stack is empty.
+	 */
+	void load_children_from_stack(Stack<Expr_Node*>& stack);
+
 private:
 	/// Child expression in the expression tree
 	Expr_Node* child_expr_;
