@@ -41,11 +41,11 @@ Postfix_Builder::~Postfix_Builder() {
 //
 Math_Expr* Postfix_Builder::get_expression() {
 	if (this->in_expression()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_state_exception();
 	}
 
 	if (this->to_free.is_empty()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::no_expression_exception();
 	}
 
 	return this->to_free.top();
@@ -69,7 +69,7 @@ void Postfix_Builder::release_all_expressions() {
 void Postfix_Builder::release_expression_state() {
 
 	if (!this->in_expression()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_state_exception();
 	}
 
 	// Delete the current temporary state
@@ -95,7 +95,7 @@ void Postfix_Builder::start_new_expression() {
 
 	//Cannot start a new expression if we are already in one
 	if (this->in_expression()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_state_exception();
 	}
 
 
@@ -115,19 +115,12 @@ void Postfix_Builder::start_new_expression() {
 //
 void Postfix_Builder::end_expression() {
 
-	//Must be in an expression to end it
-	if (!this->in_expression()) {
-		//TODO: Throw an exception
-	}
+	//Expression must end on a number or variable
+	this->test_last_token(LAST_TOKEN_OPERAND);
 
 	//Make sure there aren't any unclosed parenthesis
 	if (!this->state_stack.is_empty()) {
-		//TODO: Throw an exception
-	}
-
-	//Expression must end on a valid token
-	if (!this->last_token_operand) {
-		//TODO: throw an exception
+		throw Expr_Builder::mismatched_parenthesis_exception();
 	}
 
 	//Remove the remaining operators from the current state
@@ -170,12 +163,12 @@ void Postfix_Builder::test_last_token(bool expected_token) const {
 
 	//Make sure I am inside an expression
 	if (!this->in_expression()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_state_exception();
 	}
 
 	//Make sure the state is valid
 	if (this->last_token_operand != expected_token) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_infix_exception();
 	}
 }
 
@@ -368,7 +361,7 @@ void Postfix_Builder::build_right_parenthesis() {
 
 	//Underflowed the stack!
 	if (this->state_stack.is_empty()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::mismatched_parenthesis_exception();
 	}
 
 	//Remove the remaining operators from the current state

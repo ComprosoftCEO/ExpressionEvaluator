@@ -13,6 +13,7 @@
 #define EXPR_BUILDER_HEADER
 
 #include "Math_Expr.h"
+#include <exception>
 #include <string>
 
 
@@ -45,6 +46,10 @@
  * reset to false. If the program is not in an expression, then an exception should be thrown.
  */
 class Expr_Builder {
+
+public:
+	//All of the exceptions for the builder class
+	#include "Builder_Exceptions.h"
 
 public:
 

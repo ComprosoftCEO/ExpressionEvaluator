@@ -46,11 +46,11 @@ Tree_Builder::~Tree_Builder() {
 //
 Math_Expr* Tree_Builder::get_expression() {
 	if (this->in_expression()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_state_exception();
 	}
 
 	if (this->to_free.is_empty()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::no_expression_exception();
 	}
 
 	return this->to_free.top();
@@ -105,7 +105,7 @@ void Tree_Builder::release_expression_state() {
 void Tree_Builder::start_new_expression() {
 
 	if (this->in_expression()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_state_exception();
 	}
 
 	// Create the new expression to work with
@@ -125,7 +125,7 @@ void Tree_Builder::end_expression() {
 
 	//Make sure there aren't any unclosed parenthesis
 	if (!this->state_stack.is_empty()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::mismatched_parenthesis_exception();
 	}
 
 	//Remove the remaining operators from the current state
@@ -170,12 +170,12 @@ void Tree_Builder::test_last_token(bool expected_token) const {
 
 	//Make sure I am inside an expression
 	if (!this->in_expression()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_state_exception();
 	}
 
 	//Make sure the state is valid
 	if (this->last_token_operand != expected_token) {
-		//TODO: Throw an exception
+		throw Expr_Builder::invalid_infix_exception();
 	}
 }
 
@@ -367,7 +367,7 @@ void Tree_Builder::build_right_parenthesis() {
 
 	//Underflowed the stack!
 	if (this->state_stack.is_empty()) {
-		//TODO: Throw an exception
+		throw Expr_Builder::mismatched_parenthesis_exception();
 	}
 
 	//Remove the remaining operators from the current state
