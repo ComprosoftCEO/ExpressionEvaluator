@@ -16,6 +16,7 @@ project (calculator) {
 	Math_Expr/Tree_Expr.cpp
 
 	Command/Number_Command.cpp
+	Command/Variable_Command.cpp
 	Command/Operator_Command.cpp
 	Command/Unary_Command.cpp
 	Command/Binary_Command.cpp
@@ -28,6 +29,7 @@ project (calculator) {
 	Command/Binary_Commands/Modulus_Command.cpp
 
 	Composite/Number_Node.cpp
+	Composite/Variable_Node.cpp
 	Composite/Operator_Node.cpp
 	Composite/Unary_Node.cpp
 	Composite/Binary_Node.cpp
@@ -60,6 +62,7 @@ project (calculator) {
 
 	Command/Command.h
 	Command/Number_Command.h
+	Command/Variable_Command.h
 	Command/Operator_Command.h
 	Command/Unary_Command.h
 	Command/Binary_Command.h
@@ -73,6 +76,7 @@ project (calculator) {
 
 	Composite/Expr_Node.h
 	Composite/Number_Node.h
+	Composite/Variable_Node.h
 	Composite/Operator_Node.h
 	Composite/Unary_Node.h
 	Composite/Binary_Node.h
