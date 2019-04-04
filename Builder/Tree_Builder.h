@@ -17,6 +17,7 @@
 #include <Tree_Expr.h>
 #include <Operator_Node.h>
 #include <Stack.h>
+#include <functional>
 
 
 /**
@@ -120,7 +121,7 @@ private:
 	 * All of the logic required to process an operator
 	 * @param[in]		op			The operator to process
 	 */
-	void process_operator(Operator_Node* op);
+	void process_operator(std::function<Operator_Node*(void)> construct_operator);
 
 	/**
 	 * Push an operator onto the actual expression stack, properly

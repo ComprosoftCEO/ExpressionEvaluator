@@ -169,6 +169,11 @@ bool Tree_Builder::in_expression() const {
 //
 void Tree_Builder::build_number(int number) {
 
+	//Must be inside an expression
+	if (!this->in_expression()) {
+		//TODO: Throw an exception
+	}
+
 	//Number must come after an operator
 	if (this->last_token_operand) {
 		//TODO: Throw an exception
@@ -187,6 +192,11 @@ void Tree_Builder::build_number(int number) {
 //
 void Tree_Builder::build_variable(const std::string& name) {
 
+	//Must be inside an expression
+	if (!this->in_expression()) {
+		//TODO: Throw an exception
+	}
+
 	//Variable must come after an operator
 	if (this->last_token_operand) {
 		//TODO: Throw an exception
@@ -203,8 +213,9 @@ void Tree_Builder::build_variable(const std::string& name) {
 // Create an addition operator
 //
 void Tree_Builder::build_add_operator() {
-	Operator_Node* op = new Add_Node();
-	this->process_operator(op);
+	this->process_operator(
+		[]() -> Operator_Node* {return new Add_Node();}
+	);
 }
 
 
@@ -213,8 +224,9 @@ void Tree_Builder::build_add_operator() {
 // Create a subtraction operator
 //
 void Tree_Builder::build_subtract_operator() {
-	Operator_Node* op = new Subtract_Node();
-	this->process_operator(op);
+	this->process_operator(
+		[]() -> Operator_Node* {return new Subtract_Node();}
+	);
 }
 
 
@@ -223,8 +235,9 @@ void Tree_Builder::build_subtract_operator() {
 // Create a multiplication operator
 //
 void Tree_Builder::build_multiply_operator() {
-	Operator_Node* op = new Multiply_Node();
-	this->process_operator(op);
+	this->process_operator(
+		[]() -> Operator_Node* {return new Multiply_Node();}
+	);
 }
 
 
@@ -233,8 +246,9 @@ void Tree_Builder::build_multiply_operator() {
 // Create a division operator
 //
 void Tree_Builder::build_divide_operator() {
-	Operator_Node* op = new Divide_Node();
-	this->process_operator(op);
+	this->process_operator(
+		[]() -> Operator_Node* {return new Divide_Node();}
+	);
 }
 
 
@@ -243,8 +257,9 @@ void Tree_Builder::build_divide_operator() {
 // Create a modulus operator
 //
 void Tree_Builder::build_modulus_operator() {
-	Operator_Node* op = new Modulus_Node();
-	this->process_operator(op);
+	this->process_operator(
+		[]() -> Operator_Node* {return new Modulus_Node();}
+	);
 }
 
 
@@ -253,15 +268,22 @@ void Tree_Builder::build_modulus_operator() {
 //
 // Process all operators uniformly
 //
-void Tree_Builder::process_operator(Operator_Node* op) {
+void Tree_Builder::process_operator(std::function<Operator_Node*(void)> construct_operator) {
+
+	//Must be inside an expression
+	if (!this->in_expression()) {
+		//TODO: Throw an exception
+	}
 
 	//Operators can only come after a number or variable
 	if (!this->last_token_operand) {
-		delete(op);
 		//TODO: Throw an exception
 	}
 	this->last_token_operand = false;
 
+
+	//Construct the operator
+	Operator_Node* op = construct_operator();
 
 	//Compute operator precedence
 	int current_prec = op->get_precedence();

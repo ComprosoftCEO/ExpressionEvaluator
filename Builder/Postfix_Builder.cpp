@@ -199,8 +199,11 @@ void Postfix_Builder::build_variable(const std::string& name) {
 // Create an addition operator
 //
 void Postfix_Builder::build_add_operator() {
-	Operator_Command* op = this->factory.construct_add_command();
-	this->process_operator(op);
+	auto construct_operator = [](Abstract_Expr_Factory& factory) -> Operator_Command* {
+		return factory.construct_add_command();
+	};
+
+	this->process_operator(construct_operator);
 }
 
 
@@ -209,8 +212,11 @@ void Postfix_Builder::build_add_operator() {
 // Create a subtraction operator
 //
 void Postfix_Builder::build_subtract_operator() {
-	Operator_Command* op = this->factory.construct_subtract_command();
-	this->process_operator(op);
+	auto construct_operator = [](Abstract_Expr_Factory& factory) -> Operator_Command* {
+		return factory.construct_subtract_command();
+	};
+
+	this->process_operator(construct_operator);
 }
 
 
@@ -219,8 +225,11 @@ void Postfix_Builder::build_subtract_operator() {
 // Create a multiplication operator
 //
 void Postfix_Builder::build_multiply_operator() {
-	Operator_Command* op = this->factory.construct_multiply_command();
-	this->process_operator(op);
+	auto construct_operator = [](Abstract_Expr_Factory& factory) -> Operator_Command* {
+		return factory.construct_multiply_command();
+	};
+
+	this->process_operator(construct_operator);
 }
 
 
@@ -229,8 +238,11 @@ void Postfix_Builder::build_multiply_operator() {
 // Create a division operator
 //
 void Postfix_Builder::build_divide_operator() {
-	Operator_Command* op = this->factory.construct_divide_command();
-	this->process_operator(op);
+	auto construct_operator = [](Abstract_Expr_Factory& factory) -> Operator_Command* {
+		return factory.construct_divide_command();
+	};
+
+	this->process_operator(construct_operator);
 }
 
 
@@ -239,8 +251,11 @@ void Postfix_Builder::build_divide_operator() {
 // Create a modulus operator
 //
 void Postfix_Builder::build_modulus_operator() {
-	Operator_Command* op = this->factory.construct_modulus_command();
-	this->process_operator(op);
+	auto construct_operator = [](Abstract_Expr_Factory& factory) -> Operator_Command* {
+		return factory.construct_modulus_command();
+	};
+
+	this->process_operator(construct_operator);
 }
 
 
@@ -249,7 +264,12 @@ void Postfix_Builder::build_modulus_operator() {
 //
 // Process all operators uniformly
 //
-void Postfix_Builder::process_operator(Operator_Command* op) {
+void Postfix_Builder::process_operator(std::function<Operator_Command*(Abstract_Expr_Factory&)> construct_operator) {
+
+	//Must be inside an expression
+	if (!this->in_expression()) {
+		//TODO: Throw an exception
+	}
 
 	//Operators can only come after a number or variable
 	if (!this->last_token_operand) {
@@ -258,6 +278,8 @@ void Postfix_Builder::process_operator(Operator_Command* op) {
 	this->last_token_operand = false;
 
 
+	//Construct the operator
+	Operator_Command* op = construct_operator(this->factory);
 
 	//Compute operator precedence
 	int current_prec = op->get_precedence();

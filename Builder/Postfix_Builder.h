@@ -17,6 +17,7 @@
 #include <Postfix_Expr.h>
 #include <Flyweight_Expr_Factory.h>
 #include <Stack.h>
+#include <functional>
 
 
 
@@ -129,7 +130,7 @@ private:
 	 * All of the logic required to process an operator
 	 * @param[in]		op			The operator to process
 	 */
-	void process_operator(Operator_Command* op);
+	void process_operator(std::function<Operator_Command*(Abstract_Expr_Factory&)> construct_operator);
 
 private:
 
