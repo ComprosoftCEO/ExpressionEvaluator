@@ -23,7 +23,7 @@ public:
 	 * @param[in]		left_expr		Left expression tree for this operator
 	 * @param[in]		right_expr		Right expression tree for this operator
 	 */
-	Subtract_Node(Expr_Node* left_expr, Expr_Node* right_expr);
+	Subtract_Node(Expr_Node* left_expr = nullptr, Expr_Node* right_expr = nullptr);
 
 	/// Subtract the left and right operators
 	int do_operation(int left, int right);

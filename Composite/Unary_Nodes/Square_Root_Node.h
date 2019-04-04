@@ -26,7 +26,7 @@ public:
 	 *
 	 * @param[in]		child_expr		Child expression tree for this operator
 	 */
-	Square_Root_Node(Expr_Node* child_expr);
+	Square_Root_Node(Expr_Node* child_expr = nullptr);
 
 	/// Find the square root
 	int do_operation(int input);

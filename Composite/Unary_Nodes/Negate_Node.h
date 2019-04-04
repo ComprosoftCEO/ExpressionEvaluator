@@ -24,7 +24,7 @@ public:
 	 *
 	 * @param[in]		child_expr		Child expression tree for this operator
 	 */
-	Negate_Node(Expr_Node* child_expr);
+	Negate_Node(Expr_Node* child_expr = nullptr);
 
 	/// Multiply input by -1
 	int do_operation(int input);
