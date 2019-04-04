@@ -26,10 +26,19 @@ public:
 	/// Release any dynamically constructed objects from memory
 	void release_products() ;
 
-	/** Create a new number command
-	 * @param[in]	number		The number for this point
+	/**
+	 * Create a new number command
+	 * @param[in]	number		The number value for this command
 	 */
 	Number_Command* construct_number_command(int number);
+
+	/**
+	 * Construct a variable command
+	 *
+	 * @param[in]	name			Name of the variable
+	 * @param[in]	default_value	Initial value for the variable
+	 */
+	Variable_Command* construct_variable_command(const std::string& name, int default_value = 0);
 
 	/// Create a new addition command
 	Add_Command* construct_add_command();

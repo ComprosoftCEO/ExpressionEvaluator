@@ -198,7 +198,6 @@ void Postfix_Builder::build_variable(const std::string& name) {
 	this->test_last_token(LAST_TOKEN_OPERATOR);
 	this->set_last_token(LAST_TOKEN_OPERAND);
 
-
 	//TODO: Get this method working
 }
 

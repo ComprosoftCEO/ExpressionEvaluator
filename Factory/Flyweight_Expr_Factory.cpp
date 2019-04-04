@@ -35,6 +35,15 @@ Number_Command* Flyweight_Expr_Factory::construct_number_command(int number) {
 }
 
 
+//
+// Get the variable command
+//
+Variable_Command* Flyweight_Expr_Factory::construct_variable_command(const std::string& name, int default_value) {
+	Variable_Command* command = new Variable_Command(name, default_value);
+	this->to_free.enqueue(command);
+	return command;
+}
+
 
 //
 // Get the static addition command
