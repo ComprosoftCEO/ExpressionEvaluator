@@ -27,7 +27,7 @@
  * all of the tokens have been read and inputted into the builder, call end_expression()
  * to finish up any expression logic. Use get_expression() to return the last computed
  * math expression. No tokens should be streamed into the builder before calling start()
- * or after calling end() (it should throw an exception).
+ * or after calling end() (it will throw an exception).
  *
  * If an invalid token is streamed into the builder at any point, then the builder may
  * throw an exception to signal that the infix expression is not valid. The state of
@@ -43,7 +43,7 @@
  *
  * A expression being built can be terminated early by calling release_expression_state().
  * If this method is called, then any temporary data is deleted and in_expression() is
- * reset to false. If the program is not in an expression, then an exception should be thrown.
+ * reset to false.
  */
 class Expr_Builder {
 
@@ -57,9 +57,7 @@ public:
 	virtual ~Expr_Builder() = default;
 
 	/**
-	 * Get the last valid expression. If the builder is currently creating
-	 * a new expression (in_expression() is true), then it throws an exception.
-	 *
+	 * Get the last valid expression. 
 	 * @return			Last created expression
 	 */
 	virtual Math_Expr* get_expression() = 0;

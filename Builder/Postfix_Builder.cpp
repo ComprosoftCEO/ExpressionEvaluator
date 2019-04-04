@@ -40,10 +40,6 @@ Postfix_Builder::~Postfix_Builder() {
 // Get the last expression
 //
 Math_Expr* Postfix_Builder::get_expression() {
-	if (this->in_expression()) {
-		throw Expr_Builder::invalid_state_exception();
-	}
-
 	if (this->to_free.is_empty()) {
 		throw Expr_Builder::no_expression_exception();
 	}
@@ -68,10 +64,6 @@ void Postfix_Builder::release_all_expressions() {
 //
 void Postfix_Builder::release_expression_state() {
 
-	if (!this->in_expression()) {
-		throw Expr_Builder::invalid_state_exception();
-	}
-
 	// Delete the current temporary state
 	delete(this->current_state.expr);
 	this->current_state.expr = nullptr;
@@ -95,7 +87,7 @@ void Postfix_Builder::start_new_expression() {
 
 	//Cannot start a new expression if we are already in one
 	if (this->in_expression()) {
-		throw Expr_Builder::invalid_state_exception();
+		throw Expr_Builder::invalid_action_exception();
 	}
 
 
@@ -163,7 +155,7 @@ void Postfix_Builder::test_last_token(bool expected_token) const {
 
 	//Make sure I am inside an expression
 	if (!this->in_expression()) {
-		throw Expr_Builder::invalid_state_exception();
+		throw Expr_Builder::invalid_action_exception();
 	}
 
 	//Make sure the state is valid

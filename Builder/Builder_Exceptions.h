@@ -11,15 +11,15 @@ class mismatched_parenthesis_exception: public std::exception {
 
 
 /**
- * @class invalid_state_exception
+ * @class invalid_action_exception
  *
  * Thrown when trying to perform an action on a builder when you
  * aren't allowed to do so. For example, adding a token before
  * calling start_new_expression().
  */
-class invalid_state_exception: public std::exception {
+class invalid_action_exception: public std::exception {
 	const char* what() const noexcept {
-		return "Invalid builder state!";
+		return "Invalid builder action!";
 	}
 };
 

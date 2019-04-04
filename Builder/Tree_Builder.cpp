@@ -45,10 +45,6 @@ Tree_Builder::~Tree_Builder() {
 // Get the last expression
 //
 Math_Expr* Tree_Builder::get_expression() {
-	if (this->in_expression()) {
-		throw Expr_Builder::invalid_state_exception();
-	}
-
 	if (this->to_free.is_empty()) {
 		throw Expr_Builder::no_expression_exception();
 	}
@@ -105,7 +101,7 @@ void Tree_Builder::release_expression_state() {
 void Tree_Builder::start_new_expression() {
 
 	if (this->in_expression()) {
-		throw Expr_Builder::invalid_state_exception();
+		throw Expr_Builder::invalid_action_exception();
 	}
 
 	// Create the new expression to work with
@@ -170,7 +166,7 @@ void Tree_Builder::test_last_token(bool expected_token) const {
 
 	//Make sure I am inside an expression
 	if (!this->in_expression()) {
-		throw Expr_Builder::invalid_state_exception();
+		throw Expr_Builder::invalid_action_exception();
 	}
 
 	//Make sure the state is valid

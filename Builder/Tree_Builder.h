@@ -46,10 +46,10 @@ public:
 	~Tree_Builder();
 
 	/**
-	 * Get the last valid expression. If the builder is currently creating
-	 * a new expression (in_expression() is true), then it throws an exception.
+	 * Get the last valid expression.
 	 *
 	 * @return			Last created expression
+	 * @throws			no_expression_exception		An expression has not yet been created
 	 */
 	Math_Expr* get_expression();
 
@@ -59,10 +59,19 @@ public:
 	/// Stop and release the current expression prematurely
 	void release_expression_state();
 
-	/// Signal to the builder to start creating a new expression
+	/**
+	 * Signal to the builder to start creating a new expression
+	 *
+	 * @throws			invalid_action_exception	Already inside an expression
+	 */
 	void start_new_expression();
 
-	/// Signal to the builder that there are no more tokens in the expression
+	/**
+	 * Signal to the builder that there are no more tokens in the expression
+	 *
+	 * @throws			invalid_action_exception			Not inside an expression
+	 * @throws			mismatched_parenthesis_exception	Unclosed parenthesis in expression
+	 */
 	void end_expression();
 
 	/**
@@ -77,35 +86,72 @@ public:
 
 	/**
 	 * Add a integer literal to the expression
-	 * @param[in]		number		Integer value to add
+	 *
+	 * @param[in]		number							Integer value to add
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
 	 */
 	void build_number(int number);
 
 	/**
 	 * Add a variable to the expression
-	 * @param[in]		name		Name of the variable
+	 *
+	 * @param[in]		name							Name of the variable
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
 	 */
 	void build_variable(const std::string& name);
 
-	/// Add a + operator to the expression
+	/**
+	 * Add a + operator to the expression
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
+	 */
 	void build_add_operator();
 
-	/// Add a - operator to the expression
+	/**
+	 * Add a - operator to the expression
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
+	 */
 	void build_subtract_operator();
 
-	/// Add a * operator to the expression
+	/**
+	 * Add a * operator to the expression
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
+	 */
 	void build_multiply_operator();
 
-	/// Add a / operator to the expression
+	/**
+	 * Add a / operator to the expression
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
+	 */
 	void build_divide_operator();
 
-	/// Add a % operator to the expression
+	/**
+	 * Add a % operator to the expression
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
+	 */
 	void build_modulus_operator();
 
-	/// Add a ( to the expression
+	/**
+	 * Add a ( to the expression
+	 *
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
+	 */
 	void build_left_parenthesis();
 
-	/// Add a ) to the expression
+	/**
+	 * Add a ) to the expression
+	 *
+	 * @throws			invalid_action_exception			Not inside an expression
+	 * @throws			invalid_infix_exception				Invalid infix expression token
+	 * @throws			mismatched_parenthesis_exception	Unclosed parenthesis in expression
+	 */
 	void build_right_parenthesis();
 
 
@@ -117,8 +163,9 @@ private:
 	 * For the expression to be in a valid state, it must be BOTH inside an expression
 	 * and the expected token must match with last_token_operand.
 	 *
-	 * @param[in]		expected_token		Expected state for the "last_token_operand" flag
-	 * @throws			TODO
+	 * @param[in]		expected_token					Expected value for the "last_token_operand" flag
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Last token does not match expected last token
 	 */
 	void test_last_token(bool expected_token) const;
 
@@ -135,7 +182,10 @@ private:
 
 	/**
 	 * All of the logic required to process an operator
-	 * @param[in]		op			The operator to process
+	 *
+	 * @param[in]		op								The operator to process
+	 * @throws			invalid_action_exception		Not inside an expression
+	 * @throws			invalid_infix_exception			Invalid infix expression token
 	 */
 	void process_operator(std::function<Operator_Node*(void)> construct_operator);
 
