@@ -11,6 +11,11 @@
 #include <Modulus_Node.h>
 
 
+//Preprocessor macros
+#define LAST_TOKEN_OPERAND true
+#define LAST_TOKEN_OPERATOR false
+
+
 
 //
 // Constructor
@@ -115,19 +120,12 @@ void Tree_Builder::start_new_expression() {
 //
 void Tree_Builder::end_expression() {
 
-	//Must be in an expression to end it
-	if (!this->in_expression()) {
-		//TODO: Throw an exception
-	}
+	//All expressions must end on a number or variable
+	this->test_last_token(LAST_TOKEN_OPERAND);
 
 	//Make sure there aren't any unclosed parenthesis
 	if (!this->state_stack.is_empty()) {
 		//TODO: Throw an exception
-	}
-
-	//Expression must end on a valid token
-	if (!this->last_token_operand) {
-		//TODO: throw an exception
 	}
 
 	//Remove the remaining operators from the current state
@@ -164,22 +162,41 @@ bool Tree_Builder::in_expression() const {
 
 
 
+
+//
+// Test for a valid previous token, and throw an exception if not
+//
+void Tree_Builder::test_last_token(bool expected_token) const {
+
+	//Make sure I am inside an expression
+	if (!this->in_expression()) {
+		//TODO: Throw an exception
+	}
+
+	//Make sure the state is valid
+	if (this->last_token_operand != expected_token) {
+		//TODO: Throw an exception
+	}
+}
+
+
+//
+// Set the new last token state
+//
+void Tree_Builder::set_last_token(bool last_token) {
+	this->last_token_operand = last_token;
+}
+
+
+
 //
 // Add a number to the expression
 //
 void Tree_Builder::build_number(int number) {
 
-	//Must be inside an expression
-	if (!this->in_expression()) {
-		//TODO: Throw an exception
-	}
-
-	//Number must come after an operator
-	if (this->last_token_operand) {
-		//TODO: Throw an exception
-	}
-	this->last_token_operand = true;
-
+	//Last token must be an operator
+	this->test_last_token(LAST_TOKEN_OPERATOR);
+	this->set_last_token(LAST_TOKEN_OPERAND);
 
 	//Create the actual number command
 	Number_Node* number_node = new Number_Node(number);
@@ -192,17 +209,9 @@ void Tree_Builder::build_number(int number) {
 //
 void Tree_Builder::build_variable(const std::string& name) {
 
-	//Must be inside an expression
-	if (!this->in_expression()) {
-		//TODO: Throw an exception
-	}
-
-	//Variable must come after an operator
-	if (this->last_token_operand) {
-		//TODO: Throw an exception
-	}
-	this->last_token_operand = true;
-
+	//Last token must be an operator
+	this->test_last_token(LAST_TOKEN_OPERATOR);
+	this->set_last_token(LAST_TOKEN_OPERAND);
 
 	//TODO: Get this method working
 }
@@ -270,16 +279,9 @@ void Tree_Builder::build_modulus_operator() {
 //
 void Tree_Builder::process_operator(std::function<Operator_Node*(void)> construct_operator) {
 
-	//Must be inside an expression
-	if (!this->in_expression()) {
-		//TODO: Throw an exception
-	}
-
-	//Operators can only come after a number or variable
-	if (!this->last_token_operand) {
-		//TODO: Throw an exception
-	}
-	this->last_token_operand = false;
+	//Operators can only come after an operand
+	this->test_last_token(LAST_TOKEN_OPERAND);
+	this->set_last_token(LAST_TOKEN_OPERATOR);
 
 
 	//Construct the operator
@@ -288,7 +290,6 @@ void Tree_Builder::process_operator(std::function<Operator_Node*(void)> construc
 	//Compute operator precedence
 	int current_prec = op->get_precedence();
 	int top_prec;
-
 
 
 	Stack<Operator_Node*>& operator_stack = this->current_state.operator_stack;
@@ -343,9 +344,7 @@ void Tree_Builder::push_operator(Operator_Node* op) {
 void Tree_Builder::build_left_parenthesis() {
 
 	//Left parenthesis can only come after an operator
-	if (this->last_token_operand) {
-		//TODO: Throw an exception
-	}
+	this->test_last_token(LAST_TOKEN_OPERATOR);
 
 	//Push the current state onto the stack
 	this->state_stack.push(this->current_state);
@@ -363,16 +362,13 @@ void Tree_Builder::build_left_parenthesis() {
 //
 void Tree_Builder::build_right_parenthesis() {
 
-	//Overflowed the stack!
+	//Right parenthesis can only come after a number or variable
+	this->test_last_token(LAST_TOKEN_OPERAND);
+
+	//Underflowed the stack!
 	if (this->state_stack.is_empty()) {
 		//TODO: Throw an exception
 	}
-
-	//Right parenthesis can only come after a number or variable
-	if (!this->last_token_operand) {
-		//TODO: Throw an exception
-	}
-
 
 	//Remove the remaining operators from the current state
 	this->pop_remaining_operators();

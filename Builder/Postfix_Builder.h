@@ -122,6 +122,22 @@ public:
 private:
 
 	/**
+	 * Test if the function call is in a token valid state, and throw an exception if not
+	 * For the expression to be in a valid state, it must be BOTH inside an expression
+	 * and the expected token must match with last_token_operand.
+	 *
+	 * @param[in]		expected_token		Expected state for the "last_token_operand" flag
+	 * @throws			TODO
+	 */
+	void test_last_token(bool expected_token) const;
+
+	/**
+	 * Set the new last token state for the parser
+	 * @param[in]		last_token			New state for the last token
+	 */
+	void set_last_token(bool last_token);
+
+	/**
 	 * Pop any additional operators from the stack and add them to the expression
 	 */
 	void pop_remaining_operators();
