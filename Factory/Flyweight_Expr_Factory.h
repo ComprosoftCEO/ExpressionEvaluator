@@ -13,7 +13,7 @@
 #define POSTFIX_EXPR_FACTORY
 
 #include "Abstract_Expr_Factory.h"
-#include <Queue.h>
+#include <map>
 
 
 class Flyweight_Expr_Factory: public Abstract_Expr_Factory {
@@ -66,7 +66,8 @@ private:
 	Modulus_Command modulus_command;
 
 	/// List of dynamically-allocated commands to free
-	Queue<Command*> to_free;
+	std::map<int, Number_Command*> number_commands;
+	std::map<std::string, Variable_Command*> variable_commands;
 };
 
 

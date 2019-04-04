@@ -18,9 +18,19 @@ Flyweight_Expr_Factory::~Flyweight_Expr_Factory() {
 // Release any dynamically allocated products
 //
 void Flyweight_Expr_Factory::release_products() {
-	while(!this->to_free.is_empty()) {
-		delete(this->to_free.dequeue());
+
+	// Use iterators to delete all allocated numbers
+	for (auto it = this->number_commands.begin(); it != this->number_commands.end(); ++it) {
+		delete(it->second);
 	}
+	this->number_commands.clear();
+
+
+	// Use iterators to delete all allocated variables
+	for (auto it = this->variable_commands.begin(); it != this->variable_commands.end(); ++it) {
+		delete(it->second);
+	}
+	this->variable_commands.clear();
 }
 
 
@@ -29,8 +39,16 @@ void Flyweight_Expr_Factory::release_products() {
 // Get the number command
 //
 Number_Command* Flyweight_Expr_Factory::construct_number_command(int number) {
+
+	//See if the number already exists in the map
+	auto search = this->number_commands.find(number);
+	if (search != this->number_commands.end()) {
+		return search->second;
+	}
+
+	//Insert a newly allocated number into the map
 	Number_Command* command = new Number_Command(number);
-	this->to_free.enqueue(command);
+	this->number_commands[number] = command;
 	return command;
 }
 
@@ -39,8 +57,16 @@ Number_Command* Flyweight_Expr_Factory::construct_number_command(int number) {
 // Get the variable command
 //
 Variable_Command* Flyweight_Expr_Factory::construct_variable_command(const std::string& name, int default_value) {
+
+	//See if the variable already exists in the map
+	auto search = this->variable_commands.find(name);
+	if (search != this->variable_commands.end()) {
+		return search->second;
+	}
+
+	//Insert a newly allocated variable into the map
 	Variable_Command* command = new Variable_Command(name, default_value);
-	this->to_free.enqueue(command);
+	this->variable_commands[name] = command;
 	return command;
 }
 
