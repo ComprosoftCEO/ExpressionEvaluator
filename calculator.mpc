@@ -43,6 +43,7 @@ project (calculator) {
 	Factory/Flyweight_Expr_Factory.cpp
 
 	Builder/Postfix_Builder.cpp
+	Builder/Tree_Builder.cpp
   }
 
   Header_Files {
@@ -89,6 +90,7 @@ project (calculator) {
 
 	Builder/Expr_Builder.h
 	Builder/Postfix_Builder.h
+	Builder/Tree_Builder.h
   }
 
   Template_Files {

@@ -2,25 +2,29 @@
 //
 // I pledge that I have neither given nor received any help
 // on this assignment
-#include "Postfix_Builder.h"
+#include "Tree_Builder.h"
+#include <Number_Node.h>
+#include <Add_Node.h>
+#include <Subtract_Node.h>
+#include <Multiply_Node.h>
+#include <Divide_Node.h>
+#include <Modulus_Node.h>
 
 
 
 //
 // Constructor
 //
-Postfix_Builder::Postfix_Builder():
-  current_state({nullptr}),
-  last_token_operand(false) {}
-
+Tree_Builder::Tree_Builder():
+  last_token_operand(false),
+  inside_expression(false) {}
 
 
 
 //
 // Destructor
 //
-Postfix_Builder::~Postfix_Builder() {
-
+Tree_Builder::~Tree_Builder() {
 	//Free any stored expressions
 	this->release_all_expressions();
 
@@ -35,7 +39,7 @@ Postfix_Builder::~Postfix_Builder() {
 //
 // Get the last expression
 //
-Math_Expr* Postfix_Builder::get_expression() {
+Math_Expr* Tree_Builder::get_expression() {
 	if (this->in_expression()) {
 		//TODO: Throw an exception
 	}
@@ -49,37 +53,43 @@ Math_Expr* Postfix_Builder::get_expression() {
 
 
 
+
 //
 // Release any stored expressions
 //
-void Postfix_Builder::release_all_expressions() {
+void Tree_Builder::release_all_expressions() {
 	while(!this->to_free.is_empty()) {
 		delete(this->to_free.pop());
 	}
 }
 
 
+
+
 //
 // Free any internal state objects
 //
-void Postfix_Builder::release_expression_state() {
+void Tree_Builder::release_expression_state() {
 
-	if (!this->in_expression()) {
-		//TODO: Throw an exception
+	//Delete anything in all states
+	this->state_stack.push(current_state);
+	while(!this->state_stack.is_empty()) {
+		Tree_Builder_State state = this->state_stack.pop();
+
+		// Free the expression stack
+		while (!state.expr_stack.is_empty()) {
+			delete(state.expr_stack.pop());
+		}
+
+		// Free the temporary operator stack
+		while(!state.operator_stack.is_empty()) {
+			delete(state.operator_stack.pop());
+		}
 	}
 
-	// Delete the current temporary state
-	delete(this->current_state.expr);
-	this->current_state.expr = nullptr;
-	this->current_state.stack.clear();
-
-	// Delete any stored parenthesis states
-	while (!this->state_stack.is_empty()) {
-		Postfix_Builder_State state = this->state_stack.pop();
-		delete(state.expr);
-	}
+	this->inside_expression = false;
+	this->last_token_operand = false;
 }
-
 
 
 
@@ -87,20 +97,14 @@ void Postfix_Builder::release_expression_state() {
 //
 // Start a new expression
 //
-void Postfix_Builder::start_new_expression() {
+void Tree_Builder::start_new_expression() {
 
-	//Cannot start a new expression if we are already in one
 	if (this->in_expression()) {
 		//TODO: Throw an exception
 	}
 
-
 	// Create the new expression to work with
-	this->current_state.expr = new Postfix_Expr();
-
-	// Reset any other state variables (should NOT be necessary)
-	this->current_state.stack.clear();
-	this->state_stack.clear();
+	this->inside_expression = true;
 	this->last_token_operand = false;
 }
 
@@ -109,7 +113,7 @@ void Postfix_Builder::start_new_expression() {
 //
 // End the expression
 //
-void Postfix_Builder::end_expression() {
+void Tree_Builder::end_expression() {
 
 	//Must be in an expression to end it
 	if (!this->in_expression()) {
@@ -129,22 +133,23 @@ void Postfix_Builder::end_expression() {
 	//Remove the remaining operators from the current state
 	this->pop_remaining_operators();
 
-	//Move the expression to the top of the stack
-	this->to_free.push(this->current_state.expr);
-	this->current_state.expr = nullptr;
+	//Move the top expression to the to free stack
+	Expr_Node* root = this->current_state.expr_stack.top();
+	this->to_free.push(new Tree_Expr(root));
+	this->inside_expression = false;
 }
-
 
 
 
 //
 // Pop the remaining operators from the stack
 //
-void Postfix_Builder::pop_remaining_operators() {
+void Tree_Builder::pop_remaining_operators() {
 
-	while (!this->current_state.stack.is_empty()) {
-		Command* command = this->current_state.stack.pop();
-		this->current_state.expr->add_command(command);
+	Tree_Builder_State& state = this->current_state;
+	while (!state.operator_stack.is_empty()) {
+		Operator_Node* op = state.operator_stack.pop();
+		this->push_operator(op);
 	}
 }
 
@@ -153,8 +158,8 @@ void Postfix_Builder::pop_remaining_operators() {
 //
 // Test if the builder is inside an expression
 //
-bool Postfix_Builder::in_expression() const {
-	return (this->current_state.expr != nullptr);
+bool Tree_Builder::in_expression() const {
+	return this->inside_expression;
 }
 
 
@@ -162,7 +167,7 @@ bool Postfix_Builder::in_expression() const {
 //
 // Add a number to the expression
 //
-void Postfix_Builder::build_number(int number) {
+void Tree_Builder::build_number(int number) {
 
 	//Number must come after an operator
 	if (this->last_token_operand) {
@@ -172,16 +177,15 @@ void Postfix_Builder::build_number(int number) {
 
 
 	//Create the actual number command
-	Command* number_command = this->factory.construct_number_command(number);
-	this->current_state.expr->add_command(number_command);
+	Number_Node* number_node = new Number_Node(number);
+	this->current_state.expr_stack.push(number_node);
 }
 
 
-
 //
-// Add a variable to the expression
+// Add a varaible to the expression
 //
-void Postfix_Builder::build_variable(const std::string& name) {
+void Tree_Builder::build_variable(const std::string& name) {
 
 	//Variable must come after an operator
 	if (this->last_token_operand) {
@@ -198,8 +202,8 @@ void Postfix_Builder::build_variable(const std::string& name) {
 //
 // Create an addition operator
 //
-void Postfix_Builder::build_add_operator() {
-	Operator_Command* op = this->factory.construct_add_command();
+void Tree_Builder::build_add_operator() {
+	Operator_Node* op = new Add_Node();
 	this->process_operator(op);
 }
 
@@ -208,8 +212,8 @@ void Postfix_Builder::build_add_operator() {
 //
 // Create a subtraction operator
 //
-void Postfix_Builder::build_subtract_operator() {
-	Operator_Command* op = this->factory.construct_subtract_command();
+void Tree_Builder::build_subtract_operator() {
+	Operator_Node* op = new Subtract_Node();
 	this->process_operator(op);
 }
 
@@ -218,8 +222,8 @@ void Postfix_Builder::build_subtract_operator() {
 //
 // Create a multiplication operator
 //
-void Postfix_Builder::build_multiply_operator() {
-	Operator_Command* op = this->factory.construct_multiply_command();
+void Tree_Builder::build_multiply_operator() {
+	Operator_Node* op = new Multiply_Node();
 	this->process_operator(op);
 }
 
@@ -228,8 +232,8 @@ void Postfix_Builder::build_multiply_operator() {
 //
 // Create a division operator
 //
-void Postfix_Builder::build_divide_operator() {
-	Operator_Command* op = this->factory.construct_divide_command();
+void Tree_Builder::build_divide_operator() {
+	Operator_Node* op = new Divide_Node();
 	this->process_operator(op);
 }
 
@@ -238,8 +242,8 @@ void Postfix_Builder::build_divide_operator() {
 //
 // Create a modulus operator
 //
-void Postfix_Builder::build_modulus_operator() {
-	Operator_Command* op = this->factory.construct_modulus_command();
+void Tree_Builder::build_modulus_operator() {
+	Operator_Node* op = new Modulus_Node();
 	this->process_operator(op);
 }
 
@@ -249,14 +253,14 @@ void Postfix_Builder::build_modulus_operator() {
 //
 // Process all operators uniformly
 //
-void Postfix_Builder::process_operator(Operator_Command* op) {
+void Tree_Builder::process_operator(Operator_Node* op) {
 
 	//Operators can only come after a number or variable
 	if (!this->last_token_operand) {
+		delete(op);
 		//TODO: Throw an exception
 	}
 	this->last_token_operand = false;
-
 
 
 	//Compute operator precedence
@@ -265,34 +269,33 @@ void Postfix_Builder::process_operator(Operator_Command* op) {
 
 
 
-	Stack<Operator_Command*>& stack = this->current_state.stack;
-	Postfix_Expr* expr = this->current_state.expr;
+	Stack<Operator_Node*>& operator_stack = this->current_state.operator_stack;
 	do {
 
 		//Always push if empty stack
-		if (stack.is_empty()) {
-			stack.push(op);
+		if (operator_stack.is_empty()) {
+			operator_stack.push(op);
 			return;
 		}
 
-		top_prec = stack.top()->get_precedence();
+		top_prec = operator_stack.top()->get_precedence();
 
 		//Push immediately if the current operators has a greater precedence
 		if (current_prec > top_prec) {
-			stack.push(op);
+			operator_stack.push(op);
 			return;
 		}
 
 		//For equal precedence, since we have left to right association, pop immediately
 		if (current_prec == top_prec) {
-			expr->add_command(stack.pop());
-			stack.push(op);
+			this->push_operator(operator_stack.pop());
+			operator_stack.push(op);
 			return;
 		}
 
 
 		//Pop the element if top precedence >= current precedence, then retest the new top
-		expr->add_command(stack.pop());
+		this->push_operator(operator_stack.pop());
 
 	} while (current_prec < top_prec);
 }
@@ -301,9 +304,21 @@ void Postfix_Builder::process_operator(Operator_Command* op) {
 
 
 //
+// Push an operator onto the temporary expression stack
+//
+void Tree_Builder::push_operator(Operator_Node* op) {
+
+	//Load the left and right children, then push back onto the stack
+	op->load_children_from_stack(this->current_state.expr_stack);
+	this->current_state.expr_stack.push(op);
+}
+
+
+
+//
 // Left parenthesis
 //
-void Postfix_Builder::build_left_parenthesis() {
+void Tree_Builder::build_left_parenthesis() {
 
 	//Left parenthesis can only come after an operator
 	if (this->last_token_operand) {
@@ -314,8 +329,8 @@ void Postfix_Builder::build_left_parenthesis() {
 	this->state_stack.push(this->current_state);
 
 	//Set up a new current state for the temporary expression
-	this->current_state.expr = new Postfix_Expr();
-	this->current_state.stack.clear();
+	this->current_state.operator_stack.clear();
+	this->current_state.expr_stack.clear();
 }
 
 
@@ -324,7 +339,7 @@ void Postfix_Builder::build_left_parenthesis() {
 //
 // Right Parenthesis
 //
-void Postfix_Builder::build_right_parenthesis() {
+void Tree_Builder::build_right_parenthesis() {
 
 	//Overflowed the stack!
 	if (this->state_stack.is_empty()) {
@@ -341,11 +356,9 @@ void Postfix_Builder::build_right_parenthesis() {
 	this->pop_remaining_operators();
 
 	//Return to the previous state
-	Postfix_Expr* sub_expr = this->current_state.expr;
+	Expr_Node* sub_expr = this->current_state.expr_stack.top();
 	this->current_state = this->state_stack.pop();
 
-	//Append the sub-expresison onto the current expression before
-	// freeing it from memory
-	this->current_state.expr->append_sub_expression(*sub_expr);
-	delete(sub_expr);
+	//Push the sub expression onto the queue
+	this->current_state.expr_stack.push(sub_expr);
 }
