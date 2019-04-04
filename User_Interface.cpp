@@ -5,8 +5,9 @@
 // I pledge that I have neither given nor receieved any help
 // on this assignment.
 #include "User_Interface.h"
-#include "Postfix_Converter.h"
-#include <Flyweight_Expr_Factory.h>
+#include "Calculator.h"
+#include <Postfix_Builder.h>
+#include <Tree_Builder.h>
 #include <iostream>
 #include <exception>
 
@@ -36,19 +37,19 @@ void User_Interface::run(void) noexcept {
 
 
 //
-// Parse an expression using the infix to postfix class, then run and compute the result
+// Parse an infix expression, calculate it, then print the result
 //
 void User_Interface::parse_and_run_expression(const std::string& infix_expr) noexcept {
 	try {
 
-		Flyweight_Expr_Factory factory;
-		Postfix_Converter converter(factory);
+		Postfix_Builder builder;
+		Calculator calculator(builder);
 
-		//Convert the expression to postfix
-		Queue<Command*> postfix_expr = converter.convert_to_postfix(infix_expr);
+		//Parse the math expression
+		Math_Expr* expr = calculator.parse_expression(infix_expr);
 
 		//Run the expression and print to cout
-		std::cout << this->run_postfix_expression(postfix_expr) << std::endl;
+		std::cout << expr->evaluate() << std::endl;
 
 
 	} catch (std::exception& e) {
@@ -57,20 +58,3 @@ void User_Interface::parse_and_run_expression(const std::string& infix_expr) noe
 		std::cout << "Unknown Exception!" << std::endl;
 	}
 }
-
-
-
-
-//
-// Compute the result of the expression
-//
-int User_Interface::run_postfix_expression(Queue<Command*>& expression) {
-	Stack<int> result;
-	while (!expression.is_empty()) {
-		Command* command = expression.dequeue();
-		command->execute(result);
-	}
-
-	return result.top();
-}
-

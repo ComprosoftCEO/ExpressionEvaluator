@@ -13,8 +13,6 @@
 #define USER_INTERFACE_HEADER
 
 #include <string>
-#include <Command.h>
-#include <Queue.h>
 
 
 /**
@@ -31,19 +29,12 @@ public:
 private:
 
 	/**
-	 * Read the input string, convert the string from an infix to postfix
-	 *  expression, then run the converted expression and print the output.
+	 * Read the input string, parse the infix expression, run the expression,
+	 *  and print the result to standard output.
 	 *
-	 * @param[in]		infix_expr		The infix expression to convert
+	 * @param[in]		infix_expr		The infix expression to parse
 	 */
 	void parse_and_run_expression(const std::string& infix_expr) noexcept;
-
-	/**
-	 * Execute the queue of commands to compute the actual expression
-	 *
-	 * @param[in,out]	expression		The queue of expressions to run
-	 */
-	int run_postfix_expression(Queue<Command*>& expression);
 };
 
 #endif	/* User Interface Header Included */
