@@ -183,7 +183,7 @@ void Postfix_Builder::build_number(int number) {
 	this->set_last_token(LAST_TOKEN_OPERAND);
 
 	//Create the actual number command
-	Command* number_command = this->factory.construct_number_command(number);
+	Number_Command* number_command = this->factory.construct_number_command(number);
 	this->current_state.expr->add_command(number_command);
 }
 
@@ -198,7 +198,8 @@ void Postfix_Builder::build_variable(const std::string& name) {
 	this->test_last_token(LAST_TOKEN_OPERATOR);
 	this->set_last_token(LAST_TOKEN_OPERAND);
 
-	//TODO: Get this method working
+	Variable_Command* variable_command = this->factory.construct_variable_command(name);
+	this->current_state.expr->add_command(variable_command);
 }
 
 

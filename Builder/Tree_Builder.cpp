@@ -4,6 +4,7 @@
 // on this assignment
 #include "Tree_Builder.h"
 #include <Number_Node.h>
+#include <Variable_Node.h>
 #include <Add_Node.h>
 #include <Subtract_Node.h>
 #include <Multiply_Node.h>
@@ -209,7 +210,8 @@ void Tree_Builder::build_variable(const std::string& name) {
 	this->test_last_token(LAST_TOKEN_OPERATOR);
 	this->set_last_token(LAST_TOKEN_OPERAND);
 
-	//TODO: Get this method working
+	Variable_Node* variable_node = new Variable_Node(name);
+	this->current_state.expr_stack.push(variable_node);
 }
 
 
