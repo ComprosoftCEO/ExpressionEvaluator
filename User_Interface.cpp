@@ -42,7 +42,7 @@ void User_Interface::run(void) noexcept {
 void User_Interface::parse_and_run_expression(const std::string& infix_expr) noexcept {
 	try {
 
-		Postfix_Builder builder;
+		Tree_Builder builder;
 		Calculator calculator(builder);
 
 		//Parse the math expression
