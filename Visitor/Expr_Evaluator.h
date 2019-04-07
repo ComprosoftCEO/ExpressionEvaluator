@@ -24,6 +24,8 @@
  */
 class Expr_Evaluator: public Expr_Node_Visitor {
 
+public:
+
 	/// Call this method to clear the internal state before
 	///  attempting to evaluate a new expression
 	void reset_evaluator();

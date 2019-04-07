@@ -3,7 +3,7 @@
 // I pledge that I have neither given nor received any help
 // on this assignment
 #include "Tree_Expr.h"
-
+#include <Expr_Evaluator.h>
 
 
 //
@@ -27,5 +27,8 @@ Tree_Expr::~Tree_Expr() {
 // Evaluate the expression
 //
 int Tree_Expr::evaluate() {
-	return this->root_->evaluate();
+
+	Expr_Evaluator eval;
+	this->root_->accept(eval);
+	return eval.get_result();
 }
