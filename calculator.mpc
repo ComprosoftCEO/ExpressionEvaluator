@@ -1,6 +1,6 @@
 project (calculator) {
   exename = calculator
-  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Composite Composite/Unary_Nodes Composite/Binary_Nodes Factory Math_Expr
+  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Composite Composite/Unary_Nodes Composite/Binary_Nodes Factory Math_Expr Builder Visitor
   install = .
  
   specific (make, gnuace) {
