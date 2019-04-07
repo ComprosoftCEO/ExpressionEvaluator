@@ -63,4 +63,8 @@ private:
 
 }; 
 
+
+//Include inline methods
+#include "Expr_Evaluator.inl"
+
 #endif	/* Expression Evaluator Header Included */

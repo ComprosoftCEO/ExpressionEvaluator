@@ -7,24 +7,6 @@
 
 
 //
-// Reset the evaluator state
-//
-void Expr_Evaluator::reset_evaluator() {
-	this->stack_.clear();
-}
-
-
-
-//
-// Get the result of the last expression
-//
-int Expr_Evaluator::get_result() const {
-	return this->stack_.top();
-}
-
-
-
-//
 // Visit the number
 //
 void Expr_Evaluator::visit_number_node(Number_Node& node) {
