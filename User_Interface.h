@@ -13,6 +13,7 @@
 #define USER_INTERFACE_HEADER
 
 #include <string>
+#include <map>
 
 
 /**
@@ -34,7 +35,23 @@ private:
 	 *
 	 * @param[in]		infix_expr		The infix expression to parse
 	 */
-	void parse_and_run_expression(const std::string& infix_expr) noexcept;
+	static void parse_and_run_expression(const std::string& infix_expr) noexcept;
+
+	/**
+	 * Ask the user to input the variable values in alphabetical order
+	 * @param[in,out]	lookup			Map used to store the variable values
+	 */
+	static void ask_for_variables(std::map<std::string, int>& lookup);
+
+	/**
+	 * Ask the user to enter an integer. Keeps looping until a valid integer
+	 * is entered.
+	 *
+	 * @param[in]		message			Prompt for each line
+	 * @return			Inputted integer
+	 */
+	static int get_integer(const std::string& prompt);
+
 };
 
 #endif	/* User Interface Header Included */
