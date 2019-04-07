@@ -25,6 +25,8 @@ public:
 	/// Multiply input by -1
 	int do_operation(int input);
 
+	/// Accept the visitor
+	void accept(Command_Visitor& v);
 };
 
 

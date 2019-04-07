@@ -32,6 +32,9 @@ public:
 	/// Push a number onto the stack
 	void execute(Stack<int>& stack);
 
+	/// Accept the visitor
+	void accept(Command_Visitor& v);
+
 private:
 	/// Number stored to push onto the stack
 	int number_;

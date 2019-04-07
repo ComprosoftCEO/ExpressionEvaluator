@@ -27,6 +27,8 @@ public:
 	/// Do left mod right
 	int do_operation(int left, int right);
 
+	/// Accept the visitor
+	void accept(Command_Visitor& v);
 
 	/**
 	 * @class modulus_zero_exception

@@ -3,6 +3,7 @@
 // I pledge that I have neither given nor received any help
 // on this assignment
 #include "Negate_Command.h"
+#include <Command_Visitor.h>
 
 
 //
@@ -18,4 +19,13 @@ Negate_Command::Negate_Command():
 //
 int Negate_Command::do_operation(int input) {
 	return -input;
+}
+
+
+
+//
+// Accept the visitor
+//
+void Negate_Command::accept(Command_Visitor& v) {
+	v.visit_negate_command(*this);
 }

@@ -53,6 +53,9 @@ public:
 	 */
 	void set_value(int new_value);
 
+	/// Accept the visitor
+	void accept(Command_Visitor& v);
+
 private:
 	/// Name of the variable
 	std::string name_;

@@ -25,6 +25,8 @@ public:
 	/// Call the square root method on the input
 	int do_operation(int input);
 
+	/// Accept the visitor
+	void accept(Command_Visitor& v);
 
 	/**
 	 * @class negative_square_root_exception

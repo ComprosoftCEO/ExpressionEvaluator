@@ -25,6 +25,9 @@ public:
 
 	/// Multiply the left and right operators
 	int do_operation(int left, int right);
+
+	/// Accept the visitor
+	void accept(Command_Visitor& v);
 };
 
 
