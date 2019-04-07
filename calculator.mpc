@@ -46,6 +46,8 @@ project (calculator) {
 
 	Builder/Postfix_Builder.cpp
 	Builder/Tree_Builder.cpp
+
+	Visitor/Expr_Evaluator.cpp
   }
 
   Header_Files {
@@ -95,6 +97,10 @@ project (calculator) {
 	Builder/Expr_Builder.h
 	Builder/Postfix_Builder.h
 	Builder/Tree_Builder.h
+
+	Visitor/Command_Node_Visitor.h
+	Visitor/Expr_Node_Visitor.h
+	Visitor/Expr_Evaluator.h
   }
 
   Template_Files {
