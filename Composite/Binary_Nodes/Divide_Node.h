@@ -30,6 +30,9 @@ public:
 	/// Divide the left and right operators
 	int do_operation(int left, int right);
 
+	/// Accept the visitor
+	void accept(Expr_Node_Visitor& v);
+
 	/**
 	 * @class divide_by_zero_exception
 	 * Thrown when trying to do a number divided by 0

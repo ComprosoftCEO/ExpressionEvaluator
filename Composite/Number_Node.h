@@ -32,6 +32,8 @@ public:
 	/// Return the stored value from this number
 	int evaluate();
 
+	/// Accept the visitor
+	void accept(Expr_Node_Visitor& v);
 
 private:
 	int value_;

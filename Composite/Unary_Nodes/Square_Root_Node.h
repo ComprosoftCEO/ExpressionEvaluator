@@ -31,6 +31,8 @@ public:
 	/// Find the square root
 	int do_operation(int input);
 
+	/// Accept the visitor
+	void accept(Expr_Node_Visitor& v);
 
 	/**
 	 * @class negative_square_root_exception

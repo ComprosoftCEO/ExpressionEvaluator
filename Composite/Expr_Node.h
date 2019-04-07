@@ -12,6 +12,8 @@
 #ifndef EXPR_NODE_HEADER
 #define EXPR_NODE_HEADER
 
+//Forward declare the visitor class to avoid circular reference
+class Expr_Node_Visitor;
 
 
 /**
@@ -31,6 +33,11 @@ public:
 	 */
 	virtual int evaluate() = 0;
 
+	/**
+	 * Accept the expression visitor for this object
+	 * @param		visitor			The visitor
+	 */
+	virtual void accept(Expr_Node_Visitor& v) = 0;
 };
 
 

@@ -14,6 +14,8 @@
 
 #include <Stack.h>
 
+//Forward declare the visitor (to avoid a circular reference)
+class Command_Visitor;
 
 
 /**
@@ -33,6 +35,12 @@ public:
 	 * @param[in,out]		stack			Reference to the stack of integers
 	 */
 	virtual void execute(Stack<int>& stack) = 0;
+
+	/**
+	 * Accept the expression visitor for this object
+	 * @param		visitor			The visitor
+	 */
+	virtual void accept(Command_Visitor& v) = 0;
 };
 
 

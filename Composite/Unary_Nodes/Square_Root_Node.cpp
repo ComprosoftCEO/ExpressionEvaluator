@@ -3,6 +3,7 @@
 // I pledge that I have neither given nor received any help
 // on this assignment
 #include "Square_Root_Node.h"
+#include <Expr_Node_Visitor.h>
 #include <cmath>		/* For sqrt() */
 
 
@@ -23,4 +24,12 @@ int Square_Root_Node::do_operation(int input) {
 		throw Square_Root_Node::negative_square_root_exception();
 	}
 	return sqrt(input);
+}
+
+
+//
+// Accept the visitor
+//
+void Square_Root_Node::accept(Expr_Node_Visitor& v) {
+	v.visit_square_root_node(*this);
 }
