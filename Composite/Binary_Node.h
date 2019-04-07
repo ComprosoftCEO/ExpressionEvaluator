@@ -60,6 +60,18 @@ public:
 	 */
 	void load_children_from_stack(Stack<Expr_Node*>& stack);
 
+	/**
+	 * Get the stored left expression
+	 * @return			Left expression
+	 */
+	Expr_Node* get_left_expression() const;
+
+	/**
+	 * Get the stored right expression
+	 * @return			Right expression
+	 */
+	Expr_Node* get_right_expression() const;
+
 private:
 	/// Left expression in the expression tree
 	Expr_Node* left_expr_;
@@ -68,6 +80,9 @@ private:
 	Expr_Node* right_expr_;
 };
 
+
+//Include the inline functions
+#include "Binary_Node.inl"
 
 
 #endif	/* Binary Node Header Included */

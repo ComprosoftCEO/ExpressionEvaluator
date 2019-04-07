@@ -57,11 +57,19 @@ public:
 	 */
 	void load_children_from_stack(Stack<Expr_Node*>& stack);
 
+	/**
+	 * Get the stored child expression
+	 * @return			Child expression
+	 */
+	Expr_Node* get_child_expression() const;
+
 private:
 	/// Child expression in the expression tree
 	Expr_Node* child_expr_;
 };
 
 
+//Include the inline functions
+#include "Unary_Node.inl"
 
 #endif	/* Unary Node Header Included */

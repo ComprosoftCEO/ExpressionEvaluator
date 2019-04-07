@@ -32,12 +32,19 @@ public:
 	/// Return the stored value from this number
 	int evaluate();
 
+	/// Get the value stored in this number
+	int get_value() const;
+
 	/// Accept the visitor
 	void accept(Expr_Node_Visitor& v);
 
 private:
 	int value_;
 };
+
+
+//Include the inline functions
+#include "Number_Node.inl"
 
 
 #endif	/* Numbrer Node Header Included */
