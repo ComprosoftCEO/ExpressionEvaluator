@@ -22,13 +22,13 @@ void User_Interface::run(void) noexcept {
 
 	try {
 
-		std::cout << "Enter Expression: ";
+		std::cout << "Enter Math Expression: ";
 
 		//Loop until the word QUIT or the end of the stream
 		std::string expr;
 		while (std::getline(std::cin, expr) && (expr != "QUIT")) {
 			this->parse_and_run_expression(expr);
-			std::cout << "Enter Expression: ";
+			std::cout << "Enter Math Expression: ";
 		}
 
 	} catch (...) {
@@ -75,7 +75,7 @@ void User_Interface::ask_for_variables(std::map<std::string, int>& lookup) {
 
 	// Map is automatically in alphabetical order
 	for (auto it = lookup.begin(); it != lookup.end(); ++it) {
-		it->second = get_integer(it->first);
+		it->second = get_integer("Variable \"" + it->first + "\"");
 	}
 }
 
@@ -89,7 +89,7 @@ int User_Interface::get_integer(const std::string& prompt) {
 	int value;
 	while(true) {
 
-		std::cout << prompt << ": ";
+		std::cout << prompt << " = ";
 
 		// Read a line from std::cin
 		std::string str_number;
