@@ -48,6 +48,8 @@ project (calculator) {
 	Builder/Tree_Builder.cpp
 
 	Visitor/Expr_Evaluator.cpp
+	Visitor/Variable_Getter.cpp
+	Visitor/Variable_Setter.cpp
   }
 
   Header_Files {
@@ -101,6 +103,8 @@ project (calculator) {
 	Visitor/Command_Node_Visitor.h
 	Visitor/Expr_Node_Visitor.h
 	Visitor/Expr_Evaluator.h
+	Visitor/Variable_Getter.h
+	Visitor/Variable_Setter.h
   }
 
   Template_Files {

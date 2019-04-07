@@ -3,6 +3,8 @@
 // I pledge that I have neither given nor received any help
 // on this assignment
 #include "Postfix_Expr.h"
+#include <Variable_Getter.h>
+#include <Variable_Setter.h>
 
 
 //
@@ -46,3 +48,34 @@ void Postfix_Expr::append_sub_expression(const Postfix_Expr& expr) {
 	}
 }
 
+
+
+
+//
+// Get all variable values
+//
+std::map<std::string, int> Postfix_Expr::get_variable_values() {
+
+	Variable_Getter getter;
+
+	//Iterate over the array of commands
+	for (size_t i = 0; i < this->to_run_.size(); ++i) {
+		this->to_run_[i]->accept(getter);
+	}
+
+	return getter.get_variables();
+}
+
+
+//
+// Set all variable values
+//
+void Postfix_Expr::set_variable_values(const std::map<std::string, int>& values) {
+
+	Variable_Setter setter(values);
+
+	//Iterate over the array of commands
+	for (size_t i = 0; i < this->to_run_.size(); ++i) {
+		this->to_run_[i]->accept(setter);
+	}
+}
