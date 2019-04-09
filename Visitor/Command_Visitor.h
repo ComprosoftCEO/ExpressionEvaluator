@@ -12,16 +12,16 @@
 #ifndef COMMAND_VISITOR_HEADER
 #define COMMAND_VISITOR_HEADER
 
-//All of the concreate types
-#include <Number_Command.h>
-#include <Variable_Command.h>
-#include <Add_Command.h>
-#include <Subtract_Command.h>
-#include <Multiply_Command.h>
-#include <Divide_Command.h>
-#include <Modulus_Command.h>
-#include <Negate_Command.h>
-#include <Square_Root_Command.h>
+//Forward declare all of the concrete class types
+class Number_Command;
+class Variable_Command;
+class Add_Command;
+class Subtract_Command;
+class Multiply_Command;
+class Divide_Command;
+class Modulus_Command;
+class Negate_Command;
+class Square_Root_Command;
 
 
 class Command_Visitor {

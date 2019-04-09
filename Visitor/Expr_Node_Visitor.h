@@ -12,16 +12,16 @@
 #ifndef EXPRESSION_NODE_VISITOR_HEADER
 #define EXPRESSION_NODE_VISITOR_HEADER
 
-//All of the concreate types
-#include <Number_Node.h>
-#include <Variable_Node.h>
-#include <Add_Node.h>
-#include <Subtract_Node.h>
-#include <Multiply_Node.h>
-#include <Divide_Node.h>
-#include <Modulus_Node.h>
-#include <Negate_Node.h>
-#include <Square_Root_Node.h>
+//Forward declare all of the concreate types
+class Number_Node;
+class Variable_Node;
+class Add_Node;
+class Subtract_Node;
+class Multiply_Node;
+class Divide_Node;
+class Modulus_Node;
+class Negate_Node;
+class Square_Root_Node;
 
 
 class Expr_Node_Visitor {

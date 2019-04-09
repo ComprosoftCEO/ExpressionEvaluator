@@ -4,6 +4,17 @@
 // on this assignment
 #include "Expr_Evaluator.h"
 
+//Expr_Node headers
+#include <Number_Node.h>
+#include <Variable_Node.h>
+#include <Add_Node.h>
+#include <Subtract_Node.h>
+#include <Multiply_Node.h>
+#include <Divide_Node.h>
+#include <Modulus_Node.h>
+#include <Negate_Node.h>
+#include <Square_Root_Node.h>
+
 
 
 //

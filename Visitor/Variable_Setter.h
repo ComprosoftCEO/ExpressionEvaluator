@@ -16,6 +16,10 @@
 #include <Expr_Node_Visitor.h>
 #include <map>
 
+//Forward declare classes
+class Binary_Node;
+class Unary_Node;
+
 
 /**
  * @class Variable_Setter

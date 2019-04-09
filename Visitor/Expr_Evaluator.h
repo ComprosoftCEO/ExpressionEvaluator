@@ -16,6 +16,11 @@
 #include <Stack.h>
 
 
+//Forward declare classes
+class Binary_Node;
+class Unary_Node;
+
+
 /**
  * @class Expr_Evaluator
  *

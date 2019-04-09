@@ -4,6 +4,27 @@
 // on this assignment
 #include "Variable_Getter.h"
 
+//Expr_Node headers
+#include <Number_Node.h>
+#include <Variable_Node.h>
+#include <Add_Node.h>
+#include <Subtract_Node.h>
+#include <Multiply_Node.h>
+#include <Divide_Node.h>
+#include <Modulus_Node.h>
+#include <Negate_Node.h>
+#include <Square_Root_Node.h>
+
+//Command headers
+#include <Number_Command.h>
+#include <Variable_Command.h>
+#include <Add_Command.h>
+#include <Subtract_Command.h>
+#include <Multiply_Command.h>
+#include <Divide_Command.h>
+#include <Modulus_Command.h>
+#include <Negate_Command.h>
+#include <Square_Root_Command.h>
 
 
 //
