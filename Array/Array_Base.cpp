@@ -21,7 +21,7 @@ Array_Base<T>::~Array_Base(void) {}
 // Find a value in the array
 //
 template <typename T>
-int Array_Base<T>::find(T element) const {
+int Array_Base<T>::find(const T& element) const {
 	try {
 		return this->find(element,0);
 	} catch (...) {
@@ -30,7 +30,7 @@ int Array_Base<T>::find(T element) const {
 }
 
 template <typename T>
-int Array_Base<T>::find(T element, size_t start) const {
+int Array_Base<T>::find(const T& element, size_t start) const {
 	if (start >= this->size()) {
 		throw std::out_of_range("start");
 	}
@@ -48,7 +48,7 @@ int Array_Base<T>::find(T element, size_t start) const {
 // Fill the array with a single element
 //
 template <typename T>
-void Array_Base<T>::fill(T element) {
+void Array_Base<T>::fill(const T& element) {
 	for (size_t i = 0; i < this->size(); ++i) {
 		(*this)[i] = element;
 	}

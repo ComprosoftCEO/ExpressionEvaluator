@@ -65,7 +65,7 @@ public:
 	 *
 	 * @param[in]      element       Element to add to the queue
 	 */
-	void enqueue(T element);
+	void enqueue(const T& element);
 
 	/**
 	 * Remove the front element from the queue.

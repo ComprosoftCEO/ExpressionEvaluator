@@ -44,7 +44,7 @@ public:
 	 * @param[in]      length        Initial size
 	 * @param[in]      fill          Initial value for each element
 	 */
-	Array(size_t length, T fill);
+	Array(size_t length, const T& fill);
 
 	/**
 	 * Copy constructor

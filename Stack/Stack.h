@@ -63,7 +63,7 @@ public:
 	 *
 	 * @param[in]      element       Element to add to the list
 	 */
-	void push(T element);
+	void push(const T& element);
 
 	/**
 	 * Remove the top-most element from the stack.

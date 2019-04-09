@@ -20,6 +20,6 @@ inline T Array_Base <T>::get (size_t index) const {
 // Set a value at a specified index
 //
 template <typename T>
-inline void Array_Base <T>::set (size_t index, T value) {
+inline void Array_Base <T>::set (size_t index, const T& value) {
 	(*this)[index] = value;
 }

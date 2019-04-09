@@ -66,7 +66,7 @@ const Queue<T>& Queue<T>::operator=(const Queue & other) {
 // Add an element into the queue
 //
 template <typename T>
-void Queue<T>::enqueue(T element) {
+void Queue<T>::enqueue(const T& element) {
 
 	//Test for a full circular queue
 	if (this->is_full_) {

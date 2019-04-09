@@ -34,7 +34,7 @@ public:
 	 *
 	 * @param[in]      fill       The file value.
 	 */
-	Fixed_Array(T fill);
+	Fixed_Array(const T& fill);
 
 	/**
 	 * Copy constructor.

@@ -37,7 +37,7 @@ Array<T>::Array(size_t length):
 // Initializing constructor
 //
 template <typename T>
-Array<T>::Array(size_t length, T fill):
+Array<T>::Array(size_t length, const T& fill):
   Array(length)
 {
 	this->fill(fill);

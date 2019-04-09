@@ -56,7 +56,7 @@ Stack<T>& Stack<T>::operator=(const Stack& other) {
 // Add a value to the stack
 //
 template <typename T>
-void Stack<T>::push(T element) {
+void Stack<T>::push(const T& element) {
 
 	//When to allocate more space for the stack	
 	if (this->next_index_ >= this->stack_data_.size()) {

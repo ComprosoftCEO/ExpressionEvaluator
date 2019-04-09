@@ -73,7 +73,7 @@ public:
 	 * @param[in]       value                 New value for character
 	 * @exception       std::out_of_range     Invalid \a index value
 	 */
-	void set(size_t index, T value);
+	void set(size_t index, const T& value);
 
 	/**
 	 * Locate the specified character in the array. The index of the first
@@ -84,7 +84,7 @@ public:
 	 * @return           Index value of the element
 	 * @retval           DATA_NOT_FOUND       Value not found
 	 */
-	int find(T element) const;
+	int find(const T& element) const;
 
 	/**
 	 * @overload
@@ -99,14 +99,14 @@ public:
 	 * @retval          DATA_NOT_FOUND       Character not found
 	 * @exception       std::out_of_range    Invalid index
 	 */
-	int find(T element, size_t start) const;
+	int find(const T& element, size_t start) const;
 
 	/**
 	 * Fill the contents of the array.
 	 *
 	 * @param[in]       element              Fill value
 	 */
-	void fill(T element);
+	void fill(const T& element);
 
 	/// Reverse the contents of the array such that the first element is now
 	/// the last element and the last element is the first element.

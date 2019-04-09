@@ -22,7 +22,7 @@ Fixed_Array<T,N>::Fixed_Array(void):
 // Initializing Constructor
 //
 template <typename T, size_t N>
-Fixed_Array<T,N>::Fixed_Array(T fill):
+Fixed_Array<T,N>::Fixed_Array(const T& fill):
   Fixed_Array()
 {
 	this->fill(fill);
