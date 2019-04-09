@@ -69,6 +69,7 @@ project (calculator) {
 
 	Math_Expr/Math_Expr.h
 	Math_Expr/Postfix_Expr.h
+	Math_Expr/Tree_Expr.h
 
 	Command/Command.h
 	Command/Number_Command.h
