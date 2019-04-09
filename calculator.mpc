@@ -1,6 +1,6 @@
 project (calculator) {
   exename = calculator
-  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Composite Composite/Unary_Nodes Composite/Binary_Nodes Factory Math_Expr Builder Visitor
+  includes += Array Stack Queue Command Command/Unary_Commands Command/Binary_Commands Composite Composite/Unary_Nodes Composite/Binary_Nodes Factory Math_Expr Builder Visitor Strategy
   install = .
  
   specific (make, gnuace) {
@@ -10,7 +10,10 @@ project (calculator) {
   Source_Files {
 	driver.cpp
 	User_Interface.cpp
-	Postfix_Converter.cpp
+
+	Strategy/Calculator.cpp
+	Strategy/Postfix_Calculator.cpp
+	Strategy/Tree_Calculator.cpp
 
 	Math_Expr/Postfix_Expr.cpp
 	Math_Expr/Tree_Expr.cpp
@@ -54,12 +57,15 @@ project (calculator) {
 
   Header_Files {
 	User_Interface.h
-	Postfix_Converter.h
 	Array/Array_Base.h
 	Array/Array.h
 	Array/Fixed_Array.h
 	Stack/Stack.h
 	Queue/Queue.h
+
+	Strategy/Calculator.h
+	Strategy/Postfix_Calculator.h
+	Strategy/Tree_Calculator.h
 
 	Math_Expr/Math_Expr.h
 	Math_Expr/Postfix_Expr.h

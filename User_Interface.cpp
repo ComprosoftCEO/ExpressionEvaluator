@@ -5,9 +5,9 @@
 // I pledge that I have neither given nor receieved any help
 // on this assignment.
 #include "User_Interface.h"
-#include "Calculator.h"
-#include <Postfix_Builder.h>
-#include <Tree_Builder.h>
+#include <Postfix_Calculator.h>
+#include <Tree_Calculator.h>
+
 #include <iostream>
 #include <sstream>		/* For integer parsing */
 #include <limits>		/* For std::numeric_limits */
@@ -44,11 +44,10 @@ void User_Interface::run(void) noexcept {
 void User_Interface::parse_and_run_expression(const std::string& infix_expr) noexcept {
 	try {
 
-		Tree_Builder builder;
-		Calculator calculator(builder);
+		Tree_Calculator calculator;
 
 		//Parse the math expression
-		Math_Expr* expr = calculator.parse_expression(infix_expr);
+		Math_Expr* expr = calculator.parse_infix_expression(infix_expr);
 
 		//Get the user to input all variables
 		std::map<std::string, int> lookup = expr->get_variable_values();
