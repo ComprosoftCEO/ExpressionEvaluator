@@ -73,6 +73,11 @@ void Tree_Builder::release_all_expressions() {
 //
 void Tree_Builder::release_expression_state() {
 
+	//Do nothing if not inside expression
+	if (!this->inside_expression) {
+		return;
+	}
+
 	//Delete anything in all states
 	this->state_stack.push(current_state);
 	while(!this->state_stack.is_empty()) {
