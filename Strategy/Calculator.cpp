@@ -132,13 +132,10 @@ bool Calculator::is_variable(const std::string& token) {
 	//Empty string is NOT a valid variable
 	if (token.length() == 0) {return false;}
 
-	//First character must be a letter
-	if (!isalpha(token[0])) {return false;}
-
-	//Every character after it must be a letter, digit, or underscore
-	for (size_t i = 1; i < token.length(); ++i) {
+	//Every character must be an upper or lowercase number
+	for (size_t i = 0; i < token.length(); ++i) {
 		char c = token[i];
-		if (!(isalnum(c) || c == '_')) {return false;}
+		if (!isalpha(c)) {return false;}
 	}
 
 	return true;

@@ -74,8 +74,7 @@ private:
 
 	/**
 	 * Test if the given string is a valid variable identifier.
-	 * Variables start with a letter (a-z or A-Z), and contain
-	 * any combination of letters, digits (0-9), or an underscore (_).
+	 * Variables are any combination of letters (a-z and A-Z).
 	 *
 	 * @param[in]	input		The string to test
 	 * @retval		true		Yes, it is a variable
