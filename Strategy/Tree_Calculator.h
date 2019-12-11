@@ -13,21 +13,18 @@
 #define TREE_CALCULATOR_HEADER
 
 #include "Calculator.h"
-#include <Tree_Builder.h>
 
+#include <Tree_Builder.h>
 
 class Tree_Calculator: public Calculator {
 
 public:
-	/// Default constructor
-	Tree_Calculator();
+  /// Default constructor
+  Tree_Calculator();
 
 private:
-	/// Builder used to create the postfix expression
-	Tree_Builder tree_builder;
+  /// Builder used to create the postfix expression
+  Tree_Builder tree_builder;
 };
 
-
-
-
-#endif	/* Tree Calculator Header Included */
+#endif /* Tree Calculator Header Included */

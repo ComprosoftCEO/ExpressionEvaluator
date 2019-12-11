@@ -14,30 +14,27 @@
 
 #include "../Unary_Command.h"
 
-
 class Square_Root_Command: public Unary_Command {
 
 public:
+  /// Default constructor
+  Square_Root_Command();
 
-	/// Default constructor
-	Square_Root_Command();
+  /// Call the square root method on the input
+  int do_operation(int input);
 
-	/// Call the square root method on the input
-	int do_operation(int input);
+  /// Accept the visitor
+  void accept(Command_Visitor& v);
 
-	/// Accept the visitor
-	void accept(Command_Visitor& v);
-
-	/**
-	 * @class negative_square_root_exception
-	 * Thrown when trying to do the square root of a negative number
-	 */
-	class negative_square_root_exception: public std::exception {
-		const char* what() const noexcept {
-			return "Trying to square root a negative number!";
-		}
-	};
+  /**
+   * @class negative_square_root_exception
+   * Thrown when trying to do the square root of a negative number
+   */
+  class negative_square_root_exception: public std::exception {
+    const char* what() const noexcept {
+      return "Trying to square root a negative number!";
+    }
+  };
 };
 
-
-#endif	/* Square Root Command Header Included */
+#endif /* Square Root Command Header Included */

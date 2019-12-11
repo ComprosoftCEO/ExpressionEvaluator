@@ -4,25 +4,22 @@
 // on this assignment
 #include "Unary_Command.h"
 
-
 //
 // Constructor
 //
-Unary_Command::Unary_Command(int precedence):
-  Operator_Command(precedence) {}
-
+Unary_Command::Unary_Command(int precedence): Operator_Command(precedence) {}
 
 //
 // Run the stored unary function
 //
 void Unary_Command::execute(Stack<int>& stack) {
 
-	//Pop 1 number off the stack
-	int val = stack.pop();
+  // Pop 1 number off the stack
+  int val = stack.pop();
 
-	//Run the unary operation
-	val = this->do_operation(val);
+  // Run the unary operation
+  val = this->do_operation(val);
 
-	//Push the result back onto the stack
-	stack.push(val);
+  // Push the result back onto the stack
+  stack.push(val);
 }

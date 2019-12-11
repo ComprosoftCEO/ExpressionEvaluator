@@ -5,10 +5,7 @@
 
 #include "Operator_Command.h"
 
-
-
 //
 // Constructor
 //
-Operator_Command::Operator_Command(int precedence):
-  precedence_(precedence) {}
+Operator_Command::Operator_Command(int precedence): precedence_(precedence) {}

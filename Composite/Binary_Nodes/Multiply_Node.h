@@ -17,20 +17,19 @@
 class Multiply_Node: public Binary_Node {
 
 public:
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		left_expr		Left expression tree for this operator
-	 * @param[in]		right_expr		Right expression tree for this operator
-	 */
-	Multiply_Node(Expr_Node* left_expr = nullptr, Expr_Node* right_expr = nullptr);
+  /**
+   * Initializing Constructor
+   *
+   * @param[in]		left_expr		Left expression tree for this operator
+   * @param[in]		right_expr		Right expression tree for this operator
+   */
+  Multiply_Node(Expr_Node* left_expr = nullptr, Expr_Node* right_expr = nullptr);
 
-	/// Multiply the left and right operators
-	int do_operation(int left, int right);
+  /// Multiply the left and right operators
+  int do_operation(int left, int right);
 
-	/// Accept the visitor
-	void accept(Expr_Node_Visitor& v);
+  /// Accept the visitor
+  void accept(Expr_Node_Visitor& v);
 };
 
-
-#endif	/* Multiply Node Header Included */
+#endif /* Multiply Node Header Included */

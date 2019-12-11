@@ -17,20 +17,19 @@
 class Subtract_Node: public Binary_Node {
 
 public:
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		left_expr		Left expression tree for this operator
-	 * @param[in]		right_expr		Right expression tree for this operator
-	 */
-	Subtract_Node(Expr_Node* left_expr = nullptr, Expr_Node* right_expr = nullptr);
+  /**
+   * Initializing Constructor
+   *
+   * @param[in]		left_expr		Left expression tree for this operator
+   * @param[in]		right_expr		Right expression tree for this operator
+   */
+  Subtract_Node(Expr_Node* left_expr = nullptr, Expr_Node* right_expr = nullptr);
 
-	/// Subtract the left and right operators
-	int do_operation(int left, int right);
+  /// Subtract the left and right operators
+  int do_operation(int left, int right);
 
-	/// Accept the visitor
-	void accept(Expr_Node_Visitor& v);
+  /// Accept the visitor
+  void accept(Expr_Node_Visitor& v);
 };
 
-
-#endif	/* Subtract Node Header Included */
+#endif /* Subtract Node Header Included */

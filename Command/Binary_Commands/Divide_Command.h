@@ -13,32 +13,30 @@
 #define DIVIDE_COMMAND_HEADER
 
 #include "../Binary_Command.h"
-#include <exception>
 
+#include <exception>
 
 class Divide_Command: public Binary_Command {
 
 public:
+  /// Default constructor
+  Divide_Command();
 
-	/// Default constructor
-	Divide_Command();
+  /// Divide the left and right operators
+  int do_operation(int left, int right);
 
-	/// Divide the left and right operators
-	int do_operation(int left, int right);
+  /// Accept the visitor
+  void accept(Command_Visitor& v);
 
-	/// Accept the visitor
-	void accept(Command_Visitor& v);
-
-	/**
-	 * @class divide_by_zero_exception
-	 * Thrown when trying to do a number divided by 0
-	 */
-	class divide_by_zero_exception: public std::exception {
-		const char* what() const noexcept {
-			return "Floating point exception: divide by 0!";
-		}
-	};
+  /**
+   * @class divide_by_zero_exception
+   * Thrown when trying to do a number divided by 0
+   */
+  class divide_by_zero_exception: public std::exception {
+    const char* what() const noexcept {
+      return "Floating point exception: divide by 0!";
+    }
+  };
 };
 
-
-#endif	/* Divide Command Header Included */
+#endif /* Divide Command Header Included */

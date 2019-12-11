@@ -4,11 +4,10 @@
  * Thrown whenever parenthesis are mismatched in the expression
  */
 class mismatched_parenthesis_exception: public std::exception {
-	const char* what() const noexcept {
-		return "Mismatched parenthesis!";
-	}
+  const char* what() const noexcept {
+    return "Mismatched parenthesis!";
+  }
 };
-
 
 /**
  * @class invalid_action_exception
@@ -18,11 +17,10 @@ class mismatched_parenthesis_exception: public std::exception {
  * calling start_new_expression().
  */
 class invalid_action_exception: public std::exception {
-	const char* what() const noexcept {
-		return "Invalid builder action!";
-	}
+  const char* what() const noexcept {
+    return "Invalid builder action!";
+  }
 };
-
 
 /**
  * @class invalid_operator_exception
@@ -32,17 +30,15 @@ class invalid_action_exception: public std::exception {
 class invalid_operator_exception: public std::exception {
 
 private:
-	std::string oper;
+  std::string oper;
 
 public:
-	invalid_operator_exception(const std::string& oper):
-		oper("Invalid Operator '"+oper+"'!") {}
+  invalid_operator_exception(const std::string& oper): oper("Invalid Operator '" + oper + "'!") {}
 
-	const char* what() const noexcept {
-		return oper.c_str();
-	}
+  const char* what() const noexcept {
+    return oper.c_str();
+  }
 };
-
 
 /**
  * @class invalid_infix_exception
@@ -50,12 +46,10 @@ public:
  * Thrown whenever the order of numbers and operators is invalid
  */
 class invalid_infix_exception: public std::exception {
-	const char* what() const noexcept {
-		return "Invalid infix expression!";
-	}
+  const char* what() const noexcept {
+    return "Invalid infix expression!";
+  }
 };
-
-
 
 /**
  * @class no_expression_exception
@@ -63,7 +57,7 @@ class invalid_infix_exception: public std::exception {
  * Trying to get the last expression before an expression has been created
  */
 class no_expression_exception: public std::exception {
-	const char* what() const noexcept {
-		return "No expression has been created yet!";
-	}
+  const char* what() const noexcept {
+    return "No expression has been created yet!";
+  }
 };

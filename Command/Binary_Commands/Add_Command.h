@@ -14,21 +14,17 @@
 
 #include "../Binary_Command.h"
 
-
-
 class Add_Command: public Binary_Command {
 
 public:
+  /// Default constructor
+  Add_Command();
 
-	/// Default constructor
-	Add_Command();
+  /// Add the left and right operators
+  int do_operation(int left, int right);
 
-	/// Add the left and right operators
-	int do_operation(int left, int right);
-
-	/// Accept the visitor
-	void accept(Command_Visitor& v);
+  /// Accept the visitor
+  void accept(Command_Visitor& v);
 };
 
-
-#endif	/* Add Command Header Included */
+#endif /* Add Command Header Included */

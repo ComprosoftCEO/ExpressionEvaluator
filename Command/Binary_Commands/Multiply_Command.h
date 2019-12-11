@@ -14,21 +14,17 @@
 
 #include "../Binary_Command.h"
 
-
-
 class Multiply_Command: public Binary_Command {
 
 public:
+  /// Default constructor
+  Multiply_Command();
 
-	/// Default constructor
-	Multiply_Command();
+  /// Multiply the left and right operators
+  int do_operation(int left, int right);
 
-	/// Multiply the left and right operators
-	int do_operation(int left, int right);
-
-	/// Accept the visitor
-	void accept(Command_Visitor& v);
+  /// Accept the visitor
+  void accept(Command_Visitor& v);
 };
 
-
-#endif	/* Multiply Command Header Included */
+#endif /* Multiply Command Header Included */

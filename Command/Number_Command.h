@@ -22,25 +22,22 @@
 class Number_Command: public Command {
 
 public:
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		number		The number to store
-	 */
-	Number_Command(int number);
+  /**
+   * Initializing Constructor
+   *
+   * @param[in]		number		The number to store
+   */
+  Number_Command(int number);
 
-	/// Push a number onto the stack
-	void execute(Stack<int>& stack);
+  /// Push a number onto the stack
+  void execute(Stack<int>& stack);
 
-	/// Accept the visitor
-	void accept(Command_Visitor& v);
+  /// Accept the visitor
+  void accept(Command_Visitor& v);
 
 private:
-	/// Number stored to push onto the stack
-	int number_;
+  /// Number stored to push onto the stack
+  int number_;
 };
 
-
-
-
-#endif	/* Number Command Header Included */
+#endif /* Number Command Header Included */

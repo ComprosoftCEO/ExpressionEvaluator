@@ -14,9 +14,8 @@
 
 #include <Stack.h>
 
-//Forward declare the visitor (to avoid a circular reference)
+// Forward declare the visitor (to avoid a circular reference)
 class Command_Visitor;
-
 
 /**
  * @class Command
@@ -26,22 +25,21 @@ class Command_Visitor;
 class Command {
 
 public:
-	/// Destructor
-	virtual ~Command() = default;
+  /// Destructor
+  virtual ~Command() = default;
 
-	/**
-	 * Run the command for this object
-	 *
-	 * @param[in,out]		stack			Reference to the stack of integers
-	 */
-	virtual void execute(Stack<int>& stack) = 0;
+  /**
+   * Run the command for this object
+   *
+   * @param[in,out]		stack			Reference to the stack of integers
+   */
+  virtual void execute(Stack<int>& stack) = 0;
 
-	/**
-	 * Accept the expression visitor for this object
-	 * @param		visitor			The visitor
-	 */
-	virtual void accept(Command_Visitor& v) = 0;
+  /**
+   * Accept the expression visitor for this object
+   * @param		visitor			The visitor
+   */
+  virtual void accept(Command_Visitor& v) = 0;
 };
 
-
-#endif	/* Command Header Included */
+#endif /* Command Header Included */

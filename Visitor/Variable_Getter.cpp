@@ -4,28 +4,27 @@
 // on this assignment
 #include "Variable_Getter.h"
 
-//Expr_Node headers
-#include <Number_Node.h>
-#include <Variable_Node.h>
+// Expr_Node headers
 #include <Add_Node.h>
-#include <Subtract_Node.h>
-#include <Multiply_Node.h>
 #include <Divide_Node.h>
 #include <Modulus_Node.h>
+#include <Multiply_Node.h>
 #include <Negate_Node.h>
+#include <Number_Node.h>
 #include <Square_Root_Node.h>
+#include <Subtract_Node.h>
+#include <Variable_Node.h>
 
-//Command headers
-#include <Number_Command.h>
-#include <Variable_Command.h>
+// Command headers
 #include <Add_Command.h>
-#include <Subtract_Command.h>
-#include <Multiply_Command.h>
 #include <Divide_Command.h>
 #include <Modulus_Command.h>
+#include <Multiply_Command.h>
 #include <Negate_Command.h>
+#include <Number_Command.h>
 #include <Square_Root_Command.h>
-
+#include <Subtract_Command.h>
+#include <Variable_Command.h>
 
 //
 // Visit methods that do nothing
@@ -40,76 +39,65 @@ void Variable_Getter::visit_negate_command(Negate_Command& command) {}
 void Variable_Getter::visit_square_root_command(Square_Root_Command& command) {}
 void Variable_Getter::visit_number_node(Number_Node& node) {}
 
-
-
 //
 // Visit a command variable
 //
 void Variable_Getter::visit_variable_command(Variable_Command& command) {
-	this->variables_[command.get_name()] = command.get_value();
+  this->variables_[command.get_name()] = command.get_value();
 }
-
 
 //
 // Visit a binary node
 //
 void Variable_Getter::visit_add_node(Add_Node& node) {
-	this->do_binary_node(node);
+  this->do_binary_node(node);
 }
 
 void Variable_Getter::visit_subtract_node(Subtract_Node& node) {
-	this->do_binary_node(node);
+  this->do_binary_node(node);
 }
 
 void Variable_Getter::visit_multiply_node(Multiply_Node& node) {
-	this->do_binary_node(node);
+  this->do_binary_node(node);
 }
 
 void Variable_Getter::visit_divide_node(Divide_Node& node) {
-	this->do_binary_node(node);
+  this->do_binary_node(node);
 }
 
 void Variable_Getter::visit_modulus_node(Modulus_Node& node) {
-	this->do_binary_node(node);
+  this->do_binary_node(node);
 }
-
 
 //
 // Visit a unary node
 //
 void Variable_Getter::visit_negate_node(Negate_Node& node) {
-	this->do_unary_node(node);
+  this->do_unary_node(node);
 }
 
 void Variable_Getter::visit_square_root_node(Square_Root_Node& node) {
-	this->do_unary_node(node);
+  this->do_unary_node(node);
 }
-
-
 
 //
 // Visit a node variable
 //
 void Variable_Getter::visit_variable_node(Variable_Node& node) {
-	this->variables_[node.get_name()] = node.get_value();
+  this->variables_[node.get_name()] = node.get_value();
 }
-
-
-
-
 
 //
 // Recursively process a binary node
 //
 void Variable_Getter::do_binary_node(Binary_Node& node) {
-	node.get_left_expression()->accept(*this);
-	node.get_right_expression()->accept(*this);
+  node.get_left_expression()->accept(*this);
+  node.get_right_expression()->accept(*this);
 }
-
 
 //
 // Recursively process a unary node
 //
 void Variable_Getter::do_unary_node(Unary_Node& node) {
-	node.get_child_expression()->accept(*this);
+  node.get_child_expression()->accept(*this);
 }

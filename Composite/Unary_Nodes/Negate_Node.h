@@ -14,24 +14,21 @@
 
 #include "../Unary_Node.h"
 
-
 class Negate_Node: public Unary_Node {
 
 public:
+  /**
+   * Initializing Constructor
+   *
+   * @param[in]		child_expr		Child expression tree for this operator
+   */
+  Negate_Node(Expr_Node* child_expr = nullptr);
 
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		child_expr		Child expression tree for this operator
-	 */
-	Negate_Node(Expr_Node* child_expr = nullptr);
+  /// Multiply input by -1
+  int do_operation(int input);
 
-	/// Multiply input by -1
-	int do_operation(int input);
-
-	/// Accept the visitor
-	void accept(Expr_Node_Visitor& v);
+  /// Accept the visitor
+  void accept(Expr_Node_Visitor& v);
 };
 
-
-#endif	/* Negate Node Header Included */
+#endif /* Negate Node Header Included */

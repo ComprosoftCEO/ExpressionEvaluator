@@ -4,9 +4,7 @@
 // on this assignment
 #include "Operator_Node.h"
 
-
 //
 // Constructor
 //
-Operator_Node::Operator_Node(int precedence):
-  precedence_(precedence) {}
+Operator_Node::Operator_Node(int precedence): precedence_(precedence) {}

@@ -14,20 +14,17 @@
 
 #include "../Unary_Command.h"
 
-
 class Negate_Command: public Unary_Command {
 
 public:
+  /// Default constructor
+  Negate_Command();
 
-	/// Default constructor
-	Negate_Command();
+  /// Multiply input by -1
+  int do_operation(int input);
 
-	/// Multiply input by -1
-	int do_operation(int input);
-
-	/// Accept the visitor
-	void accept(Command_Visitor& v);
+  /// Accept the visitor
+  void accept(Command_Visitor& v);
 };
 
-
-#endif	/* Negate Command Header Included */
+#endif /* Negate Command Header Included */

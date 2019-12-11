@@ -23,29 +23,25 @@
 class Operator_Command: public Command {
 
 public:
+  /**
+   * Initializing Constructor
+   *
+   * @param[in]		precedence		Precedence for this operator
+   */
+  Operator_Command(int precedence);
 
-	/**
-	 * Initializing Constructor
-	 *
-	 * @param[in]		precedence		Precedence for this operator
-	 */
-	Operator_Command(int precedence);
-
-	/**
-	 * Get the precedence for this operator
-	 * @return			Precedence
-	 */
-	int get_precedence() const;
+  /**
+   * Get the precedence for this operator
+   * @return			Precedence
+   */
+  int get_precedence() const;
 
 private:
-	/// Operator precedence
-	int precedence_;
-
+  /// Operator precedence
+  int precedence_;
 };
 
-
-//Include inline files
+// Include inline files
 #include "Operator_Command.inl"
 
-
-#endif	/* Operator Command Header Included */
+#endif /* Operator Command Header Included */

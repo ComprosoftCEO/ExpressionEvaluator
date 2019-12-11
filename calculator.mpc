@@ -4,121 +4,121 @@ project (calculator) {
   install = .
  
   specific (make, gnuace) {
-	compile_flags += -std=c++11 -Wall
+    compile_flags += -std=c++11 -Wall
   }
 
   Source_Files {
-	driver.cpp
-	User_Interface.cpp
+    driver.cpp
+    User_Interface.cpp
 
-	Strategy/Calculator.cpp
-	Strategy/Postfix_Calculator.cpp
-	Strategy/Tree_Calculator.cpp
+    Strategy/Calculator.cpp
+    Strategy/Postfix_Calculator.cpp
+    Strategy/Tree_Calculator.cpp
 
-	Math_Expr/Postfix_Expr.cpp
-	Math_Expr/Tree_Expr.cpp
+    Math_Expr/Postfix_Expr.cpp
+    Math_Expr/Tree_Expr.cpp
 
-	Command/Number_Command.cpp
-	Command/Variable_Command.cpp
-	Command/Operator_Command.cpp
-	Command/Unary_Command.cpp
-	Command/Binary_Command.cpp
-	Command/Unary_Commands/Square_Root_Command.cpp
-	Command/Unary_Commands/Negate_Command.cpp
-	Command/Binary_Commands/Add_Command.cpp
-	Command/Binary_Commands/Subtract_Command.cpp
-	Command/Binary_Commands/Multiply_Command.cpp
-	Command/Binary_Commands/Divide_Command.cpp
-	Command/Binary_Commands/Modulus_Command.cpp
+    Command/Number_Command.cpp
+    Command/Variable_Command.cpp
+    Command/Operator_Command.cpp
+    Command/Unary_Command.cpp
+    Command/Binary_Command.cpp
+    Command/Unary_Commands/Square_Root_Command.cpp
+    Command/Unary_Commands/Negate_Command.cpp
+    Command/Binary_Commands/Add_Command.cpp
+    Command/Binary_Commands/Subtract_Command.cpp
+    Command/Binary_Commands/Multiply_Command.cpp
+    Command/Binary_Commands/Divide_Command.cpp
+    Command/Binary_Commands/Modulus_Command.cpp
 
-	Composite/Number_Node.cpp
-	Composite/Variable_Node.cpp
-	Composite/Operator_Node.cpp
-	Composite/Unary_Node.cpp
-	Composite/Binary_Node.cpp
-	Composite/Unary_Nodes/Square_Root_Node.cpp
-	Composite/Unary_Nodes/Negate_Node.cpp
-	Composite/Binary_Nodes/Add_Node.cpp
-	Composite/Binary_Nodes/Subtract_Node.cpp
-	Composite/Binary_Nodes/Multiply_Node.cpp
-	Composite/Binary_Nodes/Divide_Node.cpp
-	Composite/Binary_Nodes/Modulus_Node.cpp
+    Composite/Number_Node.cpp
+    Composite/Variable_Node.cpp
+    Composite/Operator_Node.cpp
+    Composite/Unary_Node.cpp
+    Composite/Binary_Node.cpp
+    Composite/Unary_Nodes/Square_Root_Node.cpp
+    Composite/Unary_Nodes/Negate_Node.cpp
+    Composite/Binary_Nodes/Add_Node.cpp
+    Composite/Binary_Nodes/Subtract_Node.cpp
+    Composite/Binary_Nodes/Multiply_Node.cpp
+    Composite/Binary_Nodes/Divide_Node.cpp
+    Composite/Binary_Nodes/Modulus_Node.cpp
 
-	Factory/Postfix_Expr_Factory.cpp
-	Factory/Flyweight_Expr_Factory.cpp
+    Factory/Postfix_Expr_Factory.cpp
+    Factory/Flyweight_Expr_Factory.cpp
 
-	Builder/Postfix_Builder.cpp
-	Builder/Tree_Builder.cpp
+    Builder/Postfix_Builder.cpp
+    Builder/Tree_Builder.cpp
 
-	Visitor/Expr_Evaluator.cpp
-	Visitor/Variable_Getter.cpp
-	Visitor/Variable_Setter.cpp
+    Visitor/Expr_Evaluator.cpp
+    Visitor/Variable_Getter.cpp
+    Visitor/Variable_Setter.cpp
   }
 
   Header_Files {
-	User_Interface.h
-	Array/Array_Base.h
-	Array/Array.h
-	Array/Fixed_Array.h
-	Stack/Stack.h
-	Queue/Queue.h
+    User_Interface.h
+    Array/Array_Base.h
+    Array/Array.h
+    Array/Fixed_Array.h
+    Stack/Stack.h
+    Queue/Queue.h
 
-	Strategy/Calculator.h
-	Strategy/Postfix_Calculator.h
-	Strategy/Tree_Calculator.h
+    Strategy/Calculator.h
+    Strategy/Postfix_Calculator.h
+    Strategy/Tree_Calculator.h
 
-	Math_Expr/Math_Expr.h
-	Math_Expr/Postfix_Expr.h
-	Math_Expr/Tree_Expr.h
+    Math_Expr/Math_Expr.h
+    Math_Expr/Postfix_Expr.h
+    Math_Expr/Tree_Expr.h
 
-	Command/Command.h
-	Command/Number_Command.h
-	Command/Variable_Command.h
-	Command/Operator_Command.h
-	Command/Unary_Command.h
-	Command/Binary_Command.h
-	Command/Unary_Commands/Square_Root_Command.h
-	Command/Unary_Commands/Negate_Command.h
-	Command/Binary_Commands/Add_Command.h
-	Command/Binary_Commands/Subtract_Command.h
-	Command/Binary_Commands/Multiply_Command.h
-	Command/Binary_Commands/Divide_Command.h
-	Command/Binary_Commands/Modulus_Command.h
+    Command/Command.h
+    Command/Number_Command.h
+    Command/Variable_Command.h
+    Command/Operator_Command.h
+    Command/Unary_Command.h
+    Command/Binary_Command.h
+    Command/Unary_Commands/Square_Root_Command.h
+    Command/Unary_Commands/Negate_Command.h
+    Command/Binary_Commands/Add_Command.h
+    Command/Binary_Commands/Subtract_Command.h
+    Command/Binary_Commands/Multiply_Command.h
+    Command/Binary_Commands/Divide_Command.h
+    Command/Binary_Commands/Modulus_Command.h
 
-	Composite/Expr_Node.h
-	Composite/Number_Node.h
-	Composite/Variable_Node.h
-	Composite/Operator_Node.h
-	Composite/Unary_Node.h
-	Composite/Binary_Node.h
-	Composite/Unary_Nodes/Square_Root_Node.h
-	Composite/Unary_Nodes/Negate_Node.h
-	Composite/Binary_Nodes/Add_Node.h
-	Composite/Binary_Nodes/Subtract_Node.h
-	Composite/Binary_Nodes/Multiply_Node.h
-	Composite/Binary_Nodes/Divide_Node.h
-	Composite/Binary_Nodes/Modulus_Node.h
+    Composite/Expr_Node.h
+    Composite/Number_Node.h
+    Composite/Variable_Node.h
+    Composite/Operator_Node.h
+    Composite/Unary_Node.h
+    Composite/Binary_Node.h
+    Composite/Unary_Nodes/Square_Root_Node.h
+    Composite/Unary_Nodes/Negate_Node.h
+    Composite/Binary_Nodes/Add_Node.h
+    Composite/Binary_Nodes/Subtract_Node.h
+    Composite/Binary_Nodes/Multiply_Node.h
+    Composite/Binary_Nodes/Divide_Node.h
+    Composite/Binary_Nodes/Modulus_Node.h
 
-	Factory/Abstract_Expr_Factory.h
-	Factory/Postfix_Expr_Factory.h
-	Factory/Flyweight_Expr_Factory.h
+    Factory/Abstract_Expr_Factory.h
+    Factory/Postfix_Expr_Factory.h
+    Factory/Flyweight_Expr_Factory.h
 
-	Builder/Expr_Builder.h
-	Builder/Postfix_Builder.h
-	Builder/Tree_Builder.h
+    Builder/Expr_Builder.h
+    Builder/Postfix_Builder.h
+    Builder/Tree_Builder.h
 
-	Visitor/Command_Node_Visitor.h
-	Visitor/Expr_Node_Visitor.h
-	Visitor/Expr_Evaluator.h
-	Visitor/Variable_Getter.h
-	Visitor/Variable_Setter.h
+    Visitor/Command_Node_Visitor.h
+    Visitor/Expr_Node_Visitor.h
+    Visitor/Expr_Evaluator.h
+    Visitor/Variable_Getter.h
+    Visitor/Variable_Setter.h
   }
 
   Template_Files {
-	Array/Array_Base.cpp
-	Array/Array.cpp
-	Array/Fixed_Array.cpp
-	Stack/Stack.cpp
-	Queue/Queue.cpp
+    Array/Array_Base.cpp
+    Array/Array.cpp
+    Array/Fixed_Array.cpp
+    Stack/Stack.cpp
+    Queue/Queue.cpp
   }
 }
